@@ -1,0 +1,36 @@
+{
+  "name": "OPAIJA_ACTION_CHOREOGRAPHY_MEMORY",
+  "purpose": "Shared memory for cinematic Opaija action scenes, staff/pole choreography, Kalenda/bois rhythm, and hero-site action direction.",
+  "lawful_training_rule": "Do not scrape or copy copyrighted action movies. Build from licensed, public-domain, self-recorded, or original reference material and technique taxonomy.",
+  "movement_dna": [
+    "Kalenda/bois rhythm and gayelle footwork",
+    "Kung fu staff and pole-fighting principles",
+    "Anime anticipation, smear, impact, hold, recovery, reaction",
+    "Caribbean environmental motion and power FX"
+  ],
+  "technique_vocabulary": [
+    "overhead staff strike",
+    "low sweep",
+    "spinning guard transition",
+    "thrust and recoil",
+    "cross-body block",
+    "figure-eight staff flow",
+    "rooted stance",
+    "rhythm step feint"
+  ],
+  "hero_loop": [
+    "Kai runs between world layers",
+    "portal/rhythm rings open",
+    "staff kata sequence",
+    "impact strike through OPAIJA letters",
+    "letters fracture into shards",
+    "gold/teal/orange pulse resolves into founder CTA"
+  ],
+  "prompt_guardrails": [
+    "Pose and silhouette readable before effects",
+    "Do not hide face, hands, staff, or body mechanics",
+    "Preserve approved character design",
+    "Use original choreography, not copied movie scenes",
+    "Add FX as a rhythm layer, not visual clutter"
+  ]
+}

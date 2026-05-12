@@ -1,0 +1,46 @@
+{
+  "name": "OPAIJA_GROWTH_ENGINE_MEMORY",
+  "purpose": "Shared memory for building a fast Opaija tribe across organic content, paid ads, email, story blog, founder drops, merch, books, and digital collectibles.",
+  "north_star": "Build owned audience through email while social and paid channels create reach.",
+  "agents": [
+    "Tribe Growth Commander",
+    "Meta Ads Agent",
+    "TikTok Growth Agent",
+    "YouTube Growth Agent",
+    "Email Tribe Agent",
+    "Story Blog Agent",
+    "Founder Drop Agent",
+    "Merch Brand Director",
+    "Book Engine Agent",
+    "Cinematic FX Director",
+    "Action Choreographer"
+  ],
+  "shared_channels": {
+    "organic": ["TikTok", "YouTube Shorts", "Instagram Reels", "Facebook Reels"],
+    "paid": ["Meta Ads", "TikTok Ads", "YouTube Ads later"],
+    "owned": ["website", "email list", "story blog", "storefront"],
+    "products": ["KDP books", "Printful/Printify merch", "digital artwork", "founder pass"]
+  },
+  "lead_magnets": [
+    "Founder Art Drop",
+    "The Gayelle Files",
+    "Season 1 Character Pack",
+    "Founder Pass"
+  ],
+  "handoff_rules": [
+    "Story Agent creates lore and character hooks for Growth Agent.",
+    "FX Agent creates high-retention action clips for TikTok/Shorts/Reels.",
+    "Growth Agent returns winning fan language to Story, Merch, and Books.",
+    "Email Agent tags leads by source, character interest, merch interest, book interest, and founder interest.",
+    "Merch Agent uses winning phrases and characters to decide product drops.",
+    "Book Engine uses high-interest story beats to prioritize KDP samples.",
+    "Paid Ads Agent only scales hooks that prove organic or lead-capture signal first."
+  ],
+  "compliance": [
+    "Capture consent for email.",
+    "Do not promise NFT financial value.",
+    "Do not auto-publish paid ads without approval.",
+    "Keep source and UTM tracking on all leads.",
+    "Respect platform ad policies for entertainment, youth-safe content, and data use."
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "name": "opaija-command-center",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"npm:dev:web\" \"npm:dev:api\"",
+    "dev:web": "vite --host 0.0.0.0",
+    "dev:api": "tsx watch server/index.ts",
+    "server": "tsx server/index.ts",
+    "studio": "remotion studio video/index.ts",
+    "render:teaser": "remotion render video/index.ts OpaijaTeaser out/opaija-teaser.mp4",
+    "build": "tsc -b && tsc -p tsconfig.server.json && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@fal-ai/client": "^1.7.0",
+    "@types/three": "^0.184.1",
+    "@vitejs/plugin-react": "^5.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.1",
+    "framer-motion": "^12.38.0",
+    "lucide-react": "^0.468.0",
+    "openai": "^4.73.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.459",
+    "resend": "^6.12.3",
+    "three": "^0.184.0",
+    "typescript": "^5.6.2",
+    "vite": "^6.0.0"
+  },
+  "devDependencies": {
+    "@remotion/cli": "^4.0.459",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.9.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "concurrently": "^9.1.0",
+    "eslint": "^9.15.0",
+    "ffmpeg-static": "^5.3.0",
+    "ffprobe-static": "^3.1.0",
+    "globals": "^15.12.0",
+    "tsx": "^4.19.2",
+    "typescript-eslint": "^8.15.0"
+  }
+}

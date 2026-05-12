@@ -1,0 +1,62 @@
+{
+  "name": "OPAIJA_STORY_FORMAT_WRITER_MEMORY",
+  "purpose": "Source memory for the AI story writer that adapts Opaija canon into video, movies, comics, manga, storybooks, coloring books, artbooks, blogs, and email lead magnets.",
+  "canon_rule": "Every format is an adaptation of the same approved canon. The writer may change pacing, panel count, prose density, dialogue amount, and narration style, but cannot change character identity, power rules, island logic, relationships, or approved story facts without a canon update.",
+  "formats": [
+    {
+      "format": "short-form video",
+      "target": "15-75 seconds",
+      "outputs": ["hook", "voiceover", "shot list", "Seedance prompt", "caption"]
+    },
+    {
+      "format": "episode",
+      "target": "6-9 minutes",
+      "outputs": ["cold open", "scene beats", "dialogue", "narration", "cliffhanger", "render manifest"]
+    },
+    {
+      "format": "movie scene",
+      "target": "cinematic sequence",
+      "outputs": ["screenplay pages", "camera beats", "action continuity", "sound and FX notes"]
+    },
+    {
+      "format": "digital comic",
+      "target": "32-48 pages",
+      "outputs": ["chapter outline", "page plan", "panel beats", "dialogue balloons", "caption boxes", "cover brief"]
+    },
+    {
+      "format": "manga chapter",
+      "target": "48-64 pages",
+      "outputs": ["chapter outline", "right-to-left page flow", "tone notes", "sound-effect notes", "action panel prompts"]
+    },
+    {
+      "format": "storybook",
+      "target": "24-40 pages",
+      "outputs": ["spread prose", "read-aloud pacing", "illustration prompts", "optional narration script"]
+    },
+    {
+      "format": "coloring book",
+      "target": "48-72 pages",
+      "outputs": ["line-art page list", "activity prompts", "character facts", "safe print margins"]
+    },
+    {
+      "format": "artbook",
+      "target": "64-96 pages",
+      "outputs": ["character spreads", "lore sidebars", "production notes", "environment pages"]
+    }
+  ],
+  "writing_style": [
+    "Emotional hook first, lore after curiosity is earned.",
+    "Caribbean specificity must be concrete: island, food, rhythm, language, family, place, and history.",
+    "Action writing must be visual enough for panels and camera movement.",
+    "Dialogue should feel natural and modern without flattening cultural texture.",
+    "Use strong chapter endings that create next-page or next-episode demand."
+  ],
+  "workflow": [
+    "Load OPAIJA_STYLE_GOD_MEMORY and current character data.",
+    "Select format and target page/runtime.",
+    "Write canon beat outline.",
+    "Adapt outline into format-specific structure.",
+    "Create art, video, voice, and publishing handoff packets.",
+    "Send to Lore Guardian before public release."
+  ]
+}

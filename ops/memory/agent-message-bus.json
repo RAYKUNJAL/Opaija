@@ -1,0 +1,24 @@
+{
+  "name": "AGENT_MESSAGE_BUS",
+  "purpose": "A lightweight shared-memory protocol so agents can hand work and results to each other.",
+  "message_schema": {
+    "id": "YYYYMMDD-agent-topic",
+    "from_agent": "agent name",
+    "to_agent": "agent name or all",
+    "world": "opaija",
+    "type": "task | result | blocker | insight | approval-needed",
+    "priority": "low | normal | high",
+    "summary": "short message",
+    "payload_path": "optional file path",
+    "created_at": "ISO timestamp",
+    "status": "open | in-progress | resolved"
+  },
+  "routing_rules": [
+    "All growth results go to Tribe Growth Commander and Archive Clerk.",
+    "Winning content hooks go to Story Blog Agent, Merch Brand Director, and Book Engine Agent.",
+    "Character/style drift issues go to OpenAI Style Brain and Goose Art Director.",
+    "Ad spend or publishing decisions require human approval.",
+    "Every resolved task should update the relevant memory file."
+  ],
+  "current_threads": []
+}

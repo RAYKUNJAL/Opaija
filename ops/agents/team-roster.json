@@ -1,0 +1,157 @@
+{
+  "brain": [
+    {
+      "name": "Codex Brain",
+      "purpose": "Central planner, implementer, memory keeper, and server build operator.",
+      "outputs": ["sprint plan", "code changes", "workspace updates", "handoff notes"]
+    },
+    {
+      "name": "OpenAI Style Brain",
+      "purpose": "Uses the permanent Opaija style memory to create character bibles, prompt packs, script drafts, and style checks.",
+      "outputs": ["character bible draft", "Seedance prompt", "episode script draft", "style audit"]
+    }
+  ],
+  "goose": [
+    {
+      "name": "Goose Showrunner",
+      "purpose": "Builds story engine, season arcs, scripts, and scene beats.",
+      "outputs": ["episode outline", "narrator script", "shot list", "cliffhanger plan"]
+    },
+    {
+      "name": "Story Format Writer",
+      "purpose": "Adapts canon into short videos, movie scenes, comics, manga, storybooks, coloring books, artbooks, blogs, and email lead magnets.",
+      "outputs": ["format outline", "comic page plan", "manga chapter plan", "storybook prose", "coloring-book page list"]
+    },
+    {
+      "name": "Goose Art Director",
+      "purpose": "Locks the 2.5D Caribbean anime visual system and character references.",
+      "outputs": ["model sheet brief", "pose sheet brief", "Seedance reference pack", "style audit"]
+    },
+    {
+      "name": "Cinematic FX Director",
+      "purpose": "Creates Opaija's special effects language, impact frames, power visuals, and camera energy.",
+      "outputs": ["FX bible", "action prompt", "impact frame brief", "compositing notes"]
+    },
+    {
+      "name": "Action Choreographer",
+      "purpose": "Builds anime fight timing, pose transitions, camera motion, and readable action continuity.",
+      "outputs": ["fight beat board", "shot choreography", "pose transition notes", "stunt continuity check"]
+    },
+    {
+      "name": "Weapon Pose Coach",
+      "purpose": "Builds safe, readable weapon and staff pose packets for comics, manga, Seedance prompts, and Remotion edits.",
+      "outputs": ["weapon pose sheet", "strike arc notes", "guard poses", "recovery poses"]
+    },
+    {
+      "name": "Reference Rights Curator",
+      "purpose": "Keeps action references based on owned, licensed, public-domain, or original material.",
+      "outputs": ["reference log", "rights note", "approved study list", "blocked-reference note"]
+    }
+  ],
+  "paperclip": [
+    {
+      "name": "Paperclip Producer",
+      "purpose": "Turns creative work into repeatable production packets.",
+      "outputs": ["asset checklist", "handoff checklist", "approval gate", "release packet"]
+    },
+    {
+      "name": "Paperclip Video Ops",
+      "purpose": "Prepares prompts, narration timing, captions, and render specs for video generation.",
+      "outputs": ["video prompt", "caption file", "render manifest", "QC result"]
+    },
+    {
+      "name": "Voice Director",
+      "purpose": "Creates narrator and future character voice packets through ElevenLabs.",
+      "outputs": ["voiceover mp3", "voice map", "patois restraint note", "audio timing note"]
+    },
+    {
+      "name": "Remotion Editor",
+      "purpose": "Assembles Seedance clips, stills, voiceover, captions, and motion into final 9:16 edits.",
+      "outputs": ["Remotion composition", "short render", "thumbnail still", "edit QC"]
+    },
+    {
+      "name": "Paperclip Publisher",
+      "purpose": "Turns episode asset packets into KDP-ready comic, manga, coloring, storybook, and artbook manifests.",
+      "outputs": ["page plan", "KDP spec", "cover brief", "print export checklist"]
+    },
+    {
+      "name": "Digital Reader Packager",
+      "purpose": "Packages long-form books into free samples, paid reader-pass files, downloadable products, and member library manifests.",
+      "outputs": ["reader manifest", "sample pack", "member access map", "download checklist"]
+    },
+    {
+      "name": "POD Production Agent",
+      "purpose": "Prepares transparent PNG files, mockups, product manifests, and Printful/Printify draft products.",
+      "outputs": ["print file", "mockup manifest", "POD draft", "product QC"]
+    },
+    {
+      "name": "Archive Clerk",
+      "purpose": "Keeps bibles, prompts, scripts, files, and decisions organized.",
+      "outputs": ["asset index", "canon changelog", "prompt library", "session notes"]
+    }
+  ],
+  "revenue": [
+    {
+      "name": "Tribe Growth Commander",
+      "purpose": "Coordinates organic social, paid ads, email capture, founder drops, story blog, and weekly growth memory.",
+      "outputs": ["growth plan", "weekly KPI review", "agent handoff", "experiment queue"]
+    },
+    {
+      "name": "Meta Ads Agent",
+      "purpose": "Builds Facebook/Instagram campaign structure, lead forms, retargeting, and creative tests.",
+      "outputs": ["Meta campaign brief", "ad set plan", "lead form plan", "creative test matrix"]
+    },
+    {
+      "name": "TikTok Growth Agent",
+      "purpose": "Builds TikTok organic hooks, Spark Ads candidates, lead tests, and trend response.",
+      "outputs": ["hook bank", "daily TikTok queue", "paid test brief", "comment insight report"]
+    },
+    {
+      "name": "YouTube Growth Agent",
+      "purpose": "Packages Shorts, pilot trailers, thumbnails, titles, descriptions, and subscriber calls to action.",
+      "outputs": ["Shorts queue", "title bank", "thumbnail brief", "community prompt"]
+    },
+    {
+      "name": "Email Tribe Agent",
+      "purpose": "Captures fans, tags interests, sends welcome sequences, and keeps the founder list warm.",
+      "outputs": ["lead capture form", "welcome email", "segment tags", "newsletter draft"]
+    },
+    {
+      "name": "Story Blog Agent",
+      "purpose": "Turns lore, characters, and storyline into blog posts, story-book assets, and lead magnets.",
+      "outputs": ["blog post", "lead magnet outline", "storyline chapter", "SEO brief"]
+    },
+    {
+      "name": "Founder Drop Agent",
+      "purpose": "Plans founder digital artwork, access perks, optional NFT path, and early community rewards.",
+      "outputs": ["founder drop brief", "digital art offer", "NFT checklist", "perk map"]
+    },
+    {
+      "name": "Digital Comics Pass Manager",
+      "purpose": "Owns paid access for comics, manga chapters, storybooks, collector artbooks, and member-only drops.",
+      "outputs": ["paid pass offer", "reader pricing", "library roadmap", "subscriber retention plan"]
+    },
+    {
+      "name": "Launch Marketer",
+      "purpose": "Builds warm audience, social packaging, hooks, thumbnails, and channel cadence.",
+      "outputs": ["teaser calendar", "caption pack", "thumbnail directions", "community post"]
+    },
+    {
+      "name": "Franchise Ops",
+      "purpose": "Attaches monetization and merch logic to characters, props, symbols, and slogans.",
+      "outputs": ["merch backlog", "SKU concept", "pitch angle", "brand extension note"]
+    },
+    {
+      "name": "Storefront Builder",
+      "purpose": "Builds the public Opaija website and merch storefront for the owned domain.",
+      "outputs": ["site page", "store collection", "email capture", "product page"]
+    }
+  ],
+  "guardrails": [
+    {
+      "name": "Lore Guardian",
+      "purpose": "Checks cultural specificity, historical language, folklore use, and continuity.",
+      "outputs": ["canon check", "cultural review", "continuity note", "release approval"]
+    }
+  ]
+}

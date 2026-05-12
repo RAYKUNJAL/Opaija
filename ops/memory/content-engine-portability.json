@@ -1,0 +1,52 @@
+{
+  "name": "CONTENT_ENGINE_PORTABILITY_MEMORY",
+  "purpose": "Make the Opaija build reusable for additional story worlds by separating reusable engine core from world-specific content packs.",
+  "engine_core": [
+    "React command center",
+    "OpenAI brain/style/prompt adapter",
+    "Seedance 2.0 video adapter through fal.ai by default",
+    "ElevenLabs voice adapter",
+    "Remotion editing/render layer",
+    "Amazon KDP book engine",
+    "Cinematic FX/action scene engine",
+    "Print-on-demand merch/storefront engine",
+    "Tribe growth engine with paid ads, organic social, email capture, story blog, and founder drops",
+    "Agent roster and production workflows",
+    "Episode-to-products asset packet standard"
+  ],
+  "world_pack_schema": {
+    "world_id": "lowercase-kebab-case",
+    "title": "Story world title",
+    "logline": "One-line promise",
+    "style_memory_path": "ops/memory/<world>-style-memory.json",
+    "characters_data_path": "src/data/worlds/<world>/characters.ts",
+    "assets_root": "public/assets/<world>/",
+    "docs": [
+      "docs/<WORLD>_STYLE_GUIDE.md",
+      "docs/<WORLD>_WORLD_BIBLE.md"
+    ]
+  },
+  "shared_provider_env": [
+    "OPENAI_API_KEY",
+    "OPENAI_MODEL",
+    "FAL_KEY",
+    "SEEDANCE_DEFAULT_MODEL",
+    "ELEVENLABS_API_KEY",
+    "ELEVENLABS_NARRATOR_VOICE_ID",
+    "ELEVENLABS_MODEL_ID",
+    "PRINTFUL_API_KEY",
+    "PRINTFUL_STORE_ID",
+    "PRINTIFY_API_KEY",
+    "PRINTIFY_SHOP_ID",
+    "META_ACCESS_TOKEN",
+    "META_AD_ACCOUNT_ID",
+    "TIKTOK_ACCESS_TOKEN",
+    "TIKTOK_ADVERTISER_ID",
+    "YOUTUBE_CLIENT_ID",
+    "YOUTUBE_CLIENT_SECRET",
+    "MAILCHIMP_API_KEY",
+    "MAILCHIMP_AUDIENCE_ID"
+  ],
+  "secret_rule": "Do not store actual API key values in memory, docs, source files, or GitHub. Store only environment variable names and provider setup instructions.",
+  "clone_rule": "Clone the engine, create a new world pack, keep shared provider env vars, then run the same build and generation workflows."
+}

@@ -1,0 +1,47 @@
+{
+  "project": "OPAIJA: Staff of Battle",
+  "season_one_title": "OPAIJA: Blood of the Gayelle",
+  "logline": "Every Island Has a Warrior. Every Rhythm Has a Weapon.",
+  "style_lock": {
+    "format": "2.5D Caribbean anime hybrid",
+    "face_language": "rounded chins, fuller lips, broader African and Caribbean nose structures, distinct character-specific features",
+    "palette": "bright Caribbean accents, black ink base, gold, orange, red, teal, cream",
+    "production_need": "duplicable character sheets for Seedance and future animation workflows"
+  },
+  "style_god_memory_path": "ops/memory/opaija-style-god-memory.json",
+  "api_stack": {
+    "openai": "Server-side OpenAI brain/style/prompt layer through OPENAI_API_KEY.",
+    "seedance": "Server-side Seedance 2.0 video layer through fal.ai FAL_KEY first, BytePlus adapter reserved.",
+    "elevenlabs": "Server-side narrator and future voice layer through ELEVENLABS_API_KEY.",
+    "remotion": "Local AI editing/render layer for shorts, captions, audio timing, thumbnails, and exports.",
+    "book_engine": "Amazon KDP-first reuse layer for comics, manga, coloring books, storybooks, and artbooks from episode assets.",
+    "fx_engine": "Cinematic anime action and Opaija special effects agent lane for world-class action scenes.",
+    "merch_engine": "Print-on-demand and storefront lane using draft product workflows for Printful or Printify.",
+    "growth_engine": "Organic, paid ads, email capture, story blog, founder drops, and fanbase memory lane for fast tribe growth."
+  },
+  "canon_rules": [
+    "Use 'enslaved Africans' in historical backstory.",
+    "Kalenda/Calinda, bois, lavway, drums, and gayelle are core cultural anchors.",
+    "A stick has memory. A fighter has spirit. A drum has rhythm. A lavway has command. The gayelle binds them together.",
+    "Kai has an obsessive love of doubles and may need one before a fight.",
+    "Pilot starts narrator-led for speed; voice cast can be added later."
+  ],
+  "priority_cast": [
+    "Kairo \"Kai\" Baptiste",
+    "Nia Toussaint",
+    "Malik St. Hill",
+    "Asha Singh-Baptiste",
+    "Jabari \"Jabs\" Henry",
+    "Tariq Davidson",
+    "Mother Lall",
+    "Papa Etienne Roach",
+    "Marius Vale",
+    "Selah Vale"
+  ],
+  "next_decisions": [
+    "Confirm video provider path: Seedance 2.0, OpenAI video generation, or mixed workflow.",
+    "Full model sheets are loaded for all ten Priority 1 Season 1 characters.",
+    "Confirm deployment target server and domain.",
+    "Confirm whether command center needs user auth before external deployment."
+  ]
+}

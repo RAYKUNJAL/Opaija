@@ -1,0 +1,24 @@
+{
+  "world_id": "new-world",
+  "title": "New Story World",
+  "logline": "Replace with the world promise.",
+  "style_memory_path": "ops/memory/new-world-style-memory.json",
+  "characters_data_path": "src/data/worlds/new-world/characters.ts",
+  "assets_root": "public/assets/new-world/",
+  "default_products": [
+    "short-form video",
+    "episode comic",
+    "manga chapter",
+    "coloring book",
+    "storybook",
+    "artbook",
+    "merch concepts"
+  ],
+  "providers": {
+    "brain": "openai",
+    "video": "seedance-fal",
+    "voice": "elevenlabs",
+    "editing": "remotion",
+    "books": "amazon-kdp"
+  }
+}

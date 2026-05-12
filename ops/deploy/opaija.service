@@ -1,0 +1,17 @@
+[Unit]
+Description=Opaija website and API
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/var/www/opaija
+Environment=NODE_ENV=production
+Environment=PORT=8787
+ExecStart=/usr/bin/npm run server
+Restart=always
+RestartSec=5
+User=www-data
+Group=www-data
+
+[Install]
+WantedBy=multi-user.target

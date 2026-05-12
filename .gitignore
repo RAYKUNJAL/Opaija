@@ -1,0 +1,10 @@
+node_modules/
+dist/
+dist-server/
+out/
+.playwright-mcp/
+.env
+*.tsbuildinfo
+.DS_Store
+npm-debug.log*
+*.local

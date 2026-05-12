@@ -1,0 +1,21 @@
+{
+  "name": "NEW_WORLD_STYLE_MEMORY",
+  "purpose": "Permanent brand/style lock for this story world.",
+  "style_lock": {
+    "core_style": "",
+    "linework": "",
+    "faces": "",
+    "hair": "",
+    "palette": "",
+    "wardrobe": "",
+    "props": "",
+    "composition": "",
+    "animation_need": "duplicable for Seedance/Remotion workflows with consistent proportions, colors, face design, and wardrobe logic"
+  },
+  "negative_lock": [
+    "Do not drift from approved character designs.",
+    "Do not change core symbols without approval.",
+    "Do not flatten culturally specific details into generic fantasy or generic sci-fi."
+  ],
+  "prompt_core": "Replace with the reusable prompt core for this world."
+}

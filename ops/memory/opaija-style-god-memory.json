@@ -1,0 +1,39 @@
+{
+  "name": "OPAIJA_STYLE_GOD_MEMORY",
+  "purpose": "Permanent brand/style lock for every future Opaija character, model sheet, prompt, video, thumbnail, and merch concept.",
+  "provenance": {
+    "source": "Current approved Opaija character sheets generated in ChatGPT/OpenAI workflow",
+    "approved_characters_loaded": [
+      "Kairo \"Kai\" Baptiste",
+      "Nia Toussaint",
+      "Malik St. Hill",
+      "Asha Singh-Baptiste",
+      "Jabari \"Jabs\" Henry",
+      "Tariq Davidson",
+      "Mother Lall",
+      "Papa Etienne Roach",
+      "Marius Vale",
+      "Selah Vale"
+    ]
+  },
+  "style_lock": {
+    "core_style": "2.5D Caribbean anime hybrid",
+    "linework": "clean black ink, animated-series model-sheet clarity, readable silhouettes",
+    "faces": "rounded chins, full lips, broader African and Caribbean nose structures, distinct eyes and face shape per character",
+    "hair": "cool African and island-flavored hairstyles: locs, wraps, beads, shells, braid patterns, Carnival/Kalenda-inspired accents",
+    "palette": "black/charcoal base with controlled gold, orange, red, teal, sea blue, cream, and island-specific accent colors",
+    "wardrobe": "modern Caribbean streetwear fused with Kalenda/Calinda, Carnival, family emblems, island textiles, and practical movement gear",
+    "props": "bois, drums, L-shaped sticks, lavway symbols, bells, sashes, scarves, food/vendor objects, maps, charms, and coded paper sigils",
+    "composition": "professional model sheet with turnaround, action pose, relaxed pose, casual pose, head angles, expressions, gear, color palette, profile, scale notes, and signature line",
+    "animation_need": "duplicable for Seedance/Remotion workflows with consistent proportions, colors, face design, and wardrobe logic"
+  },
+  "negative_lock": [
+    "Do not use pointed V-shaped generic anime chins.",
+    "Do not flatten noses or lips into generic anime features.",
+    "Do not drift into medieval fantasy armor.",
+    "Do not wash out the Caribbean palette.",
+    "Do not remove cultural specificity from Kalenda/Calinda, bois, lavway, drums, gayelle, Carnival, food, island architecture, or folklore.",
+    "Do not invent random symbols that conflict with the Opaija mark system."
+  ],
+  "prompt_core": "Create in the locked OPAIJA 2.5D Caribbean anime hybrid style: rounded chin, full lips, broad African/Caribbean nose language, expressive warm eyes, clean black ink linework, bright island energy, modern Caribbean streetwear fused with Kalenda/Calinda and Carnival-inspired details, controlled gold/orange/red/teal/cream/purple accents as character-appropriate, professional animated series model sheet clarity, duplicable proportions for Seedance and Remotion."
+}
