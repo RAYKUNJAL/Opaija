@@ -11,6 +11,7 @@ import {
   ChevronRight,
   Clapperboard,
   Command,
+  Download,
   FolderKanban,
   Gift,
   Gauge,
@@ -21,10 +22,12 @@ import {
   Play,
   Shirt,
   Radio,
+  RefreshCw,
   Search,
   ServerCog,
   Sparkles,
   WandSparkles,
+  Trash2,
   Users,
   Mail,
 } from "lucide-react";
@@ -55,11 +58,22 @@ import { merchAgents, merchMetrics, merchPipeline, merchProducts, storeSections 
 import { memoryRules, pipeline, releaseTargets } from "./data/workflows";
 import { OpaijaMotionHero } from "./components/OpaijaMotionHero";
 
-type View = "command" | "setup" | "characters" | "agents" | "pipeline" | "books" | "fx" | "merch" | "growth";
+type View =
+  | "command"
+  | "setup"
+  | "assets"
+  | "characters"
+  | "agents"
+  | "pipeline"
+  | "books"
+  | "fx"
+  | "merch"
+  | "growth";
 
 const navItems: Array<{ id: View; label: string; icon: typeof Command }> = [
   { id: "command", label: "Command", icon: Command },
   { id: "setup", label: "Setup", icon: ServerCog },
+  { id: "assets", label: "Files", icon: Archive },
   { id: "characters", label: "Characters", icon: Users },
   { id: "agents", label: "Agents", icon: Brain },
   { id: "pipeline", label: "Pipeline", icon: FolderKanban },
@@ -156,6 +170,7 @@ function CommandCenter() {
           />
         )}
         {activeView === "setup" && <SetupView />}
+        {activeView === "assets" && <AssetLibraryView />}
         {activeView === "characters" && (
           <CharactersView selectedCharacter={selectedCharacter} setSelectedCharacter={setSelectedCharacter} />
         )}
@@ -997,6 +1012,171 @@ PUBLIC_SITE_URL=https://opaija.com`}</pre>
         </div>
       </section>
     </div>
+  );
+}
+
+type AssetFile = {
+  id: string;
+  name: string;
+  relativePath: string;
+  category: string;
+  size: number;
+  updatedAt: string;
+  downloadable: boolean;
+  deletable: boolean;
+  downloadUrl: string;
+};
+
+function AssetLibraryView() {
+  const [assets, setAssets] = useState<AssetFile[]>([]);
+  const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
+  const [deletingId, setDeletingId] = useState("");
+
+  async function loadAssets() {
+    setStatus("loading");
+    try {
+      const response = await fetch("/api/assets");
+      if (!response.ok) throw new Error("Unable to load asset library");
+      const data = (await response.json()) as { assets: AssetFile[] };
+      setAssets(data.assets);
+      setStatus("ready");
+    } catch {
+      setStatus("error");
+    }
+  }
+
+  useEffect(() => {
+    loadAssets();
+  }, []);
+
+  async function deleteAsset(asset: AssetFile) {
+    if (!asset.deletable) return;
+    setDeletingId(asset.id);
+    try {
+      const response = await fetch(`/api/assets/${encodeURIComponent(asset.id)}`, { method: "DELETE" });
+      if (!response.ok) throw new Error("Unable to delete asset");
+      setAssets((current) => current.filter((item) => item.id !== asset.id));
+    } catch {
+      setStatus("error");
+    } finally {
+      setDeletingId("");
+    }
+  }
+
+  const totals = assets.reduce(
+    (acc, asset) => {
+      acc.bytes += asset.size;
+      acc.categories.add(asset.category);
+      if (asset.deletable) acc.generated += 1;
+      return acc;
+    },
+    { bytes: 0, generated: 0, categories: new Set<string>() },
+  );
+
+  return (
+    <div className="view-grid asset-room">
+      <section className="book-hero asset-hero">
+        <div>
+          <span className="signal">Production file room</span>
+          <h2>See what the machine has made, download finished assets, and remove bad outputs.</h2>
+          <p>
+            Generated videos, voiceovers, book packets, flipbook files, and locked reference assets are tracked from one
+            dashboard. Only generated outputs can be deleted here; source character art stays protected.
+          </p>
+        </div>
+        <div className="book-metrics">
+          <article>
+            <span>Files</span>
+            <strong>{assets.length}</strong>
+            <small>{totals.categories.size} asset groups</small>
+          </article>
+          <article>
+            <span>Generated</span>
+            <strong>{totals.generated}</strong>
+            <small>safe to delete</small>
+          </article>
+          <article>
+            <span>Storage</span>
+            <strong>{formatBytes(totals.bytes)}</strong>
+            <small>tracked locally</small>
+          </article>
+        </div>
+      </section>
+
+      <section className="panel asset-library-panel">
+        <PanelHeader icon={Archive} title="Asset Library" action={status === "loading" ? "Scanning files" : "Download / delete"} />
+        <div className="asset-toolbar">
+          <p>
+            Books in <code>out/books</code>, rendered videos in <code>out</code>, and voiceovers in <code>public/voiceover</code>
+            are managed outputs. Character sheets and site media are locked for brand safety.
+          </p>
+          <button type="button" className="ghost-action" onClick={loadAssets}>
+            <RefreshCw size={16} />
+            Refresh
+          </button>
+        </div>
+
+        {status === "error" ? (
+          <div className="empty-state">
+            <Archive size={28} />
+            <strong>Could not load the asset library.</strong>
+            <span>Check the API server, then refresh this panel.</span>
+          </div>
+        ) : null}
+
+        <div className="asset-table" aria-label="Generated asset library">
+          <div className="asset-row asset-row-head">
+            <span>File</span>
+            <span>Group</span>
+            <span>Size</span>
+            <span>Updated</span>
+            <span>Actions</span>
+          </div>
+          {assets.map((asset) => (
+            <article key={asset.id} className="asset-row">
+              <div>
+                <strong>{asset.name}</strong>
+                <small>{asset.relativePath}</small>
+              </div>
+              <span className="asset-chip">{asset.category}</span>
+              <span>{formatBytes(asset.size)}</span>
+              <span>{formatDate(asset.updatedAt)}</span>
+              <div className="asset-actions">
+                {asset.downloadable ? (
+                  <a className="icon-action" href={asset.downloadUrl}>
+                    <Download size={16} />
+                    <span>Download</span>
+                  </a>
+                ) : null}
+                <button
+                  type="button"
+                  className="icon-action danger"
+                  disabled={!asset.deletable || deletingId === asset.id}
+                  onClick={() => deleteAsset(asset)}
+                >
+                  <Trash2 size={16} />
+                  <span>{asset.deletable ? (deletingId === asset.id ? "Deleting" : "Delete") : "Locked"}</span>
+                </button>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function formatBytes(value: number) {
+  if (!Number.isFinite(value) || value <= 0) return "0 B";
+  const units = ["B", "KB", "MB", "GB"];
+  const index = Math.min(Math.floor(Math.log(value) / Math.log(1024)), units.length - 1);
+  return `${(value / 1024 ** index).toFixed(index === 0 ? 0 : 1)} ${units[index]}`;
+}
+
+function formatDate(value: string) {
+  if (!value) return "Unknown";
+  return new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }).format(
+    new Date(value),
   );
 }
 

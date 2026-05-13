@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import express from "express";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { assetsRouter } from "./assets.js";
 import { createBookPacket, type BookPacketInput } from "./bookEngine.js";
 import {
   captureLead,
@@ -32,6 +33,7 @@ const port = Number(process.env.PORT ?? 8787);
 
 app.use(cors());
 app.use(express.json({ limit: "30mb" }));
+app.use("/api/assets", assetsRouter);
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distPath = path.resolve(__dirname, "..", "dist");

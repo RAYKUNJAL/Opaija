@@ -8,11 +8,16 @@
     "dev:web": "vite --host 0.0.0.0",
     "dev:api": "tsx watch server/index.ts",
     "server": "tsx server/index.ts",
+    "start": "node dist-server/index.js",
     "studio": "remotion studio video/index.ts",
     "render:teaser": "remotion render video/index.ts OpaijaTeaser out/opaija-teaser.mp4",
     "build": "tsc -b && tsc -p tsconfig.server.json && vite build",
+    "typecheck": "tsc -b && tsc -p tsconfig.server.json --noEmit",
     "preview": "vite preview --host 0.0.0.0",
     "lint": "eslint ."
+  },
+  "engines": {
+    "node": ">=20"
   },
   "dependencies": {
     "@fal-ai/client": "^1.7.0",
