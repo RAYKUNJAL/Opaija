@@ -54,14 +54,32 @@ import {
 import { merchAgents, merchMetrics, merchPipeline, merchProducts, storeSections } from "./data/merch";
 import { memoryRules, pipeline, releaseTargets } from "./data/workflows";
 import { OpaijaMotionHero } from "./components/OpaijaMotionHero";
+import { EpisodesView } from "./components/EpisodesView";
+import { CanonGuardView } from "./components/CanonGuardView";
+import { PublishingView } from "./components/PublishingView";
 
-type View = "command" | "setup" | "characters" | "agents" | "pipeline" | "books" | "fx" | "merch" | "growth";
+type View =
+  | "command"
+  | "setup"
+  | "characters"
+  | "agents"
+  | "episodes"
+  | "canon"
+  | "pipeline"
+  | "books"
+  | "fx"
+  | "merch"
+  | "growth"
+  | "publishing";
 
 const navItems: Array<{ id: View; label: string; icon: typeof Command }> = [
   { id: "command", label: "Command", icon: Command },
   { id: "setup", label: "Setup", icon: ServerCog },
   { id: "characters", label: "Characters", icon: Users },
   { id: "agents", label: "Agents", icon: Brain },
+  { id: "episodes", label: "Episodes", icon: Clapperboard },
+  { id: "canon", label: "Canon Guard", icon: CheckCircle2 },
+  { id: "publishing", label: "Publishing", icon: Radio },
   { id: "pipeline", label: "Pipeline", icon: FolderKanban },
   { id: "growth", label: "Growth", icon: Megaphone },
   { id: "fx", label: "FX", icon: WandSparkles },
@@ -162,6 +180,9 @@ function CommandCenter() {
         {activeView === "agents" && (
           <AgentsView agentFilter={agentFilter} setAgentFilter={setAgentFilter} filteredAgents={filteredAgents} />
         )}
+        {activeView === "episodes" && <EpisodesView />}
+        {activeView === "canon" && <CanonGuardView />}
+        {activeView === "publishing" && <PublishingView />}
         {activeView === "pipeline" && <PipelineView queueMode={queueMode} setQueueMode={setQueueMode} />}
         {activeView === "growth" && <GrowthView />}
         {activeView === "fx" && <FxView />}

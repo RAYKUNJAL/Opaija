@@ -1,0 +1,15 @@
+{
+  "_meta": {
+    "description": "All published OPAIJA content. Publisher Agent writes to this after every post. Director Agent reads this to avoid duplicates. Analytics Agent reads this to track performance.",
+    "updated": "2026-05-12"
+  },
+  "total_published": 0,
+  "platforms": {
+    "youtube_shorts": { "total": 0, "subscribers": 0, "last_post": null },
+    "tiktok": { "total": 0, "followers": 0, "last_post": null },
+    "instagram": { "total": 0, "followers": 0, "last_post": null },
+    "webtoon": { "total_chapters": 0, "subscribers": 0, "last_chapter": null },
+    "gumroad": { "total_items": 0, "revenue_usd": 0 }
+  },
+  "published_content": []
+}

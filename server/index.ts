@@ -4,6 +4,16 @@ import express from "express";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createBookPacket, type BookPacketInput } from "./bookEngine.js";
+import { runClaudeBrainTask, getClaudeBrainProvider, type BrainTaskInput as ClaudeBrainTaskInput } from "./claudeBrain.js";
+import {
+  readQueue,
+  updateEpisodeStatus,
+  saveEpisodeScript,
+  readContentLog,
+  logPublishedContent,
+  readCanon,
+  type EpisodeStatus,
+} from "./episodes.js";
 import {
   captureLead,
   createGrowthCampaign,
@@ -41,9 +51,11 @@ app.get("/api/health", (_request, response) => {
     ok: true,
     brainProvider: getBrainProvider(),
     brainModel: getBrainModel(),
+    claudeProvider: getClaudeBrainProvider(),
     provider: getProvider(),
     voiceProvider: getVoiceProvider(),
     keys: {
+      anthropic: Boolean(process.env.ANTHROPIC_API_KEY),
       openai: Boolean(process.env.OPENAI_API_KEY),
       openrouter: Boolean(process.env.OPENROUTER_API_KEY),
       fal: Boolean(process.env.FAL_KEY),
@@ -200,6 +212,114 @@ app.get("/api/video/jobs/:requestId/result", async (request, response) => {
     response.status(400).json({
       error: error instanceof Error ? error.message : "Unable to fetch video result.",
     });
+  }
+});
+
+// ── CLAUDE BRAIN ROUTES ──────────────────────────────────────────────────────
+app.post("/api/claude/tasks", async (request, response) => {
+  try {
+    const result = await runClaudeBrainTask(request.body as ClaudeBrainTaskInput);
+    response.json(result);
+  } catch (error) {
+    response.status(400).json({
+      error: error instanceof Error ? error.message : "Unable to run Claude brain task.",
+    });
+  }
+});
+
+// ── EPISODE PRODUCTION ROUTES ─────────────────────────────────────────────────
+app.get("/api/episodes", async (_request, response) => {
+  try {
+    response.json(await readQueue());
+  } catch (error) {
+    response.status(500).json({ error: error instanceof Error ? error.message : "Could not read episode queue." });
+  }
+});
+
+app.patch("/api/episodes/:id/status", async (request, response) => {
+  try {
+    const { status } = request.body as { status: EpisodeStatus };
+    if (!status) throw new Error("status is required.");
+    response.json(await updateEpisodeStatus(request.params.id, status));
+  } catch (error) {
+    response.status(400).json({ error: error instanceof Error ? error.message : "Could not update episode status." });
+  }
+});
+
+app.post("/api/episodes/:id/generate-script", async (request, response) => {
+  try {
+    const queue = await readQueue();
+    const episode = queue.episodes.find((ep) => ep.id === request.params.id);
+    if (!episode) {
+      response.status(404).json({ error: `Episode ${request.params.id} not found.` });
+      return;
+    }
+
+    const result = await runClaudeBrainTask({
+      task: "episode-script",
+      brief: `Generate full production script for ${episode.id}: ${episode.title}`,
+      episodeContext: {
+        episodeId: episode.id,
+        title: episode.title,
+        hook: episode.hook,
+        conflict: episode.conflict,
+        reveal: episode.reveal,
+        escalation: episode.escalation,
+        cliffhanger: episode.cliffhanger,
+        doublesMoment: episode.doubles_moment,
+        characters: episode.characters,
+        location: episode.location,
+        island: episode.island,
+        villainPresence: episode.villain_presence,
+        existingNarratorScript: episode.narrator_script,
+      },
+    });
+
+    if (result.status === "completed" && result.output) {
+      await saveEpisodeScript(episode.id, result.output);
+    }
+
+    response.json(result);
+  } catch (error) {
+    response.status(400).json({ error: error instanceof Error ? error.message : "Script generation failed." });
+  }
+});
+
+app.post("/api/episodes/:id/script", async (request, response) => {
+  try {
+    const { script, qaPass } = request.body as { script: string; qaPass?: boolean };
+    if (!script?.trim()) throw new Error("script is required.");
+    response.json(await saveEpisodeScript(request.params.id, script, qaPass));
+  } catch (error) {
+    response.status(400).json({ error: error instanceof Error ? error.message : "Could not save script." });
+  }
+});
+
+// ── CANON ROUTES ──────────────────────────────────────────────────────────────
+app.get("/api/canon", async (_request, response) => {
+  try {
+    response.json(await readCanon());
+  } catch (error) {
+    response.status(500).json({ error: error instanceof Error ? error.message : "Could not read canon." });
+  }
+});
+
+// ── CONTENT LOG ROUTES ────────────────────────────────────────────────────────
+app.get("/api/content-log", async (_request, response) => {
+  try {
+    response.json(await readContentLog());
+  } catch (error) {
+    response.status(500).json({ error: error instanceof Error ? error.message : "Could not read content log." });
+  }
+});
+
+app.post("/api/content-log", async (request, response) => {
+  try {
+    const entry = request.body as { episodeId: string; platform: string; url?: string };
+    if (!entry.episodeId || !entry.platform) throw new Error("episodeId and platform are required.");
+    response.json(await logPublishedContent(entry));
+  } catch (error) {
+    response.status(400).json({ error: error instanceof Error ? error.message : "Could not log content." });
   }
 });
 
