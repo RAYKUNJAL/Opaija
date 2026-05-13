@@ -57,6 +57,9 @@ import { OpaijaMotionHero } from "./components/OpaijaMotionHero";
 import { EpisodesView } from "./components/EpisodesView";
 import { CanonGuardView } from "./components/CanonGuardView";
 import { PublishingView } from "./components/PublishingView";
+import { MasterDashboard } from "./components/MasterDashboard";
+import { AssetBrowser } from "./components/AssetBrowser";
+import { WorkReview } from "./components/WorkReview";
 
 type View =
   | "command"
@@ -70,18 +73,21 @@ type View =
   | "fx"
   | "merch"
   | "growth"
-  | "publishing";
+  | "publishing"
+  | "storage"
+  | "review";
 
 const navItems: Array<{ id: View; label: string; icon: typeof Command }> = [
-  { id: "command", label: "Command", icon: Command },
-  { id: "setup", label: "Setup", icon: ServerCog },
-  { id: "characters", label: "Characters", icon: Users },
-  { id: "agents", label: "Agents", icon: Brain },
+  { id: "command", label: "Dashboard", icon: Command },
   { id: "episodes", label: "Episodes", icon: Clapperboard },
   { id: "canon", label: "Canon Guard", icon: CheckCircle2 },
+  { id: "storage", label: "Storage", icon: Archive },
+  { id: "review", label: "Review", icon: Sparkles },
   { id: "publishing", label: "Publishing", icon: Radio },
-  { id: "pipeline", label: "Pipeline", icon: FolderKanban },
   { id: "growth", label: "Growth", icon: Megaphone },
+  { id: "characters", label: "Characters", icon: Users },
+  { id: "agents", label: "Agents", icon: Brain },
+  { id: "pipeline", label: "Pipeline", icon: FolderKanban },
   { id: "fx", label: "FX", icon: WandSparkles },
   { id: "books", label: "Books", icon: BookOpen },
   { id: "merch", label: "Merch", icon: Shirt },
@@ -156,8 +162,8 @@ function CommandCenter() {
       <section className="workspace">
         <header className="topbar">
           <div>
-            <p className="section-label">Rhythm. Roots. Resistance.</p>
-            <h1>Build the commercial content machine.</h1>
+            <p className="section-label">OPAIJA Studios — Season 1</p>
+            <h1>{navItems.find((n) => n.id === activeView)?.label ?? "Command Center"}</h1>
           </div>
           <div className="search-control">
             <Search size={17} />
@@ -165,14 +171,7 @@ function CommandCenter() {
           </div>
         </header>
 
-        {activeView === "command" && (
-          <CommandView
-            lockedCount={lockedCount}
-            bibleQueue={bibleQueue}
-            selectedCharacter={selectedCharacter}
-            setSelectedCharacter={setSelectedCharacter}
-          />
-        )}
+        {activeView === "command" && <MasterDashboard onNavigate={(v) => setActiveView(v as View)} />}
         {activeView === "setup" && <SetupView />}
         {activeView === "characters" && (
           <CharactersView selectedCharacter={selectedCharacter} setSelectedCharacter={setSelectedCharacter} />
@@ -183,6 +182,8 @@ function CommandCenter() {
         {activeView === "episodes" && <EpisodesView />}
         {activeView === "canon" && <CanonGuardView />}
         {activeView === "publishing" && <PublishingView />}
+        {activeView === "storage" && <AssetBrowser />}
+        {activeView === "review" && <WorkReview />}
         {activeView === "pipeline" && <PipelineView queueMode={queueMode} setQueueMode={setQueueMode} />}
         {activeView === "growth" && <GrowthView />}
         {activeView === "fx" && <FxView />}

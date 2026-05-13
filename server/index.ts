@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import express from "express";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { getAssetInventory } from "./assets.js";
 import { createBookPacket, type BookPacketInput } from "./bookEngine.js";
 import { runClaudeBrainTask, getClaudeBrainProvider, type BrainTaskInput as ClaudeBrainTaskInput } from "./claudeBrain.js";
 import {
@@ -24,6 +25,7 @@ import {
   type FanLeadInput,
   type GrowthCampaignInput,
 } from "./growth.js";
+import { addJob, listJobs, updateJob, getJob } from "./jobStore.js";
 import { createMerchDraft, type MerchProductInput } from "./merch.js";
 import { getBrainModel, getBrainProvider, runBrainTask, type BrainTaskInput } from "./openaiBrain.js";
 import {
@@ -182,7 +184,17 @@ app.post("/api/growth/campaigns", (request, response) => {
 
 app.post("/api/video/jobs", async (request, response) => {
   try {
-    const job = await createVideoJob(request.body as VideoJobInput);
+    const input = request.body as VideoJobInput & { episodeId?: string; label?: string };
+    const job = await createVideoJob(input);
+    await addJob({
+      type: "video",
+      label: input.label ?? `Video: ${input.prompt?.slice(0, 60) ?? "untitled"}`,
+      status: job.status === "dry_run" ? "dry_run" : "queued",
+      provider: job.provider,
+      modelId: job.modelId,
+      requestId: job.requestId,
+      episodeId: input.episodeId,
+    });
     response.status(job.status === "dry_run" ? 200 : 202).json(job);
   } catch (error) {
     response.status(400).json({
@@ -218,7 +230,16 @@ app.get("/api/video/jobs/:requestId/result", async (request, response) => {
 // ── CLAUDE BRAIN ROUTES ──────────────────────────────────────────────────────
 app.post("/api/claude/tasks", async (request, response) => {
   try {
-    const result = await runClaudeBrainTask(request.body as ClaudeBrainTaskInput);
+    const input = request.body as ClaudeBrainTaskInput & { episodeId?: string };
+    const result = await runClaudeBrainTask(input);
+    await addJob({
+      type: result.status === "dry_run" ? "brain" : "script",
+      label: `${input.task}: ${input.brief?.slice(0, 60) ?? ""}`,
+      status: result.status === "completed" ? "completed" : result.status === "dry_run" ? "dry_run" : "failed",
+      provider: result.provider ?? "anthropic",
+      episodeId: input.episodeId,
+      outputText: result.output?.slice(0, 500),
+    });
     response.json(result);
   } catch (error) {
     response.status(400).json({
@@ -320,6 +341,52 @@ app.post("/api/content-log", async (request, response) => {
     response.json(await logPublishedContent(entry));
   } catch (error) {
     response.status(400).json({ error: error instanceof Error ? error.message : "Could not log content." });
+  }
+});
+
+// ── ASSET STORAGE ROUTES ──────────────────────────────────────────────────────
+app.get("/api/assets", async (_request, response) => {
+  try {
+    response.json(await getAssetInventory());
+  } catch (error) {
+    response.status(500).json({ error: error instanceof Error ? error.message : "Could not scan assets." });
+  }
+});
+
+// ── JOB TRACKING ROUTES ───────────────────────────────────────────────────────
+app.get("/api/jobs", async (request, response) => {
+  try {
+    const limit = Number(request.query.limit ?? 50);
+    response.json(await listJobs(limit));
+  } catch (error) {
+    response.status(500).json({ error: error instanceof Error ? error.message : "Could not list jobs." });
+  }
+});
+
+app.get("/api/jobs/:id", async (request, response) => {
+  try {
+    const job = await getJob(request.params.id);
+    if (!job) { response.status(404).json({ error: "Job not found." }); return; }
+    response.json(job);
+  } catch (error) {
+    response.status(500).json({ error: error instanceof Error ? error.message : "Could not get job." });
+  }
+});
+
+app.post("/api/jobs/:id/poll", async (request, response) => {
+  try {
+    const job = await getJob(request.params.id);
+    if (!job || !job.requestId || !job.modelId) {
+      response.status(404).json({ error: "Job not found or not pollable." });
+      return;
+    }
+    const status = await getFalJobStatus(job.modelId, job.requestId);
+    const falStatus = (status as { status?: string }).status ?? "IN_QUEUE";
+    const mapped = falStatus === "COMPLETED" ? "completed" : falStatus === "FAILED" ? "failed" : "processing";
+    const updated = await updateJob(job.id, { status: mapped, completedAt: mapped === "completed" ? new Date().toISOString() : undefined });
+    response.json({ falStatus, job: updated });
+  } catch (error) {
+    response.status(400).json({ error: error instanceof Error ? error.message : "Could not poll job." });
   }
 });
 
