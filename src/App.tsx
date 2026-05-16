@@ -1,58 +1,21 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  Activity,
   Archive,
-  ArrowRight,
-  BookOpen,
-  Brain,
-  CalendarDays,
   Check,
   CheckCircle2,
-  ChevronRight,
   Clapperboard,
   Command,
-  FolderKanban,
   Gift,
-  Gauge,
-  Image,
-  Layers3,
-  Megaphone,
-  KeyRound,
+  Mail,
   Play,
-  Shirt,
   Radio,
   Search,
-  ServerCog,
+  Shirt,
   Sparkles,
-  WandSparkles,
-  Users,
-  Mail,
 } from "lucide-react";
-import { agents } from "./data/agents";
-import {
-  bookEngineStages,
-  bookFormats,
-  bookMetrics,
-  digitalPassTiers,
-  episodeBookProducts,
-  kdpPresets,
-  kdpRules,
-  paidReaderFeatures,
-  reuseRules,
-} from "./data/books";
 import { characters, type Character } from "./data/characters";
-import { actionSceneStandard, fxAgents, fxMetrics, fxPillars } from "./data/fx";
-import {
-  complianceRules,
-  contentPillars,
-  growthAgents,
-  growthLoops,
-  growthMetrics,
-  launchPlan,
-  leadMagnets,
-} from "./data/growth";
-import { merchAgents, merchMetrics, merchPipeline, merchProducts, storeSections } from "./data/merch";
-import { memoryRules, pipeline, releaseTargets } from "./data/workflows";
+import { digitalPassTiers, paidReaderFeatures } from "./data/books";
+import { merchProducts } from "./data/merch";
 import { OpaijaMotionHero } from "./components/OpaijaMotionHero";
 import { EpisodesView } from "./components/EpisodesView";
 import { CanonGuardView } from "./components/CanonGuardView";
@@ -63,19 +26,11 @@ import { WorkReview } from "./components/WorkReview";
 
 type View =
   | "command"
-  | "setup"
-  | "characters"
-  | "agents"
   | "episodes"
   | "canon"
-  | "pipeline"
-  | "books"
-  | "fx"
-  | "merch"
-  | "growth"
-  | "publishing"
   | "storage"
-  | "review";
+  | "review"
+  | "publishing";
 
 const navItems: Array<{ id: View; label: string; icon: typeof Command }> = [
   { id: "command", label: "Dashboard", icon: Command },
@@ -84,20 +39,7 @@ const navItems: Array<{ id: View; label: string; icon: typeof Command }> = [
   { id: "storage", label: "Storage", icon: Archive },
   { id: "review", label: "Review", icon: Sparkles },
   { id: "publishing", label: "Publishing", icon: Radio },
-  { id: "growth", label: "Growth", icon: Megaphone },
-  { id: "characters", label: "Characters", icon: Users },
-  { id: "agents", label: "Agents", icon: Brain },
-  { id: "pipeline", label: "Pipeline", icon: FolderKanban },
-  { id: "fx", label: "FX", icon: WandSparkles },
-  { id: "books", label: "Books", icon: BookOpen },
-  { id: "merch", label: "Merch", icon: Shirt },
 ];
-
-const statusLabels: Record<Character["status"], string> = {
-  locked: "Sheet loaded",
-  "needs-bible": "Needs bible",
-  "needs-model-sheet": "Needs model sheet",
-};
 
 export function App() {
   if (window.location.pathname.startsWith("/hero-prototype")) {
@@ -110,17 +52,6 @@ export function App() {
 
 function CommandCenter() {
   const [activeView, setActiveView] = useState<View>("command");
-  const [selectedCharacter, setSelectedCharacter] = useState<Character>(characters[0]);
-  const [agentFilter, setAgentFilter] = useState("All");
-  const [queueMode, setQueueMode] = useState("Bible Build");
-
-  const filteredAgents = useMemo(() => {
-    if (agentFilter === "All") return agents;
-    return agents.filter((agent) => agent.team === agentFilter);
-  }, [agentFilter]);
-
-  const lockedCount = characters.filter((character) => character.status === "locked").length;
-  const bibleQueue = characters.filter((character) => character.status !== "locked").length;
 
   return (
     <main className="app-shell">
@@ -172,23 +103,11 @@ function CommandCenter() {
         </header>
 
         {activeView === "command" && <MasterDashboard onNavigate={(v) => setActiveView(v as View)} />}
-        {activeView === "setup" && <SetupView />}
-        {activeView === "characters" && (
-          <CharactersView selectedCharacter={selectedCharacter} setSelectedCharacter={setSelectedCharacter} />
-        )}
-        {activeView === "agents" && (
-          <AgentsView agentFilter={agentFilter} setAgentFilter={setAgentFilter} filteredAgents={filteredAgents} />
-        )}
         {activeView === "episodes" && <EpisodesView />}
         {activeView === "canon" && <CanonGuardView />}
         {activeView === "publishing" && <PublishingView />}
         {activeView === "storage" && <AssetBrowser />}
         {activeView === "review" && <WorkReview />}
-        {activeView === "pipeline" && <PipelineView queueMode={queueMode} setQueueMode={setQueueMode} />}
-        {activeView === "growth" && <GrowthView />}
-        {activeView === "fx" && <FxView />}
-        {activeView === "books" && <BookEngineView />}
-        {activeView === "merch" && <MerchView />}
       </section>
     </main>
   );

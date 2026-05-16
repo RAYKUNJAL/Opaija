@@ -1,6 +1,7 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import { mkdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { getAssetInventory } from "./assets.js";
@@ -38,6 +39,10 @@ import {
 import { createVoiceover, getVoiceProvider, type VoiceJobInput } from "./voice.js";
 
 dotenv.config();
+
+// Ensure required data directories exist at startup
+await mkdir(path.join(process.cwd(), "data", "shared-memory"), { recursive: true }).catch(() => {});
+await mkdir(path.join(process.cwd(), "data"), { recursive: true }).catch(() => {});
 
 const app = express();
 const port = Number(process.env.PORT ?? 8787);
@@ -296,13 +301,29 @@ app.post("/api/episodes/:id/generate-script", async (request, response) => {
       },
     });
 
+    // Normalize response shape: always { status, output, episodeId }
+    let normalizedStatus: "completed" | "dry_run" | "failed" = "dry_run";
+    let normalizedOutput = "";
+
     if (result.status === "completed" && result.output) {
+      normalizedStatus = "completed";
+      normalizedOutput = result.output;
       await saveEpisodeScript(episode.id, result.output);
+    } else if (result.status === "dry_run") {
+      normalizedStatus = "dry_run";
+      normalizedOutput = `[DRY RUN] No ANTHROPIC_API_KEY set. Script for ${episode.id}: ${episode.title} would be generated here.`;
+    } else {
+      normalizedStatus = "failed";
+      normalizedOutput = (result as { output?: string }).output ?? "Script generation returned no output.";
     }
 
-    response.json(result);
+    response.json({ status: normalizedStatus, output: normalizedOutput, episodeId: episode.id });
   } catch (error) {
-    response.status(400).json({ error: error instanceof Error ? error.message : "Script generation failed." });
+    response.status(400).json({
+      status: "failed",
+      output: error instanceof Error ? error.message : "Script generation failed.",
+      episodeId: request.params.id,
+    });
   }
 });
 

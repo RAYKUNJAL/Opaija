@@ -6,6 +6,8 @@ import {
   ChevronUp,
   Clapperboard,
   Clock,
+  Copy,
+  Download,
   FileText,
   Mic2,
   Play,
@@ -15,6 +17,7 @@ import {
   Video,
   CheckCircle2,
   AlertTriangle,
+  XCircle,
 } from "lucide-react";
 import { type Episode, type EpisodeStatus, episodeStatusLabels, episodeStatusOrder } from "../data/episodes";
 
@@ -51,14 +54,27 @@ function nextStatus(current: EpisodeStatus): EpisodeStatus | null {
   return episodeStatusOrder[idx + 1];
 }
 
+type ScriptFeedback = {
+  type: "success" | "error" | "dry_run";
+  message: string;
+};
+
+type StatusFeedback = {
+  type: "success" | "error";
+  message: string;
+};
+
 export function EpisodesView() {
   const [queue, setQueue] = useState<QueueData | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedEp, setSelectedEp] = useState<string | null>(null);
   const [generatingScript, setGeneratingScript] = useState<string | null>(null);
   const [scriptOutput, setScriptOutput] = useState<Record<string, string>>({});
+  const [scriptFeedback, setScriptFeedback] = useState<Record<string, ScriptFeedback>>({});
   const [updatingStatus, setUpdatingStatus] = useState<string | null>(null);
+  const [statusFeedback, setStatusFeedback] = useState<Record<string, StatusFeedback>>({});
   const [activeTab, setActiveTab] = useState<Record<string, "brief" | "script" | "video">>({});
+  const [videoJobs, setVideoJobs] = useState<Record<string, Array<{ id: string; status: string; requestId?: string; created_at?: string; episodeId?: string }>>>({});
   const scriptRef = useRef<HTMLPreElement>(null);
 
   async function loadQueue() {
@@ -78,17 +94,51 @@ export function EpisodesView() {
     void loadQueue();
   }, []);
 
+  async function fetchVideoJobsForEpisode(episodeId: string) {
+    try {
+      const res = await fetch("/api/jobs");
+      if (!res.ok) return;
+      const data = (await res.json()) as Array<{ id: string; status: string; requestId?: string; created_at?: string; episodeId?: string }>;
+      const filtered = data.filter((j) => j.episodeId === episodeId);
+      setVideoJobs((prev) => ({ ...prev, [episodeId]: filtered }));
+    } catch {
+      /* ignore */
+    }
+  }
+
   async function generateScript(ep: Episode) {
     setGeneratingScript(ep.id);
+    setScriptFeedback((prev) => {
+      const next = { ...prev };
+      delete next[ep.id];
+      return next;
+    });
     try {
       const res = await fetch(`/api/episodes/${ep.id}/generate-script`, { method: "POST" });
-      const data = (await res.json()) as { status: string; output?: string; prompt?: string };
-      const text = data.output ?? data.prompt ?? "";
-      setScriptOutput((prev) => ({ ...prev, [ep.id]: text }));
-      setActiveTab((prev) => ({ ...prev, [ep.id]: "script" }));
-      await loadQueue();
-    } catch {
-      setScriptOutput((prev) => ({ ...prev, [ep.id]: "Script generation failed. Check API key configuration." }));
+      const data = (await res.json()) as { status: string; output?: string; prompt?: string; error?: string; message?: string };
+      if (data.status === "dry_run") {
+        setScriptFeedback((prev) => ({
+          ...prev,
+          [ep.id]: { type: "dry_run", message: "No Claude key — add ANTHROPIC_API_KEY to .env to generate real scripts." },
+        }));
+        const text = data.output ?? data.prompt ?? "";
+        if (text) setScriptOutput((prev) => ({ ...prev, [ep.id]: text }));
+      } else if (!res.ok || data.status === "error") {
+        const errMsg = data.error ?? data.message ?? "Script generation failed. Check API key configuration.";
+        setScriptFeedback((prev) => ({ ...prev, [ep.id]: { type: "error", message: errMsg } }));
+      } else {
+        const text = data.output ?? data.prompt ?? "";
+        setScriptOutput((prev) => ({ ...prev, [ep.id]: text }));
+        setScriptFeedback((prev) => ({
+          ...prev,
+          [ep.id]: { type: "success", message: "Script generated! Switch to the Script tab to review." },
+        }));
+        setActiveTab((prev) => ({ ...prev, [ep.id]: "script" }));
+        await loadQueue();
+      }
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Script generation failed. Check API key configuration.";
+      setScriptFeedback((prev) => ({ ...prev, [ep.id]: { type: "error", message: msg } }));
     } finally {
       setGeneratingScript(null);
     }
@@ -98,13 +148,31 @@ export function EpisodesView() {
     const next = nextStatus(ep.status);
     if (!next) return;
     setUpdatingStatus(ep.id);
+    setStatusFeedback((prev) => {
+      const copy = { ...prev };
+      delete copy[ep.id];
+      return copy;
+    });
     try {
-      await fetch(`/api/episodes/${ep.id}/status`, {
+      const res = await fetch(`/api/episodes/${ep.id}/status`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: next }),
       });
-      await loadQueue();
+      if (res.ok) {
+        setStatusFeedback((prev) => ({
+          ...prev,
+          [ep.id]: { type: "success", message: `Advanced to ${episodeStatusLabels[next]}` },
+        }));
+        await loadQueue();
+      } else {
+        const data = (await res.json().catch(() => ({}))) as { error?: string; message?: string };
+        const errMsg = data.error ?? data.message ?? "Failed to advance status.";
+        setStatusFeedback((prev) => ({ ...prev, [ep.id]: { type: "error", message: errMsg } }));
+      }
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Failed to advance status.";
+      setStatusFeedback((prev) => ({ ...prev, [ep.id]: { type: "error", message: msg } }));
     } finally {
       setUpdatingStatus(null);
     }
@@ -192,15 +260,28 @@ export function EpisodesView() {
             const canAdvance = nextStatus(ep.status) !== null;
             const isGenerating = generatingScript === ep.id;
             const isUpdating = updatingStatus === ep.id;
+            const epScriptFeedback = scriptFeedback[ep.id];
+            const epStatusFeedback = statusFeedback[ep.id];
+            const epVideoJobs = videoJobs[ep.id] ?? [];
 
             return (
               <article key={ep.id} className={`episode-card ${isOpen ? "open" : ""}`}>
                 <div
                   className="episode-card-header"
-                  onClick={() => setSelectedEp(isOpen ? null : ep.id)}
+                  onClick={() => {
+                    const opening = !isOpen;
+                    setSelectedEp(opening ? ep.id : null);
+                    if (opening) void fetchVideoJobsForEpisode(ep.id);
+                  }}
                   role="button"
                   tabIndex={0}
-                  onKeyDown={(e) => e.key === "Enter" && setSelectedEp(isOpen ? null : ep.id)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      const opening = !isOpen;
+                      setSelectedEp(opening ? ep.id : null);
+                      if (opening) void fetchVideoJobsForEpisode(ep.id);
+                    }
+                  }}
                 >
                   <div className="ep-id-block">
                     <span className="ep-number">{ep.id}</span>
