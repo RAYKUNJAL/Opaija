@@ -85,11 +85,11 @@ export function MasterDashboard({ onNavigate }: { onNavigate: (view: string) => 
       fetch("/api/content-log").then((r) => r.json()),
       fetch("/api/assets").then((r) => r.json()),
     ]);
-    if (h.status === "fulfilled") setHealth(h.value as HealthData);
-    if (q.status === "fulfilled") setQueue(q.value as QueueData);
-    if (j.status === "fulfilled") setJobs(j.value as JobRecord[]);
-    if (c.status === "fulfilled") setContentLog(c.value as ContentLog);
-    if (a.status === "fulfilled") setAssets(a.value as AssetInventory);
+    if (h.status === "fulfilled" && h.value && !h.value.error) setHealth(h.value as HealthData);
+    if (q.status === "fulfilled" && q.value && !q.value.error) setQueue(q.value as QueueData);
+    if (j.status === "fulfilled" && Array.isArray(j.value)) setJobs(j.value as JobRecord[]);
+    if (c.status === "fulfilled" && c.value && !c.value.error) setContentLog(c.value as ContentLog);
+    if (a.status === "fulfilled" && a.value && !a.value.error) setAssets(a.value as AssetInventory);
     setLoading(false);
   }
 
