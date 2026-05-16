@@ -4932,3 +4932,170 @@ select:focus-visible {
   .upload-guide-row { grid-template-columns: 1fr; }
   .dash-stats-row { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ══════════════════════════════════════════════
+   CANON GUARD — NEW ELEMENTS
+══════════════════════════════════════════════ */
+
+/* API key warning banner */
+.brain-key-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 8px;
+  font-size: 0.82rem;
+  color: #fca5a5;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.brain-key-warning svg { flex-shrink: 0; margin-top: 1px; color: #f87171; }
+.brain-key-warning code {
+  font-family: var(--mono);
+  font-size: 0.8em;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+/* Loading spinner while waiting for Claude */
+.brain-loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  justify-content: center;
+}
+
+/* Brain result meta row (word count + copy button) */
+.brain-result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.brain-result-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brain-word-count {
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+
+/* Copy button — re-use icon-btn but auto-width */
+.brain-result-meta .icon-btn {
+  width: auto;
+  padding: 0 10px;
+  gap: 5px;
+  font-size: 0.75rem;
+}
+
+/* QA export button tooltip */
+.qa-header-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Presets moved above form */
+.brain-presets {
+  border-bottom: 1px solid var(--border);
+  border-top: none;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  padding-top: 0;
+}
+
+/* ══════════════════════════════════════════════
+   PUBLISHING VIEW — NEW ELEMENTS
+══════════════════════════════════════════════ */
+
+/* Required field asterisk */
+.required-star {
+  color: #f87171;
+  margin-left: 2px;
+}
+
+/* Field-level validation error */
+.field-error-msg {
+  font-size: 0.76rem;
+  color: #f87171;
+  margin-top: 3px;
+}
+
+/* Input error state */
+.log-form input.input-error {
+  border-color: #f87171;
+  outline: none;
+}
+
+/* Success banner after logging */
+.log-success {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  border-radius: 8px;
+  font-size: 0.82rem;
+  color: #86efac;
+  margin-top: 12px;
+}
+
+.log-success svg { flex-shrink: 0; margin-top: 2px; color: #4ade80; }
+.log-success strong { display: block; margin-bottom: 3px; color: #4ade80; }
+.log-success p { margin: 0; color: var(--text); font-size: 0.8rem; }
+.log-success a { color: var(--gold); text-decoration: underline; }
+
+/* Log entry — left/right layout */
+.log-entry-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.log-entry-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.log-platform-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.log-platform-icon {
+  font-size: 0.85em;
+}
+
+/* Refresh button with text label */
+.panel-header .icon-btn {
+  width: auto;
+  padding: 0 10px;
+  gap: 5px;
+  font-size: 0.75rem;
+}
+
+.panel-header .icon-btn span {
+  display: inline;
+}
