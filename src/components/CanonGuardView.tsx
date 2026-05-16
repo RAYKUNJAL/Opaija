@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   AlertTriangle,
   BookOpen,
   CheckCircle2,
   ChevronRight,
+  Copy,
+  Download,
   RefreshCw,
   ShieldCheck,
   Sparkles,
@@ -11,6 +13,8 @@ import {
   Zap,
 } from "lucide-react";
 import { canonRules, qaChecklist } from "../data/episodes";
+
+const QA_STORAGE_KEY = "opaija-qa-checks";
 
 type CheckState = Record<string, boolean>;
 
@@ -58,21 +62,91 @@ function ChecklistSection({
 
 type BrainResult = { status: string; output?: string; prompt?: string };
 
+function loadChecksFromStorage(): CheckState {
+  try {
+    const raw = localStorage.getItem(QA_STORAGE_KEY);
+    return raw ? (JSON.parse(raw) as CheckState) : {};
+  } catch {
+    return {};
+  }
+}
+
 export function CanonGuardView() {
-  const [checks, setChecks] = useState<CheckState>({});
+  const [checks, setChecks] = useState<CheckState>(loadChecksFromStorage);
+  const [anthropicKeyPresent, setAnthropicKeyPresent] = useState<boolean | null>(null);
   const [brainInput, setBrainInput] = useState("");
   const [brainTask, setBrainTask] = useState<"style-check" | "canon-check" | "marketing-hook" | "narration">(
     "style-check",
   );
   const [brainResult, setBrainResult] = useState<BrainResult | null>(null);
   const [brainLoading, setBrainLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  // Check if Anthropic key is configured
+  useEffect(() => {
+    fetch("/api/health")
+      .then((r) => r.json())
+      .then((data: { keys?: { anthropic?: boolean } }) => {
+        setAnthropicKeyPresent(data.keys?.anthropic ?? false);
+      })
+      .catch(() => setAnthropicKeyPresent(false));
+  }, []);
 
   function toggleCheck(key: string) {
-    setChecks((prev) => ({ ...prev, [key]: !prev[key] }));
+    setChecks((prev) => {
+      const next = { ...prev, [key]: !prev[key] };
+      try { localStorage.setItem(QA_STORAGE_KEY, JSON.stringify(next)); } catch { /* ignore */ }
+      return next;
+    });
   }
 
   function resetAll() {
     setChecks({});
+    try { localStorage.removeItem(QA_STORAGE_KEY); } catch { /* ignore */ }
+  }
+
+  function exportQAReport() {
+    const sections: Array<{ title: string; items: string[]; sectionKey: string }> = [
+      { title: "Character Face QA", items: qaChecklist.characterFace, sectionKey: "face" },
+      { title: "Jabari-Specific QA", items: qaChecklist.jabari, sectionKey: "jabari" },
+      { title: "Episode Script QA", items: qaChecklist.episodeScript, sectionKey: "script" },
+      { title: "Video Export QA", items: qaChecklist.videoExport, sectionKey: "video" },
+      { title: "Social Caption QA", items: qaChecklist.socialCaption, sectionKey: "caption" },
+      { title: "Visual Style QA", items: qaChecklist.visualStyle, sectionKey: "style" },
+    ];
+
+    const lines: string[] = [
+      "OPAIJA Studios — QA Report",
+      `Generated: ${new Date().toLocaleString()}`,
+      `Overall: ${totalPassed}/${totalItems} (${overallPercent}%)`,
+      "",
+    ];
+
+    for (const section of sections) {
+      const passed = section.items.filter((_, i) => checks[`${section.sectionKey}-${i}`]).length;
+      lines.push(`## ${section.title} (${passed}/${section.items.length})`);
+      for (let i = 0; i < section.items.length; i++) {
+        const key = `${section.sectionKey}-${i}`;
+        lines.push(`  [${checks[key] ? "x" : " "}] ${section.items[i]}`);
+      }
+      lines.push("");
+    }
+
+    const blob = new Blob([lines.join("\n")], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `opaija-qa-report-${new Date().toISOString().slice(0, 10)}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function copyResponse() {
+    const text = brainResult?.output ?? brainResult?.prompt ?? "";
+    void navigator.clipboard.writeText(text).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
   }
 
   const totalItems =
@@ -186,6 +260,9 @@ export function CanonGuardView() {
             <span className={`qa-total ${overallPercent === 100 ? "pass" : overallPercent > 50 ? "partial" : "fail"}`}>
               {totalPassed}/{totalItems} ({overallPercent}%)
             </span>
+            <button type="button" className="icon-btn" onClick={exportQAReport} title="Export QA report">
+              <Download size={14} />
+            </button>
             <button type="button" className="icon-btn" onClick={resetAll} title="Reset checklist">
               <RefreshCw size={14} />
             </button>
@@ -247,6 +324,35 @@ export function CanonGuardView() {
           </div>
           <span>Canon-locked AI tasks</span>
         </div>
+
+        {anthropicKeyPresent === false && (
+          <div className="brain-key-warning">
+            <AlertTriangle size={16} />
+            <span>Add <code>ANTHROPIC_API_KEY</code> to <code>.env</code> to use live Claude brain. Tasks will run in dry-run mode until then.</span>
+          </div>
+        )}
+
+        <div className="brain-presets">
+          <strong>Quick tasks</strong>
+          <div className="preset-btns">
+            {[
+              { label: "Check Jabari drums", task: "style-check" as const, brief: "Jabari plays modern drum kit with straight sticks in Episode 3." },
+              { label: "Hook for EP001", task: "marketing-hook" as const, brief: "EP001: The Stick That Sang. Kai discovers the Listening Bois at Carnival in Trinidad." },
+              { label: "Web-Teller intro", task: "narration" as const, brief: "Opening of Season 1. Night Carnival in Port of Spain. A magical bois calls to Kai from behind a vendor stall." },
+            ].map((preset) => (
+              <button
+                key={preset.label}
+                type="button"
+                className="preset-btn"
+                onClick={() => { setBrainTask(preset.task); setBrainInput(preset.brief); }}
+              >
+                <BookOpen size={13} />
+                {preset.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <form className="brain-form" onSubmit={(e) => void runBrainTask(e)}>
           <div className="brain-controls">
             <label>
@@ -285,12 +391,33 @@ export function CanonGuardView() {
           </button>
         </form>
 
-        {brainResult && (
+        {brainLoading && (
+          <div className="brain-loading">
+            <RefreshCw size={24} className="spin" />
+            <span>Claude is thinking…</span>
+          </div>
+        )}
+
+        {brainResult && !brainLoading && (
           <div className="brain-result">
             <div className="brain-result-header">
               <span className={`brain-status ${brainResult.status}`}>
                 {brainResult.status === "completed" ? "✓ Completed" : brainResult.status === "dry_run" ? "Dry Run" : "Error"}
               </span>
+              {(brainResult.output || brainResult.prompt) && (
+                <div className="brain-result-meta">
+                  {brainResult.output && (
+                    <span className="brain-word-count">
+                      {brainResult.output.trim().split(/\s+/).length} words
+                      {" · "}~{Math.ceil(brainResult.output.length / 4)} tokens
+                    </span>
+                  )}
+                  <button type="button" className="icon-btn" onClick={copyResponse} title="Copy response">
+                    <Copy size={14} />
+                    {copied ? " Copied!" : " Copy"}
+                  </button>
+                </div>
+              )}
             </div>
             {brainResult.output ? (
               <pre className="brain-output">{brainResult.output}</pre>
@@ -302,27 +429,6 @@ export function CanonGuardView() {
             ) : null}
           </div>
         )}
-
-        <div className="brain-presets">
-          <strong>Quick tasks</strong>
-          <div className="preset-btns">
-            {[
-              { label: "Check Jabari drums", task: "style-check" as const, brief: "Jabari plays modern drum kit with straight sticks in Episode 3." },
-              { label: "Hook for EP001", task: "marketing-hook" as const, brief: "EP001: The Stick That Sang. Kai discovers the Listening Bois at Carnival in Trinidad." },
-              { label: "Web-Teller intro", task: "narration" as const, brief: "Opening of Season 1. Night Carnival in Port of Spain. A magical bois calls to Kai from behind a vendor stall." },
-            ].map((preset) => (
-              <button
-                key={preset.label}
-                type="button"
-                className="preset-btn"
-                onClick={() => { setBrainTask(preset.task); setBrainInput(preset.brief); }}
-              >
-                <BookOpen size={13} />
-                {preset.label}
-              </button>
-            ))}
-          </div>
-        </div>
       </section>
     </div>
   );

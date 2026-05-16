@@ -191,7 +191,7 @@ app.post("/api/video/jobs", async (request, response) => {
   try {
     const input = request.body as VideoJobInput & { episodeId?: string; label?: string };
     const job = await createVideoJob(input);
-    await addJob({
+    const storedJob = await addJob({
       type: "video",
       label: input.label ?? `Video: ${input.prompt?.slice(0, 60) ?? "untitled"}`,
       status: job.status === "dry_run" ? "dry_run" : "queued",
@@ -200,7 +200,14 @@ app.post("/api/video/jobs", async (request, response) => {
       requestId: job.requestId,
       episodeId: input.episodeId,
     });
-    response.status(job.status === "dry_run" ? 200 : 202).json(job);
+    // Always return { requestId, status, provider, modelId, jobId } for consistent frontend contract
+    response.status(job.status === "dry_run" ? 200 : 202).json({
+      requestId: job.requestId,
+      status: job.status,
+      provider: job.provider,
+      modelId: job.modelId,
+      jobId: storedJob.id,
+    });
   } catch (error) {
     response.status(400).json({
       error: error instanceof Error ? error.message : "Unable to create video job.",
@@ -337,6 +344,16 @@ app.post("/api/episodes/:id/script", async (request, response) => {
   }
 });
 
+app.get("/api/episodes/:id/jobs", async (request, response) => {
+  try {
+    const allJobs = await listJobs(200);
+    const episodeJobs = allJobs.filter((j) => j.episodeId === request.params.id);
+    response.json(episodeJobs);
+  } catch (error) {
+    response.status(500).json({ error: "Could not get episode jobs." });
+  }
+});
+
 // ── CANON ROUTES ──────────────────────────────────────────────────────────────
 app.get("/api/canon", async (_request, response) => {
   try {
@@ -366,6 +383,9 @@ app.post("/api/content-log", async (request, response) => {
 });
 
 // ── ASSET STORAGE ROUTES ──────────────────────────────────────────────────────
+// TODO: This scan can be slow on large asset trees. Consider adding an in-memory
+// cache with a short TTL (e.g. 30s) keyed by mtime of public/assets/ to avoid
+// repeated filesystem walks on rapid dashboard refreshes.
 app.get("/api/assets", async (_request, response) => {
   try {
     response.json(await getAssetInventory());

@@ -392,12 +392,65 @@ export function EpisodesView() {
                     {tab === "script" && (
                       <div className="ep-script-panel">
                         {scriptText ? (
-                          <pre className="script-output" ref={scriptRef}>{scriptText}</pre>
+                          <>
+                            <div className="script-toolbar">
+                              <div className="script-meta">
+                                <span className="script-wordcount">
+                                  {scriptText.trim().split(/\s+/).length} words
+                                </span>
+                                <span className="script-readtime">
+                                  ~{Math.ceil(scriptText.trim().split(/\s+/).length / 130)} min read
+                                </span>
+                              </div>
+                              <div className="script-actions">
+                                <button
+                                  type="button"
+                                  className="ep-btn secondary small"
+                                  onClick={() => void navigator.clipboard.writeText(scriptText)}
+                                  title="Copy script to clipboard"
+                                >
+                                  <Copy size={13} />
+                                  Copy
+                                </button>
+                                <button
+                                  type="button"
+                                  className="ep-btn secondary small"
+                                  onClick={() => {
+                                    const blob = new Blob([scriptText], { type: "text/plain" });
+                                    const url = URL.createObjectURL(blob);
+                                    const a = document.createElement("a");
+                                    a.href = url;
+                                    a.download = `${ep.id}_script.txt`;
+                                    a.click();
+                                    URL.revokeObjectURL(url);
+                                  }}
+                                  title="Download script as .txt"
+                                >
+                                  <Download size={13} />
+                                  Download .txt
+                                </button>
+                              </div>
+                            </div>
+                            <pre className="script-output" ref={scriptRef}>{scriptText}</pre>
+                          </>
                         ) : (
                           <div className="no-script">
                             <FileText size={32} />
                             <p>No script generated yet.</p>
-                            <p className="dim">Use the Generate button to create a full production script with Claude.</p>
+                            <p className="dim">Generate a full production script with Claude AI.</p>
+                            <button
+                              type="button"
+                              className="ep-btn primary"
+                              onClick={() => void generateScript(ep)}
+                              disabled={isGenerating}
+                            >
+                              {isGenerating ? (
+                                <RefreshCw size={15} className="spin" />
+                              ) : (
+                                <Sparkles size={15} />
+                              )}
+                              {isGenerating ? "Generating with Claude..." : "Generate Script with Claude"}
+                            </button>
                           </div>
                         )}
                       </div>
@@ -406,6 +459,73 @@ export function EpisodesView() {
                     {tab === "video" && (
                       <div className="ep-video-panel">
                         <VideoJobForm episodeId={ep.id} title={ep.title} hook={ep.hook} />
+                        {epVideoJobs.length > 0 && (
+                          <div className="past-video-jobs">
+                            <h4 className="past-jobs-heading">Past Video Jobs for {ep.id}</h4>
+                            <div className="past-jobs-list">
+                              {epVideoJobs.map((job) => (
+                                <div key={job.id} className="past-job-row">
+                                  <span className={`job-status-badge status-${job.status.toLowerCase()}`}>
+                                    {job.status}
+                                  </span>
+                                  <span className="job-request-id" title={job.requestId}>
+                                    {job.requestId ? job.requestId.slice(0, 14) + "…" : job.id.slice(0, 10) + "…"}
+                                  </span>
+                                  {job.created_at && (
+                                    <span className="job-date">
+                                      {new Date(job.created_at).toLocaleDateString()}
+                                    </span>
+                                  )}
+                                  <a
+                                    href="/command#work"
+                                    className="job-review-link"
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      window.location.hash = "work";
+                                    }}
+                                  >
+                                    View in Work Review →
+                                  </a>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Script feedback banner */}
+                    {epScriptFeedback && (
+                      <div className={`feedback-banner ${epScriptFeedback.type}`}>
+                        {epScriptFeedback.type === "success" && <CheckCircle2 size={15} />}
+                        {epScriptFeedback.type === "error" && <XCircle size={15} />}
+                        {epScriptFeedback.type === "dry_run" && <AlertTriangle size={15} />}
+                        <span>{epScriptFeedback.message}</span>
+                        <button
+                          type="button"
+                          className="banner-dismiss"
+                          onClick={() => setScriptFeedback((prev) => { const copy = { ...prev }; delete copy[ep.id]; return copy; })}
+                          aria-label="Dismiss"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    )}
+
+                    {/* Status feedback banner */}
+                    {epStatusFeedback && (
+                      <div className={`feedback-banner ${epStatusFeedback.type}`}>
+                        {epStatusFeedback.type === "success" && <CheckCircle2 size={15} />}
+                        {epStatusFeedback.type === "error" && <XCircle size={15} />}
+                        <span>{epStatusFeedback.message}</span>
+                        <button
+                          type="button"
+                          className="banner-dismiss"
+                          onClick={() => setStatusFeedback((prev) => { const copy = { ...prev }; delete copy[ep.id]; return copy; })}
+                          aria-label="Dismiss"
+                        >
+                          ×
+                        </button>
                       </div>
                     )}
 
@@ -422,7 +542,7 @@ export function EpisodesView() {
                         ) : (
                           <Sparkles size={15} />
                         )}
-                        {isGenerating ? "Generating…" : "Generate Script with Claude"}
+                        {isGenerating ? "Generating with Claude..." : "Generate Script with Claude"}
                       </button>
 
                       <button
@@ -443,7 +563,9 @@ export function EpisodesView() {
                           disabled={isUpdating}
                         >
                           {isUpdating ? <RefreshCw size={15} className="spin" /> : <Play size={15} />}
-                          Advance to {episodeStatusLabels[nextStatus(ep.status)!]}
+                          {isUpdating
+                            ? "Advancing..."
+                            : `${episodeStatusLabels[ep.status]} → ${episodeStatusLabels[nextStatus(ep.status)!]}`}
                         </button>
                       )}
                     </div>
@@ -496,27 +618,36 @@ async function generateNarration(ep: Episode) {
   }
 }
 
+type VideoJobResult = {
+  status: string;
+  requestId?: string;
+  error?: string;
+  message?: string;
+};
+
 function VideoJobForm({ episodeId, title, hook }: { episodeId: string; title: string; hook: string }) {
   const [prompt, setPrompt] = useState(
     `OPAIJA ${episodeId}: ${title}. ${hook} 2.5D Caribbean anime style. Rounded features, full lips, broad nose, warm Caribbean tones. 9:16 vertical. Dramatic action with rhythm glyphs.`,
   );
   const [mode, setMode] = useState<"text-to-video" | "image-to-video">("text-to-video");
   const [submitting, setSubmitting] = useState(false);
-  const [result, setResult] = useState<{ status: string; requestId?: string } | null>(null);
+  const [result, setResult] = useState<VideoJobResult | null>(null);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setSubmitting(true);
+    setResult(null);
     try {
       const res = await fetch("/api/video/jobs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt, mode, aspectRatio: "9:16", resolution: "1080p", generateAudio: true }),
+        body: JSON.stringify({ prompt, mode, aspectRatio: "9:16", resolution: "1080p", generateAudio: true, episodeId }),
       });
-      const data = (await res.json()) as { status: string; requestId?: string };
+      const data = (await res.json()) as VideoJobResult;
       setResult(data);
-    } catch {
-      setResult({ status: "error" });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Failed to connect to server.";
+      setResult({ status: "error", error: msg });
     } finally {
       setSubmitting(false);
     }
@@ -526,7 +657,7 @@ function VideoJobForm({ episodeId, title, hook }: { episodeId: string; title: st
     <form className="video-job-form" onSubmit={(e) => void submit(e)}>
       <label>
         Mode
-        <select value={mode} onChange={(e) => setMode(e.target.value as typeof mode)}>
+        <select value={mode} onChange={(e) => setMode(e.target.value as typeof mode)} disabled={submitting}>
           <option value="text-to-video">Text to Video</option>
           <option value="image-to-video">Image to Video</option>
         </select>
@@ -538,17 +669,35 @@ function VideoJobForm({ episodeId, title, hook }: { episodeId: string; title: st
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
           placeholder="Describe the scene for Seedance 2.0..."
+          disabled={submitting}
         />
       </label>
       <button type="submit" className="ep-btn primary" disabled={submitting}>
         {submitting ? <RefreshCw size={15} className="spin" /> : <Video size={15} />}
-        {submitting ? "Submitting…" : "Submit to Seedance"}
+        {submitting ? "Submitting to Seedance..." : "Submit to Seedance"}
       </button>
       {result && (
-        <div className={`job-result ${result.status}`}>
-          {result.status === "dry_run" && <span>Dry run — add FAL_KEY to enable live rendering</span>}
-          {result.status === "queued" && <span>✓ Queued — Request ID: {result.requestId}</span>}
-          {result.status === "error" && <span>Error submitting job</span>}
+        <div className={`feedback-banner ${result.status === "queued" ? "success" : result.status === "dry_run" ? "dry_run" : "error"}`}>
+          {result.status === "dry_run" && (
+            <>
+              <AlertTriangle size={15} />
+              <span>Running in dry-run mode. Add FAL_KEY to .env to submit real video jobs.</span>
+            </>
+          )}
+          {result.status === "queued" && (
+            <>
+              <CheckCircle2 size={15} />
+              <span>
+                Video job submitted! Request ID: {result.requestId}. Go to Work Review → Video Renders to track it.
+              </span>
+            </>
+          )}
+          {result.status === "error" && (
+            <>
+              <XCircle size={15} />
+              <span>{result.error ?? result.message ?? "Error submitting video job. Check your FAL_KEY configuration."}</span>
+            </>
+          )}
         </div>
       )}
     </form>

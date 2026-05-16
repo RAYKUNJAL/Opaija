@@ -63,16 +63,25 @@ const POSTING_SCHEDULE = [
 ];
 
 function LogEntryCard({ entry }: { entry: ContentLogEntry }) {
+  const date = new Date(entry.publishedAt);
+  const formattedDate = date.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+  const formattedTime = date.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
+  const platformIcon = PLATFORM_ICONS[entry.platform] ?? "•";
+  const platformLabel = PLATFORM_LABELS[entry.platform] ?? entry.platform;
+
   return (
     <article className="log-entry">
-      <div>
-        <strong>{entry.episodeId}</strong>
-        <span className="log-platform">{PLATFORM_LABELS[entry.platform] ?? entry.platform}</span>
+      <div className="log-entry-left">
+        <span className="ep-badge">{entry.episodeId}</span>
+        <span className="log-platform-tag">
+          <span className="log-platform-icon">{platformIcon}</span>
+          {platformLabel}
+        </span>
       </div>
-      <div>
-        <span className="log-time">{new Date(entry.publishedAt).toLocaleDateString()}</span>
+      <div className="log-entry-right">
+        <span className="log-time" title={date.toISOString()}>{formattedDate} · {formattedTime}</span>
         {entry.url && (
-          <a href={entry.url} target="_blank" rel="noreferrer" className="log-link">
+          <a href={entry.url} target="_blank" rel="noreferrer" className="log-link" title="Open post">
             <ExternalLink size={12} />
           </a>
         )}
@@ -88,6 +97,8 @@ export function PublishingView() {
   const [logPlatform, setLogPlatform] = useState<Platform>("youtube_shorts");
   const [logUrl, setLogUrl] = useState("");
   const [logStatus, setLogStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
+  const [loggedEntry, setLoggedEntry] = useState<ContentLogEntry | null>(null);
+  const [episodeIdError, setEpisodeIdError] = useState(false);
 
   async function loadLog() {
     setLoading(true);
@@ -105,14 +116,21 @@ export function PublishingView() {
 
   async function logContent(e: React.FormEvent) {
     e.preventDefault();
-    if (!logEpisodeId.trim()) return;
+    if (!logEpisodeId.trim()) {
+      setEpisodeIdError(true);
+      return;
+    }
+    setEpisodeIdError(false);
     setLogStatus("saving");
+    setLoggedEntry(null);
     try {
+      const body = { episodeId: logEpisodeId.trim(), platform: logPlatform, url: logUrl || undefined };
       await fetch("/api/content-log", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ episodeId: logEpisodeId, platform: logPlatform, url: logUrl }),
+        body: JSON.stringify(body),
       });
+      setLoggedEntry({ episodeId: body.episodeId, platform: body.platform, url: body.url, publishedAt: new Date().toISOString() });
       setLogStatus("saved");
       setLogEpisodeId("");
       setLogUrl("");
@@ -131,58 +149,68 @@ export function PublishingView() {
             <Megaphone size={20} />
             <h2>Platform Stats</h2>
           </div>
-          <button type="button" className="icon-btn" onClick={() => void loadLog()}>
-            <RefreshCw size={16} />
+          <button type="button" className="icon-btn" onClick={() => void loadLog()} title="Refresh data" disabled={loading}>
+            <RefreshCw size={16} className={loading ? "spin" : ""} />
+            <span>Refresh</span>
           </button>
         </div>
 
         {loading ? (
           <div className="loading-row"><RefreshCw size={20} className="spin" /> Loading…</div>
         ) : contentLog ? (
-          <div className="platform-stats-grid">
-            {(Object.entries(contentLog.platforms) as [Platform, PlatformStats][]).map(([key, stats]) => (
-              <article key={key} className="platform-card">
-                <div className="platform-icon">{PLATFORM_ICONS[key]}</div>
-                <h3>{PLATFORM_LABELS[key] ?? key}</h3>
-                <div className="platform-metrics">
-                  <div>
-                    <span>Posts</span>
-                    <strong>{stats.total}</strong>
-                  </div>
-                  {stats.subscribers != null && (
-                    <div>
-                      <span>Subscribers</span>
-                      <strong>{stats.subscribers.toLocaleString()}</strong>
+          <>
+            {contentLog.total_published === 0 ? (
+              <div className="empty-log">
+                <Megaphone size={28} />
+                <p>No content published yet.</p>
+                <p className="dim">Log your first post using the form below to start tracking platform stats.</p>
+              </div>
+            ) : (
+              <div className="platform-stats-grid">
+                {(Object.entries(contentLog.platforms) as [Platform, PlatformStats][]).map(([key, stats]) => (
+                  <article key={key} className="platform-card">
+                    <div className="platform-icon">{PLATFORM_ICONS[key]}</div>
+                    <h3>{PLATFORM_LABELS[key] ?? key}</h3>
+                    <div className="platform-metrics">
+                      <div>
+                        <span>Posts</span>
+                        <strong>{stats.total}</strong>
+                      </div>
+                      {stats.subscribers != null && (
+                        <div>
+                          <span>Subscribers</span>
+                          <strong>{stats.subscribers.toLocaleString()}</strong>
+                        </div>
+                      )}
+                      {stats.followers != null && (
+                        <div>
+                          <span>Followers</span>
+                          <strong>{stats.followers.toLocaleString()}</strong>
+                        </div>
+                      )}
+                      {stats.revenue_usd != null && (
+                        <div>
+                          <span>Revenue</span>
+                          <strong>${stats.revenue_usd.toFixed(2)}</strong>
+                        </div>
+                      )}
                     </div>
-                  )}
-                  {stats.followers != null && (
-                    <div>
-                      <span>Followers</span>
-                      <strong>{stats.followers.toLocaleString()}</strong>
-                    </div>
-                  )}
-                  {stats.revenue_usd != null && (
-                    <div>
-                      <span>Revenue</span>
-                      <strong>${stats.revenue_usd.toFixed(2)}</strong>
-                    </div>
-                  )}
-                </div>
-                <span className="last-post">
-                  {stats.last_post ? `Last: ${new Date(stats.last_post).toLocaleDateString()}` : "No posts yet"}
-                </span>
-              </article>
-            ))}
-          </div>
+                    <span className="last-post">
+                      {stats.last_post
+                        ? `Last: ${new Date(stats.last_post).toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })}`
+                        : "No posts yet"}
+                    </span>
+                  </article>
+                ))}
+              </div>
+            )}
+            <div className="total-published">
+              <CheckCircle2 size={18} />
+              <span>Total published: <strong>{contentLog.total_published}</strong></span>
+            </div>
+          </>
         ) : (
-          <p>Could not load content log.</p>
-        )}
-
-        {contentLog && (
-          <div className="total-published">
-            <CheckCircle2 size={18} />
-            <span>Total published: <strong>{contentLog.total_published}</strong></span>
-          </div>
+          <p className="dim">Could not load content log. Is the server running?</p>
         )}
       </section>
 
@@ -197,12 +225,14 @@ export function PublishingView() {
           </div>
           <form className="log-form" onSubmit={(e) => void logContent(e)}>
             <label>
-              Episode / Content ID
+              Episode / Content ID <span className="required-star">*</span>
               <input
                 value={logEpisodeId}
-                onChange={(e) => setLogEpisodeId(e.target.value)}
+                onChange={(e) => { setLogEpisodeId(e.target.value); if (e.target.value.trim()) setEpisodeIdError(false); }}
                 placeholder="EP001, TEASER_01, etc."
+                className={episodeIdError ? "input-error" : ""}
               />
+              {episodeIdError && <span className="field-error-msg">Episode / Content ID is required.</span>}
             </label>
             <label>
               Platform
@@ -225,10 +255,27 @@ export function PublishingView() {
             </label>
             <button type="submit" className="ep-btn primary" disabled={logStatus === "saving"}>
               {logStatus === "saving" ? <RefreshCw size={15} className="spin" /> : <CheckCircle2 size={15} />}
-              {logStatus === "saving" ? "Logging…" : logStatus === "saved" ? "Logged!" : "Log Content"}
+              {logStatus === "saving" ? "Logging…" : "Log Content"}
             </button>
             {logStatus === "error" && <span className="error-msg">Could not log content. Try again.</span>}
           </form>
+
+          {logStatus === "saved" && loggedEntry && (
+            <div className="log-success">
+              <CheckCircle2 size={16} />
+              <div>
+                <strong>Logged successfully!</strong>
+                <p>
+                  <span className="ep-badge">{loggedEntry.episodeId}</span>
+                  {" → "}
+                  <span className="log-platform">{PLATFORM_LABELS[loggedEntry.platform] ?? loggedEntry.platform}</span>
+                  {loggedEntry.url && (
+                    <>{" · "}<a href={loggedEntry.url} target="_blank" rel="noreferrer">{loggedEntry.url}</a></>
+                  )}
+                </p>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Content Log Feed */}
