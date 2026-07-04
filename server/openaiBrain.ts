@@ -83,7 +83,7 @@ export function getBrainProvider(): BrainProvider {
 
 export function getBrainModel(provider = getBrainProvider()) {
   if (provider === "openrouter") return process.env.OPENROUTER_MODEL ?? "moonshotai/kimi-k2";
-  return process.env.OPENAI_MODEL ?? "gpt-5.5";
+  return process.env.OPENAI_MODEL ?? "gpt-4o-mini";
 }
 
 function buildPrompt(input: BrainTaskInput) {

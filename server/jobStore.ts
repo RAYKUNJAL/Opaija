@@ -5,7 +5,7 @@ const storePath = path.join(process.cwd(), "data", "jobs.json");
 
 export type JobRecord = {
   id: string;
-  type: "video" | "voice" | "script" | "brain";
+  type: "video" | "voice" | "script" | "brain" | "publish";
   label: string;
   status: "queued" | "processing" | "completed" | "failed" | "dry_run";
   provider: string;

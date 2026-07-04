@@ -6,6 +6,12 @@ When a new session starts, read this file first. Then read `data/shared-memory/O
 
 ---
 
+## Memory
+Before any production task, read `memory/cost-rules.md` — it defines the cost-mode defaults baked into the pipeline.
+Other memory files: (none yet — append as added)
+
+---
+
 ## What This Project Is
 
 A fully agentic anime production system that:

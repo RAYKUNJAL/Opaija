@@ -1,0 +1,547 @@
+
+> opaija-command-center@0.1.0 produce
+> tsx scripts/produce.ts EP002
+
+[produce] [start] episode=EP002 aspect=9:16 force=false from=(none)
+[produce] [cost] budget OK — MTD $0.00 of $500.00 (0.0%).
+[produce] [stage-1 parse] skipped (artifact exists, use --force to rebuild)
+[produce] [cost] cost-mode=lean (default for runtime≤90s)
+[produce] [stage-2 voice] skipped (narration.mp3 exists)
+[produce] [stage-3 prompts] skipped (prompts.json exists)
+[produce] [stage-4 clips] MOCK MODE — FAL_KEY missing. Generating placeholder MP4s.
+[produce] [stage-4 clips] rework cap = 17 attempts (11 beats x 1.5)
+[produce] [stage-4 clips] beat 1 cached -> beat-01.mp4
+[produce] [stage-4 clips] beat 3 cached -> beat-03.mp4
+[produce] [stage-4 clips] beat 4 cached -> beat-04.mp4
+[produce] [stage-4 clips] beat 2 cached -> beat-02.mp4
+(node:14212) [DEP0190] DeprecationWarning: Passing args to a child process with shell option true can lead to security vulnerabilities, as the arguments are not escaped, only concatenated.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ffmpeg version 6.1.1-essentials_build-www.gyan.dev Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 12.2.0 (Rev10, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --pkg-config=pkgconf --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-zlib --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-sdl2 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxvid --enable-libaom --enable-libopenjpeg --enable-libvpx --enable-mediafoundation --enable-libass --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-ffnvcodec --enable-nvdec --enable-nvenc --enable-dxva2 --enable-d3d11va --enable-libvpl --enable-libgme --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libtheora --enable-libvo-amrwbenc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-librubberband
+  libavutil      58. 29.100 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+ffmpeg version 6.1.1-essentials_build-www.gyan.dev Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 12.2.0 (Rev10, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --pkg-config=pkgconf --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-zlib --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-sdl2 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxvid --enable-libaom --enable-libopenjpeg --enable-libvpx --enable-mediafoundation --enable-libass --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-ffnvcodec --enable-nvdec --enable-nvenc --enable-dxva2 --enable-d3d11va --enable-libvpl --enable-libgme --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libtheora --enable-libvo-amrwbenc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-librubberband
+  libavutil      58. 29.100 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+Input #0, lavfi, from 'color=c=#1f7a7a:s=720x1280:d=6':
+  Duration: N/A, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: wrapped_avframe, yuv420p, 720x1280 [SAR 1:1 DAR 9:16], 25 fps, 25 tbr, 25 tbn
+[AVFormatContext @ 000001c18efc6b80] Unable to choose an output format for 'beat'; use a standard extension for the filename or specify the format manually.
+[out#0 @ 000001c18efc6a80] Error initializing the muxer for beat: Invalid argument
+Error opening output file beat.
+Error opening output files: Invalid argument
+Input #0, lavfi, from 'color=c=#5a1f7a:s=720x1280:d=6':
+  Duration: N/A, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: wrapped_avframe, yuv420p, 720x1280 [SAR 1:1 DAR 9:16], 25 fps, 25 tbr, 25 tbn
+[AVFormatContext @ 000002617a4c6b80] Unable to choose an output format for 'beat'; use a standard extension for the filename or specify the format manually.
+[out#0 @ 000002617a4c6a80] Error initializing the muxer for beat: Invalid argument
+Error opening output file beat.
+Error opening output files: Invalid argument
+ffmpeg version 6.1.1-essentials_build-www.gyan.dev Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 12.2.0 (Rev10, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --pkg-config=pkgconf --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-zlib --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-sdl2 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxvid --enable-libaom --enable-libopenjpeg --enable-libvpx --enable-mediafoundation --enable-libass --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-ffnvcodec --enable-nvdec --enable-nvenc --enable-dxva2 --enable-d3d11va --enable-libvpl --enable-libgme --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libtheora --enable-libvo-amrwbenc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-librubberband
+  libavutil      58. 29.100 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+ffmpeg version 6.1.1-essentials_build-www.gyan.dev Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 12.2.0 (Rev10, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --pkg-config=pkgconf --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-zlib --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-sdl2 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxvid --enable-libaom --enable-libopenjpeg --enable-libvpx --enable-mediafoundation --enable-libass --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-ffnvcodec --enable-nvdec --enable-nvenc --enable-dxva2 --enable-d3d11va --enable-libvpl --enable-libgme --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libtheora --enable-libvo-amrwbenc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-librubberband
+  libavutil      58. 29.100 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+Input #0, lavfi, from 'color=c=#1f7a7a:s=720x1280:d=6':
+  Duration: N/A, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: wrapped_avframe, yuv420p, 720x1280 [SAR 1:1 DAR 9:16], 25 fps, 25 tbr, 25 tbn
+Stream mapping:
+  Stream #0:0 -> #0:0 (wrapped_avframe (native) -> h264 (libx264))
+Press [q] to stop, [?] for help
+Input #0, lavfi, from 'color=c=#5a1f7a:s=720x1280:d=6':
+  Duration: N/A, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: wrapped_avframe, yuv420p, 720x1280 [SAR 1:1 DAR 9:16], 25 fps, 25 tbr, 25 tbn
+Stream mapping:
+  Stream #0:0 -> #0:0 (wrapped_avframe (native) -> h264 (libx264))
+Press [q] to stop, [?] for help
+[libx264 @ 000001a0f2f9f240] using SAR=1/1
+[libx264 @ 000001a0f2f9f240] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
+[libx264 @ 000001a0f2f9f240] profile High, level 3.1, 4:2:0, 8-bit
+[libx264 @ 000001a0f2f9f240] 264 - core 164 r3172 c1c9931 - H.264/MPEG-4 AVC codec - Copyleft 2003-2023 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=12 lookahead_threads=2 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+Output #0, mp4, to 'C:\Users\Banjo\Opaija\public\episodes\EP002\clips\beat-06.mp4':
+  Metadata:
+    encoder         : Lavf60.16.100
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(progressive), 720x1280 [SAR 1:1 DAR 9:16], q=2-31, 25 fps, 12800 tbn
+    Metadata:
+      encoder         : Lavc60.31.102 libx264
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+frame=    0 fps=0.0 q=0.0 size=       0kB time=N/A bitrate=N/A speed=N/A    [libx264 @ 000001d8b3f0f240] using SAR=1/1
+[libx264 @ 000001d8b3f0f240] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
+[libx264 @ 000001d8b3f0f240] profile High, level 3.1, 4:2:0, 8-bit
+[libx264 @ 000001d8b3f0f240] 264 - core 164 r3172 c1c9931 - H.264/MPEG-4 AVC codec - Copyleft 2003-2023 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=12 lookahead_threads=2 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+Output #0, mp4, to 'C:\Users\Banjo\Opaija\public\episodes\EP002\clips\beat-05.mp4':
+  Metadata:
+    encoder         : Lavf60.16.100
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(progressive), 720x1280 [SAR 1:1 DAR 9:16], q=2-31, 25 fps, 12800 tbn
+    Metadata:
+      encoder         : Lavc60.31.102 libx264
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+frame=    0 fps=0.0 q=0.0 size=       0kB time=N/A bitrate=N/A speed=N/A    frame=    0 fps=0.0 q=0.0 size=       0kB time=N/A bitrate=N/A speed=N/A    frame=    0 fps=0.0 q=0.0 size=       0kB time=N/A bitrate=N/A speed=N/A    frame=   11 fps= 11 q=28.0 size=       0kB time=00:00:00.36 bitrate=   1.1kbits/s speed=0.353x    frame=    2 fps=2.0 q=28.0 size=       0kB time=00:00:00.00 bitrate=N/A speed=   0x    frame=   46 fps= 30 q=28.0 size=       0kB time=00:00:01.80 bitrate=   0.2kbits/s speed=1.16x    frame=   47 fps= 30 q=28.0 size=       0kB time=00:00:01.80 bitrate=   0.2kbits/s speed=1.15x    frame=   91 fps= 44 q=28.0 size=       0kB time=00:00:03.56 bitrate=   0.1kbits/s speed=1.71x    frame=   91 fps= 43 q=28.0 size=       0kB time=00:00:03.56 bitrate=   0.1kbits/s speed=1.68x    [out#0/mp4 @ 000001a0f30e7bc0] video:7kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 39.166057%
+frame=  150 fps= 59 q=-1.0 Lsize=       9kB time=00:00:05.88 bitrate=  12.9kbits/s speed=2.33x    
+[libx264 @ 000001a0f2f9f240] frame I:1     Avg QP: 9.00  size:   225
+[libx264 @ 000001a0f2f9f240] frame P:38    Avg QP: 9.24  size:    46
+[libx264 @ 000001a0f2f9f240] frame B:111   Avg QP:12.67  size:    38
+[libx264 @ 000001a0f2f9f240] consecutive B-frames:  1.3%  0.0%  0.0% 98.7%
+[libx264 @ 000001a0f2f9f240] mb I  I16..4: 100.0%  0.0%  0.0%
+[libx264 @ 000001a0f2f9f240] mb P  I16..4:  0.0%  0.0%  0.0%  P16..4:  0.0%  0.0%  0.0%  0.0%  0.0%    skip:100.0%
+[libx264 @ 000001a0f2f9f240] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  0.0%  0.0%  0.0%  direct: 0.0%  skip:100.0%
+[libx264 @ 000001a0f2f9f240] 8x8 transform intra:0.0%
+[libx264 @ 000001a0f2f9f240] coded y,uvDC,uvAC intra: 0.0% 0.0% 0.0% inter: 0.0% 0.0% 0.0%
+[libx264 @ 000001a0f2f9f240] i16 v,h,dc,p: 99%  0%  1%  0%
+[libx264 @ 000001a0f2f9f240] i8c dc,h,v,p: 100%  0%  0%  0%
+[libx264 @ 000001a0f2f9f240] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 000001a0f2f9f240] kb/s:8.19
+[out#0/mp4 @ 000001d8b40b7bc0] video:7kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 39.160328%
+frame=  150 fps= 56 q=-1.0 Lsize=       9kB time=00:00:05.88 bitrate=  12.9kbits/s speed=2.21x    
+[libx264 @ 000001d8b3f0f240] frame I:1     Avg QP: 9.00  size:   226
+[libx264 @ 000001d8b3f0f240] frame P:38    Avg QP: 9.24  size:    46
+[libx264 @ 000001d8b3f0f240] frame B:111   Avg QP:12.67  size:    38
+[libx264 @ 000001d8b3f0f240] consecutive B-frames:  1.3%  0.0%  0.0% 98.7%
+[libx264 @ 000001d8b3f0f240] mb I  I16..4: 100.0%  0.0%  0.0%
+[libx264 @ 000001d8b3f0f240] mb P  I16..4:  0.0%  0.0%  0.0%  P16..4:  0.0%  0.0%  0.0%  0.0%  0.0%    skip:100.0%
+[libx264 @ 000001d8b3f0f240] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  0.0%  0.0%  0.0%  direct: 0.0%  skip:100.0%
+[libx264 @ 000001d8b3f0f240] 8x8 transform intra:0.0%
+[libx264 @ 000001d8b3f0f240] coded y,uvDC,uvAC intra: 0.0% 0.0% 0.0% inter: 0.0% 0.0% 0.0%
+[libx264 @ 000001d8b3f0f240] i16 v,h,dc,p: 99%  0%  1%  0%
+[libx264 @ 000001d8b3f0f240] i8c dc,h,v,p: 100%  0%  0%  0%
+[libx264 @ 000001d8b3f0f240] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 000001d8b3f0f240] kb/s:8.19
+ffmpeg version 6.1.1-essentials_build-www.gyan.dev Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 12.2.0 (Rev10, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --pkg-config=pkgconf --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-zlib --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-sdl2 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxvid --enable-libaom --enable-libopenjpeg --enable-libvpx --enable-mediafoundation --enable-libass --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-ffnvcodec --enable-nvdec --enable-nvenc --enable-dxva2 --enable-d3d11va --enable-libvpl --enable-libgme --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libtheora --enable-libvo-amrwbenc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-librubberband
+  libavutil      58. 29.100 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+ffmpeg version 6.1.1-essentials_build-www.gyan.dev Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 12.2.0 (Rev10, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --pkg-config=pkgconf --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-zlib --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-sdl2 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxvid --enable-libaom --enable-libopenjpeg --enable-libvpx --enable-mediafoundation --enable-libass --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-ffnvcodec --enable-nvdec --enable-nvenc --enable-dxva2 --enable-d3d11va --enable-libvpl --enable-libgme --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libtheora --enable-libvo-amrwbenc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-librubberband
+  libavutil      58. 29.100 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+Input #0, lavfi, from 'color=c=#1f4a7a:s=720x1280:d=6':
+  Duration: N/A, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: wrapped_avframe, yuv420p, 720x1280 [SAR 1:1 DAR 9:16], 25 fps, 25 tbr, 25 tbn
+[AVFormatContext @ 000002101c6e6b80] Unable to choose an output format for 'beat'; use a standard extension for the filename or specify the format manually.
+[out#0 @ 000002101c6e6a80] Error initializing the muxer for beat: Invalid argument
+Error opening output file beat.
+Error opening output files: Invalid argument
+Input #0, lavfi, from 'color=c=#7a1f1f:s=720x1280:d=6':
+  Duration: N/A, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: wrapped_avframe, yuv420p, 720x1280 [SAR 1:1 DAR 9:16], 25 fps, 25 tbr, 25 tbn
+[AVFormatContext @ 000002622cc46b80] Unable to choose an output format for 'beat'; use a standard extension for the filename or specify the format manually.
+[out#0 @ 000002622cc46a80] Error initializing the muxer for beat: Invalid argument
+Error opening output file beat.
+Error opening output files: Invalid argument
+ffmpeg version 6.1.1-essentials_build-www.gyan.dev Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 12.2.0 (Rev10, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --pkg-config=pkgconf --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-zlib --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-sdl2 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxvid --enable-libaom --enable-libopenjpeg --enable-libvpx --enable-mediafoundation --enable-libass --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-ffnvcodec --enable-nvdec --enable-nvenc --enable-dxva2 --enable-d3d11va --enable-libvpl --enable-libgme --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libtheora --enable-libvo-amrwbenc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-librubberband
+  libavutil      58. 29.100 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+ffmpeg version 6.1.1-essentials_build-www.gyan.dev Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 12.2.0 (Rev10, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --pkg-config=pkgconf --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-zlib --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-sdl2 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxvid --enable-libaom --enable-libopenjpeg --enable-libvpx --enable-mediafoundation --enable-libass --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-ffnvcodec --enable-nvdec --enable-nvenc --enable-dxva2 --enable-d3d11va --enable-libvpl --enable-libgme --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libtheora --enable-libvo-amrwbenc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-librubberband
+  libavutil      58. 29.100 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+Input #0, lavfi, from 'color=c=#1f4a7a:s=720x1280:d=6':
+  Duration: N/A, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: wrapped_avframe, yuv420p, 720x1280 [SAR 1:1 DAR 9:16], 25 fps, 25 tbr, 25 tbn
+Stream mapping:
+  Stream #0:0 -> #0:0 (wrapped_avframe (native) -> h264 (libx264))
+Press [q] to stop, [?] for help
+Input #0, lavfi, from 'color=c=#7a1f1f:s=720x1280:d=6':
+  Duration: N/A, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: wrapped_avframe, yuv420p, 720x1280 [SAR 1:1 DAR 9:16], 25 fps, 25 tbr, 25 tbn
+Stream mapping:
+  Stream #0:0 -> #0:0 (wrapped_avframe (native) -> h264 (libx264))
+Press [q] to stop, [?] for help
+[libx264 @ 000001a54c57f240] using SAR=1/1
+[libx264 @ 000001a54c57f240] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
+[libx264 @ 000001a54c57f240] profile High, level 3.1, 4:2:0, 8-bit
+[libx264 @ 000001a54c57f240] 264 - core 164 r3172 c1c9931 - H.264/MPEG-4 AVC codec - Copyleft 2003-2023 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=12 lookahead_threads=2 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+Output #0, mp4, to 'C:\Users\Banjo\Opaija\public\episodes\EP002\clips\beat-08.mp4':
+  Metadata:
+    encoder         : Lavf60.16.100
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(progressive), 720x1280 [SAR 1:1 DAR 9:16], q=2-31, 25 fps, 12800 tbn
+    Metadata:
+      encoder         : Lavc60.31.102 libx264
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+frame=    0 fps=0.0 q=0.0 size=       0kB time=N/A bitrate=N/A speed=N/A    [libx264 @ 0000024242aaf240] using SAR=1/1
+[libx264 @ 0000024242aaf240] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
+[libx264 @ 0000024242aaf240] profile High, level 3.1, 4:2:0, 8-bit
+[libx264 @ 0000024242aaf240] 264 - core 164 r3172 c1c9931 - H.264/MPEG-4 AVC codec - Copyleft 2003-2023 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=12 lookahead_threads=2 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+Output #0, mp4, to 'C:\Users\Banjo\Opaija\public\episodes\EP002\clips\beat-07.mp4':
+  Metadata:
+    encoder         : Lavf60.16.100
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(progressive), 720x1280 [SAR 1:1 DAR 9:16], q=2-31, 25 fps, 12800 tbn
+    Metadata:
+      encoder         : Lavc60.31.102 libx264
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+frame=    0 fps=0.0 q=0.0 size=       0kB time=N/A bitrate=N/A speed=N/A    frame=    0 fps=0.0 q=0.0 size=       0kB time=N/A bitrate=N/A speed=N/A    frame=    0 fps=0.0 q=0.0 size=       0kB time=N/A bitrate=N/A speed=N/A    frame=    0 fps=0.0 q=28.0 size=       0kB time=-00:00:00.08 bitrate=  -0.0kbits/s speed=N/A    frame=   51 fps= 32 q=28.0 size=       0kB time=00:00:01.96 bitrate=   0.2kbits/s speed=1.25x    frame=    0 fps=0.0 q=0.0 size=       0kB time=N/A bitrate=N/A speed=N/A    frame=   94 fps= 45 q=28.0 size=       0kB time=00:00:03.64 bitrate=   0.1kbits/s speed=1.75x    frame=   35 fps= 17 q=28.0 size=       0kB time=00:00:01.32 bitrate=   0.3kbits/s speed=0.634x    [out#0/mp4 @ 000001a54c737bc0] video:7kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 39.166057%
+frame=  150 fps= 60 q=-1.0 Lsize=       9kB time=00:00:05.88 bitrate=  12.9kbits/s speed=2.35x    
+[libx264 @ 000001a54c57f240] frame I:1     Avg QP: 9.00  size:   225
+[libx264 @ 000001a54c57f240] frame P:38    Avg QP: 9.24  size:    46
+[libx264 @ 000001a54c57f240] frame B:111   Avg QP:12.67  size:    38
+[libx264 @ 000001a54c57f240] consecutive B-frames:  1.3%  0.0%  0.0% 98.7%
+[libx264 @ 000001a54c57f240] mb I  I16..4: 100.0%  0.0%  0.0%
+[libx264 @ 000001a54c57f240] mb P  I16..4:  0.0%  0.0%  0.0%  P16..4:  0.0%  0.0%  0.0%  0.0%  0.0%    skip:100.0%
+[libx264 @ 000001a54c57f240] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  0.0%  0.0%  0.0%  direct: 0.0%  skip:100.0%
+[libx264 @ 000001a54c57f240] 8x8 transform intra:0.0%
+[libx264 @ 000001a54c57f240] coded y,uvDC,uvAC intra: 0.0% 0.0% 0.0% inter: 0.0% 0.0% 0.0%
+[libx264 @ 000001a54c57f240] i16 v,h,dc,p: 99%  0%  1%  0%
+[libx264 @ 000001a54c57f240] i8c dc,h,v,p: 100%  0%  0%  0%
+[libx264 @ 000001a54c57f240] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 000001a54c57f240] kb/s:8.19
+frame=   75 fps= 29 q=28.0 size=       0kB time=00:00:02.92 bitrate=   0.1kbits/s speed=1.12x    ffmpeg version 6.1.1-essentials_build-www.gyan.dev Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 12.2.0 (Rev10, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --pkg-config=pkgconf --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-zlib --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-sdl2 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxvid --enable-libaom --enable-libopenjpeg --enable-libvpx --enable-mediafoundation --enable-libass --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-ffnvcodec --enable-nvdec --enable-nvenc --enable-dxva2 --enable-d3d11va --enable-libvpl --enable-libgme --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libtheora --enable-libvo-amrwbenc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-librubberband
+  libavutil      58. 29.100 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+Input #0, lavfi, from 'color=c=#1f7a4a:s=720x1280:d=6':
+  Duration: N/A, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: wrapped_avframe, yuv420p, 720x1280 [SAR 1:1 DAR 9:16], 25 fps, 25 tbr, 25 tbn
+[AVFormatContext @ 0000028bb8036b80] Unable to choose an output format for 'beat'; use a standard extension for the filename or specify the format manually.
+[out#0 @ 0000028bb8036a80] Error initializing the muxer for beat: Invalid argument
+Error opening output file beat.
+Error opening output files: Invalid argument
+[out#0/mp4 @ 0000024242ce7bc0] video:7kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 39.166057%
+frame=  150 fps= 44 q=-1.0 Lsize=       9kB time=00:00:05.88 bitrate=  12.9kbits/s speed=1.73x    
+[libx264 @ 0000024242aaf240] frame I:1     Avg QP: 9.00  size:   225
+[libx264 @ 0000024242aaf240] frame P:38    Avg QP: 9.24  size:    46
+[libx264 @ 0000024242aaf240] frame B:111   Avg QP:12.67  size:    38
+[libx264 @ 0000024242aaf240] consecutive B-frames:  1.3%  0.0%  0.0% 98.7%
+[libx264 @ 0000024242aaf240] mb I  I16..4: 100.0%  0.0%  0.0%
+[libx264 @ 0000024242aaf240] mb P  I16..4:  0.0%  0.0%  0.0%  P16..4:  0.0%  0.0%  0.0%  0.0%  0.0%    skip:100.0%
+[libx264 @ 0000024242aaf240] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  0.0%  0.0%  0.0%  direct: 0.0%  skip:100.0%
+[libx264 @ 0000024242aaf240] 8x8 transform intra:0.0%
+[libx264 @ 0000024242aaf240] coded y,uvDC,uvAC intra: 0.0% 0.0% 0.0% inter: 0.0% 0.0% 0.0%
+[libx264 @ 0000024242aaf240] i16 v,h,dc,p: 99%  0%  1%  0%
+[libx264 @ 0000024242aaf240] i8c dc,h,v,p: 100%  0%  0%  0%
+[libx264 @ 0000024242aaf240] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 0000024242aaf240] kb/s:8.19
+ffmpeg version 6.1.1-essentials_build-www.gyan.dev Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 12.2.0 (Rev10, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --pkg-config=pkgconf --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-zlib --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-sdl2 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxvid --enable-libaom --enable-libopenjpeg --enable-libvpx --enable-mediafoundation --enable-libass --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-ffnvcodec --enable-nvdec --enable-nvenc --enable-dxva2 --enable-d3d11va --enable-libvpl --enable-libgme --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libtheora --enable-libvo-amrwbenc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-librubberband
+  libavutil      58. 29.100 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+ffmpeg version 6.1.1-essentials_build-www.gyan.dev Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 12.2.0 (Rev10, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --pkg-config=pkgconf --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-zlib --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-sdl2 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxvid --enable-libaom --enable-libopenjpeg --enable-libvpx --enable-mediafoundation --enable-libass --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-ffnvcodec --enable-nvdec --enable-nvenc --enable-dxva2 --enable-d3d11va --enable-libvpl --enable-libgme --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libtheora --enable-libvo-amrwbenc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-librubberband
+  libavutil      58. 29.100 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+Input #0, lavfi, from 'color=c=#1f7a4a:s=720x1280:d=6':
+  Duration: N/A, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: wrapped_avframe, yuv420p, 720x1280 [SAR 1:1 DAR 9:16], 25 fps, 25 tbr, 25 tbn
+Stream mapping:
+  Stream #0:0 -> #0:0 (wrapped_avframe (native) -> h264 (libx264))
+Press [q] to stop, [?] for help
+Input #0, lavfi, from 'color=c=#7a6a1f:s=720x1280:d=6':
+  Duration: N/A, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: wrapped_avframe, yuv420p, 720x1280 [SAR 1:1 DAR 9:16], 25 fps, 25 tbr, 25 tbn
+[AVFormatContext @ 000002403b1a6b80] Unable to choose an output format for 'beat'; use a standard extension for the filename or specify the format manually.
+[out#0 @ 000002403b1a6a80] Error initializing the muxer for beat: Invalid argument
+Error opening output file beat.
+Error opening output files: Invalid argument
+[libx264 @ 000002145770f240] using SAR=1/1
+[libx264 @ 000002145770f240] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
+[libx264 @ 000002145770f240] profile High, level 3.1, 4:2:0, 8-bit
+[libx264 @ 000002145770f240] 264 - core 164 r3172 c1c9931 - H.264/MPEG-4 AVC codec - Copyleft 2003-2023 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=12 lookahead_threads=2 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+Output #0, mp4, to 'C:\Users\Banjo\Opaija\public\episodes\EP002\clips\beat-09.mp4':
+  Metadata:
+    encoder         : Lavf60.16.100
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(progressive), 720x1280 [SAR 1:1 DAR 9:16], q=2-31, 25 fps, 12800 tbn
+    Metadata:
+      encoder         : Lavc60.31.102 libx264
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+frame=    0 fps=0.0 q=0.0 size=       0kB time=N/A bitrate=N/A speed=N/A    ffmpeg version 6.1.1-essentials_build-www.gyan.dev Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 12.2.0 (Rev10, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --pkg-config=pkgconf --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-zlib --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-sdl2 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxvid --enable-libaom --enable-libopenjpeg --enable-libvpx --enable-mediafoundation --enable-libass --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-ffnvcodec --enable-nvdec --enable-nvenc --enable-dxva2 --enable-d3d11va --enable-libvpl --enable-libgme --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libtheora --enable-libvo-amrwbenc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-librubberband
+  libavutil      58. 29.100 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+frame=    0 fps=0.0 q=0.0 size=       0kB time=N/A bitrate=N/A speed=N/A    Input #0, lavfi, from 'color=c=#7a6a1f:s=720x1280:d=6':
+  Duration: N/A, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: wrapped_avframe, yuv420p, 720x1280 [SAR 1:1 DAR 9:16], 25 fps, 25 tbr, 25 tbn
+Stream mapping:
+  Stream #0:0 -> #0:0 (wrapped_avframe (native) -> h264 (libx264))
+Press [q] to stop, [?] for help
+[libx264 @ 000001bc9fccf240] using SAR=1/1
+[libx264 @ 000001bc9fccf240] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
+[libx264 @ 000001bc9fccf240] profile High, level 3.1, 4:2:0, 8-bit
+[libx264 @ 000001bc9fccf240] 264 - core 164 r3172 c1c9931 - H.264/MPEG-4 AVC codec - Copyleft 2003-2023 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=12 lookahead_threads=2 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+Output #0, mp4, to 'C:\Users\Banjo\Opaija\public\episodes\EP002\clips\beat-10.mp4':
+  Metadata:
+    encoder         : Lavf60.16.100
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(progressive), 720x1280 [SAR 1:1 DAR 9:16], q=2-31, 25 fps, 12800 tbn
+    Metadata:
+      encoder         : Lavc60.31.102 libx264
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+frame=    0 fps=0.0 q=0.0 size=       0kB time=N/A bitrate=N/A speed=N/A    frame=    7 fps=6.8 q=28.0 size=       0kB time=00:00:00.20 bitrate=   1.9kbits/s speed=0.195x    frame=    0 fps=0.0 q=0.0 size=       0kB time=N/A bitrate=N/A speed=N/A    frame=   56 fps= 37 q=28.0 size=       0kB time=00:00:02.16 bitrate=   0.2kbits/s speed=1.41x    frame=    0 fps=0.0 q=0.0 size=       0kB time=N/A bitrate=N/A speed=N/A    frame=   47 fps= 30 q=28.0 size=       0kB time=00:00:01.80 bitrate=   0.2kbits/s speed=1.15x    [out#0/mp4 @ 0000021457847bc0] video:7kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 39.160328%
+frame=  150 fps= 64 q=-1.0 Lsize=       9kB time=00:00:05.88 bitrate=  12.9kbits/s speed=2.49x    
+[libx264 @ 000002145770f240] frame I:1     Avg QP: 9.00  size:   226
+[libx264 @ 000002145770f240] frame P:38    Avg QP: 9.24  size:    46
+[libx264 @ 000002145770f240] frame B:111   Avg QP:12.67  size:    38
+[libx264 @ 000002145770f240] consecutive B-frames:  1.3%  0.0%  0.0% 98.7%
+[libx264 @ 000002145770f240] mb I  I16..4: 100.0%  0.0%  0.0%
+[libx264 @ 000002145770f240] mb P  I16..4:  0.0%  0.0%  0.0%  P16..4:  0.0%  0.0%  0.0%  0.0%  0.0%    skip:100.0%
+[libx264 @ 000002145770f240] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  0.0%  0.0%  0.0%  direct: 0.0%  skip:100.0%
+[libx264 @ 000002145770f240] 8x8 transform intra:0.0%
+[libx264 @ 000002145770f240] coded y,uvDC,uvAC intra: 0.0% 0.0% 0.0% inter: 0.0% 0.0% 0.0%
+[libx264 @ 000002145770f240] i16 v,h,dc,p: 99%  0%  1%  0%
+[libx264 @ 000002145770f240] i8c dc,h,v,p: 100%  0%  0%  0%
+[libx264 @ 000002145770f240] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 000002145770f240] kb/s:8.19
+ffmpeg version 6.1.1-essentials_build-www.gyan.dev Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 12.2.0 (Rev10, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --pkg-config=pkgconf --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-zlib --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-sdl2 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxvid --enable-libaom --enable-libopenjpeg --enable-libvpx --enable-mediafoundation --enable-libass --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-ffnvcodec --enable-nvdec --enable-nvenc --enable-dxva2 --enable-d3d11va --enable-libvpl --enable-libgme --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libtheora --enable-libvo-amrwbenc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-librubberband
+  libavutil      58. 29.100 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+Input #0, lavfi, from 'color=c=#5a1f7a:s=720x1280:d=6':
+  Duration: N/A, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: wrapped_avframe, yuv420p, 720x1280 [SAR 1:1 DAR 9:16], 25 fps, 25 tbr, 25 tbn
+[AVFormatContext @ 0000022a4d146b80] Unable to choose an output format for 'beat'; use a standard extension for the filename or specify the format manually.
+[out#0 @ 0000022a4d146a80] Error initializing the muxer for beat: Invalid argument
+Error opening output file beat.
+Error opening output files: Invalid argument
+ffmpeg version 6.1.1-essentials_build-www.gyan.dev Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 12.2.0 (Rev10, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --pkg-config=pkgconf --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-zlib --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-sdl2 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxvid --enable-libaom --enable-libopenjpeg --enable-libvpx --enable-mediafoundation --enable-libass --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-ffnvcodec --enable-nvdec --enable-nvenc --enable-dxva2 --enable-d3d11va --enable-libvpl --enable-libgme --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libtheora --enable-libvo-amrwbenc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-librubberband
+  libavutil      58. 29.100 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+Input #0, lavfi, from 'color=c=#5a1f7a:s=720x1280:d=6':
+  Duration: N/A, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: wrapped_avframe, yuv420p, 720x1280 [SAR 1:1 DAR 9:16], 25 fps, 25 tbr, 25 tbn
+Stream mapping:
+  Stream #0:0 -> #0:0 (wrapped_avframe (native) -> h264 (libx264))
+Press [q] to stop, [?] for help
+[out#0/mp4 @ 000001bc9fe17bc0] video:7kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 39.160328%
+frame=  150 fps= 61 q=-1.0 Lsize=       9kB time=00:00:05.88 bitrate=  12.9kbits/s speed=2.38x    
+[libx264 @ 000001bc9fccf240] frame I:1     Avg QP: 9.00  size:   226
+[libx264 @ 000001bc9fccf240] frame P:38    Avg QP: 9.24  size:    46
+[libx264 @ 000001bc9fccf240] frame B:111   Avg QP:12.67  size:    38
+[libx264 @ 000001bc9fccf240] consecutive B-frames:  1.3%  0.0%  0.0% 98.7%
+[libx264 @ 000001bc9fccf240] mb I  I16..4: 100.0%  0.0%  0.0%
+[libx264 @ 000001bc9fccf240] mb P  I16..4:  0.0%  0.0%  0.0%  P16..4:  0.0%  0.0%  0.0%  0.0%  0.0%    skip:100.0%
+[libx264 @ 000001bc9fccf240] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  0.0%  0.0%  0.0%  direct: 0.0%  skip:100.0%
+[libx264 @ 000001bc9fccf240] 8x8 transform intra:0.0%
+[libx264 @ 000001bc9fccf240] coded y,uvDC,uvAC intra: 0.0% 0.0% 0.0% inter: 0.0% 0.0% 0.0%
+[libx264 @ 000001bc9fccf240] i16 v,h,dc,p: 99%  0%  1%  0%
+[libx264 @ 000001bc9fccf240] i8c dc,h,v,p: 100%  0%  0%  0%
+[libx264 @ 000001bc9fccf240] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 000001bc9fccf240] kb/s:8.19
+[libx264 @ 0000016df340f240] using SAR=1/1
+[libx264 @ 0000016df340f240] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
+[libx264 @ 0000016df340f240] profile High, level 3.1, 4:2:0, 8-bit
+[libx264 @ 0000016df340f240] 264 - core 164 r3172 c1c9931 - H.264/MPEG-4 AVC codec - Copyleft 2003-2023 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=12 lookahead_threads=2 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+Output #0, mp4, to 'C:\Users\Banjo\Opaija\public\episodes\EP002\clips\beat-11.mp4':
+  Metadata:
+    encoder         : Lavf60.16.100
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(progressive), 720x1280 [SAR 1:1 DAR 9:16], q=2-31, 25 fps, 12800 tbn
+    Metadata:
+      encoder         : Lavc60.31.102 libx264
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+frame=    0 fps=0.0 q=0.0 size=       0kB time=N/A bitrate=N/A speed=N/A    frame=    0 fps=0.0 q=0.0 size=       0kB time=N/A bitrate=N/A speed=N/A    frame=   56 fps= 56 q=28.0 size=       0kB time=00:00:02.16 bitrate=   0.2kbits/s speed=2.15x    [out#0/mp4 @ 0000016df35a7bc0] video:7kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 39.160328%
+frame=  150 fps= 92 q=-1.0 Lsize=       9kB time=00:00:05.88 bitrate=  12.9kbits/s speed=3.61x    
+[libx264 @ 0000016df340f240] frame I:1     Avg QP: 9.00  size:   226
+[libx264 @ 0000016df340f240] frame P:38    Avg QP: 9.24  size:    46
+[libx264 @ 0000016df340f240] frame B:111   Avg QP:12.67  size:    38
+[libx264 @ 0000016df340f240] consecutive B-frames:  1.3%  0.0%  0.0% 98.7%
+[libx264 @ 0000016df340f240] mb I  I16..4: 100.0%  0.0%  0.0%
+[libx264 @ 0000016df340f240] mb P  I16..4:  0.0%  0.0%  0.0%  P16..4:  0.0%  0.0%  0.0%  0.0%  0.0%    skip:100.0%
+[libx264 @ 0000016df340f240] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  0.0%  0.0%  0.0%  direct: 0.0%  skip:100.0%
+[libx264 @ 0000016df340f240] 8x8 transform intra:0.0%
+[libx264 @ 0000016df340f240] coded y,uvDC,uvAC intra: 0.0% 0.0% 0.0% inter: 0.0% 0.0% 0.0%
+[libx264 @ 0000016df340f240] i16 v,h,dc,p: 99%  0%  1%  0%
+[libx264 @ 0000016df340f240] i8c dc,h,v,p: 100%  0%  0%  0%
+[libx264 @ 0000016df340f240] Weighted P-Frames: Y:0.0% UV:0.0%
+[libx264 @ 0000016df340f240] kb/s:8.19
+[produce] [stage-4 clips] used 0/17 rework budget across 11 beats.
+[produce] [stage-5 manifest] writing manifest.json
+[produce] [stage-6 render] remotion render EpisodeVertical -> C:\Users\Banjo\Opaija\out\EP002.mp4
+[31mYou passed --props but it was neither valid JSON nor a file path to a valid JSON file. Provided value: {manifestPath:public/episodes/EP002/manifest.json}[39m
+Got the following value: {manifestPath:public/episodes/EP002/manifest.json}
+[31mCheck that your input is parseable using `JSON.parse` and try again.[39m
+[33mNote: Windows handles escaping of quotes very weirdly in the command line.[39m
+[33mThis might have led to you having this problem.[39m
+[33mConsider using the alternative API for --props which is to pass[39m
+[33ma path to a JSON file:[39m
+[33m  --props=path/to/props.json[39m
+[produce] [stage-6 render] MOCK MODE — remotion composition 'EpisodeVertical' unavailable (npx exited with code 1).
+[produce] [stage-6 render] Falling back to concat-only ffmpeg muxdown of clips + narration.
+ffmpeg version 6.1.1-essentials_build-www.gyan.dev Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 12.2.0 (Rev10, Built by MSYS2 project)
+  configuration: --enable-gpl --enable-version3 --enable-static --pkg-config=pkgconf --disable-w32threads --disable-autodetect --enable-fontconfig --enable-iconv --enable-gnutls --enable-libxml2 --enable-gmp --enable-bzlib --enable-lzma --enable-zlib --enable-libsrt --enable-libssh --enable-libzmq --enable-avisynth --enable-sdl2 --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxvid --enable-libaom --enable-libopenjpeg --enable-libvpx --enable-mediafoundation --enable-libass --enable-libfreetype --enable-libfribidi --enable-libharfbuzz --enable-libvidstab --enable-libvmaf --enable-libzimg --enable-amf --enable-cuda-llvm --enable-cuvid --enable-ffnvcodec --enable-nvdec --enable-nvenc --enable-dxva2 --enable-d3d11va --enable-libvpl --enable-libgme --enable-libopenmpt --enable-libopencore-amrwb --enable-libmp3lame --enable-libtheora --enable-libvo-amrwbenc --enable-libgsm --enable-libopencore-amrnb --enable-libopus --enable-libspeex --enable-libvorbis --enable-librubberband
+  libavutil      58. 29.100 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+[mov,mp4,m4a,3gp,3g2,mj2 @ 000001d505bdab40] Auto-inserting h264_mp4toannexb bitstream filter
+Input #0, concat, from 'C:\Users\Banjo\Opaija\public\episodes\EP002\concat.txt':
+  Duration: N/A, start: 0.000000, bitrate: 12 kb/s
+  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(progressive), 720x1280 [SAR 1:1 DAR 9:16], 12 kb/s, 25 fps, 25 tbr, 12800 tbn
+    Metadata:
+      handler_name    : VideoHandler
+      vendor_id       : [0][0][0][0]
+      encoder         : Lavc60.31.102 libx264
+Input #1, mp3, from 'C:\Users\Banjo\Opaija\public\episodes\EP002\narration.mp3':
+  Metadata:
+    encoder         : Lavf60.16.100
+  Duration: 00:01:15.05, start: 0.025057, bitrate: 31 kb/s
+  Stream #1:0: Audio: mp3, 44100 Hz, stereo, fltp, 32 kb/s
+    Metadata:
+      encoder         : Lavc60.31
+Stream mapping:
+  Stream #0:0 -> #0:0 (h264 (native) -> h264 (libx264))
+  Stream #1:0 -> #0:1 (mp3 (mp3float) -> aac (native))
+Press [q] to stop, [?] for help
+[libx264 @ 000001d505bf5800] using SAR=1/1
+[libx264 @ 000001d505bf5800] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
+[libx264 @ 000001d505bf5800] profile High, level 3.1, 4:2:0, 8-bit
+[libx264 @ 000001d505bf5800] 264 - core 164 r3172 c1c9931 - H.264/MPEG-4 AVC codec - Copyleft 2003-2023 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=12 lookahead_threads=2 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+Output #0, mp4, to 'C:\Users\Banjo\Opaija\out\EP002.mp4':
+  Metadata:
+    encoder         : Lavf60.16.100
+  Stream #0:0(und): Video: h264 (avc1 / 0x31637661), yuv420p(progressive), 720x1280 [SAR 1:1 DAR 9:16], q=2-31, 25 fps, 12800 tbn
+    Metadata:
+      handler_name    : VideoHandler
+      vendor_id       : [0][0][0][0]
+      encoder         : Lavc60.31.102 libx264
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+  Stream #0:1: Audio: aac (LC) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp, 128 kb/s
+    Metadata:
+      encoder         : Lavc60.31.102 aac
+frame=    0 fps=0.0 q=0.0 size=       0kB time=N/A bitrate=N/A speed=N/A    [mov,mp4,m4a,3gp,3g2,mj2 @ 000001d5075906c0] Auto-inserting h264_mp4toannexb bitstream filter
+[mov,mp4,m4a,3gp,3g2,mj2 @ 000001d5075906c0] Format mov,mp4,m4a,3gp,3g2,mj2 detected only with low score of 1, misdetection possible!
+[mov,mp4,m4a,3gp,3g2,mj2 @ 000001d5075906c0] moov atom not found
+[concat @ 000001d505bd0f80] Impossible to open 'C:/Users/Banjo/Opaija/public/episodes/EP002/clips/beat-03.mp4'
+[in#0/concat @ 000001d505bd0dc0] Error during demuxing: Invalid data found when processing input
+[in#0/concat @ 000001d505bd0dc0] Error retrieving a packet from demuxer: Invalid data found when processing input
+[out#0/mp4 @ 000001d507480880] video:2kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 96.914701%
+frame=   37 fps=0.0 q=-1.0 Lsize=       5kB time=00:00:01.43 bitrate=  30.1kbits/s speed=2.37x    
+[libx264 @ 000001d505bf5800] frame I:1     Avg QP: 9.00  size:   225
+[libx264 @ 000001d505bf5800] frame P:9     Avg QP: 9.78  size:    47
+[libx264 @ 000001d505bf5800] frame B:27    Avg QP:12.67  size:    38
+[libx264 @ 000001d505bf5800] consecutive B-frames:  2.7%  0.0%  0.0% 97.3%
+[libx264 @ 000001d505bf5800] mb I  I16..4: 100.0%  0.0%  0.0%
+[libx264 @ 000001d505bf5800] mb P  I16..4:  0.0%  0.0%  0.0%  P16..4:  0.0%  0.0%  0.0%  0.0%  0.0%    skip:100.0%
+[libx264 @ 000001d505bf5800] mb B  I16..4:  0.0%  0.0%  0.0%  B16..8:  0.0%  0.0%  0.0%  direct: 0.0%  skip:100.0%  L0:100.0% L1: 0.0% BI: 0.0%
+[libx264 @ 000001d505bf5800] 8x8 transform intra:0.0%
+[libx264 @ 000001d505bf5800] coded y,uvDC,uvAC intra: 0.0% 0.0% 0.0% inter: 0.0% 0.0% 0.0%
+[libx264 @ 000001d505bf5800] i16 v,h,dc,p: 99%  0%  1%  0%
+[libx264 @ 000001d505bf5800] i8c dc,h,v,p: 100%  0%  0%  0%
+[libx264 @ 000001d505bf5800] Weighted P-Frames: Y:11.1% UV:11.1%
+[libx264 @ 000001d505bf5800] kb/s:8.99
+[aac @ 000001d505c23000] Qavg: 65536.000
+
+=== OPAIJA PRODUCE REPORT ===========================================
+Episode      : EP002 — The Gayelle Remembers
+Beats        : 11 (real=4, mock=7)
+Runtime      : 75s
+Cost mode    : lean
+Narration    : 920 chars
+Output       : C:\Users\Banjo\Opaija\out\EP002.mp4 (0.01 MB)
+Estimated $  : voice $0.276 + clips $1.60 + claude $0.05 = $1.93
+=====================================================================
+
+[produce] [cost] cleaned 11 intermediate clip(s) — freed 0.07 MB. Set KEEP_INTERMEDIATES=1 to disable.
+[produce] [cost] this episode: $0.00 (0 stages, 0 calls)

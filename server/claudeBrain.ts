@@ -42,19 +42,19 @@ const STYLE_LOCK = [
 ].join(" ");
 
 const CANON_RULES = [
-  "Use 'enslaved Africans' — NEVER 'slaves' — in all historical references.",
+  "Use enslaved Africans (NEVER slaves) in all historical references.",
   "Kai MUST have a doubles moment in every episode (non-negotiable).",
   "Core power rule: a stick has memory, a fighter has spirit, a drum has rhythm, a lavway has command, the gayelle binds them.",
-  "Jabari's drums are African-style wooden Kalinda drums with L-shaped curved sticks — NOT a modern kit.",
+  "Jabari's drums are African-style wooden Kalinda drums with L-shaped curved sticks - NOT a modern kit.",
   "Marius Vale is back-only in EP007. Full face reveal is EP010 only.",
   "Selah Vale first appears in EP008.",
   "Characters cannot use powers they have not yet unlocked.",
-  "Patois count: max 2-3 lines per episode — authentic but accessible.",
+  "Patois count: max 2-3 lines per episode - authentic but accessible.",
   "The Web-Teller narrator voice: wise, rhythmic, storytelling tone. Never rushed.",
   "Episode structure: hook / conflict / reveal / escalation / cliffhanger.",
 ].join("\n");
 
-const SYSTEM_PROMPT = `You are a senior writer and production agent for OPAIJA Studios — a Caribbean Afrocentric martial anime production company based in Trinidad and Tobago.
+const SYSTEM_PROMPT = `You are a senior writer and production agent for OPAIJA Studios - a Caribbean Afrocentric martial anime production company based in Trinidad and Tobago.
 
 STYLE LOCK: ${STYLE_LOCK}
 
@@ -69,6 +69,33 @@ export function getClaudeBrainProvider(): ClaudeBrainProvider {
   return "openai";
 }
 
+const DEFAULT_SCRIPT_MODEL = "claude-sonnet-4-6";
+const DEFAULT_CANON_MODEL = "claude-3-5-haiku-latest";
+
+const MODEL_BY_TASK: Partial<Record<BrainTaskInput["task"], string>> = {
+  "episode-script": DEFAULT_SCRIPT_MODEL,
+  "canon-check": DEFAULT_CANON_MODEL,
+};
+
+const MAX_TOKENS_BY_TASK: Partial<Record<BrainTaskInput["task"], number>> = {
+  "episode-script": 4000,
+  "canon-check": 2000,
+};
+
+function resolveModelForTask(task: BrainTaskInput["task"]): string {
+  if (task === "canon-check") {
+    return process.env.CLAUDE_CANON_MODEL ?? MODEL_BY_TASK[task] ?? DEFAULT_CANON_MODEL;
+  }
+  if (task === "episode-script") {
+    return process.env.CLAUDE_MODEL ?? MODEL_BY_TASK[task] ?? DEFAULT_SCRIPT_MODEL;
+  }
+  return process.env.CLAUDE_MODEL ?? MODEL_BY_TASK[task] ?? DEFAULT_SCRIPT_MODEL;
+}
+
+function resolveMaxTokensForTask(task: BrainTaskInput["task"]): number {
+  return MAX_TOKENS_BY_TASK[task] ?? 8000;
+}
+
 export async function runClaudeBrainTask(input: BrainTaskInput) {
   const provider = getClaudeBrainProvider();
   const prompt = buildPrompt(input);
@@ -76,15 +103,16 @@ export async function runClaudeBrainTask(input: BrainTaskInput) {
   if (provider === "anthropic") {
     const key = process.env.ANTHROPIC_API_KEY;
     if (!key) {
-      return { provider, status: "dry_run", model: "claude-sonnet-4-6", prompt };
+      return { provider, status: "dry_run", model: resolveModelForTask(input.task), prompt };
     }
 
     const client = new Anthropic({ apiKey: key });
-    const model = process.env.CLAUDE_MODEL ?? "claude-sonnet-4-6";
+    const model = resolveModelForTask(input.task);
+    const maxTokens = resolveMaxTokensForTask(input.task);
 
     const message = await client.messages.create({
       model,
-      max_tokens: 4096,
+      max_tokens: maxTokens,
       system: SYSTEM_PROMPT,
       messages: [{ role: "user", content: prompt }],
     });
@@ -158,7 +186,14 @@ function buildPrompt(input: BrainTaskInput): string {
     parts.push(`TASK: Review the following content for OPAIJA style and canon compliance.`);
     parts.push(`CONTENT TO REVIEW:\n${input.brief}`);
     parts.push(
-      `Check against: style lock rules, canon rules, power system limits, cultural authenticity, language rules. Return: PASS/FAIL for each check, specific issues, and correction suggestions.`,
+      `Check against: style lock rules, canon rules, power system limits, cultural authenticity, language rules. Return PASS/FAIL for each check, specific issues, and correction suggestions.`,
+    );
+  } else if (input.task === "canon-check") {
+    parts.push(`TASK: Validate the following content against the OPAIJA canon (data/shared-memory/OPAIJA_CANON.json).`);
+    parts.push(`CANON RULES (NON-NEGOTIABLE):\n${CANON_RULES}`);
+    parts.push(`CONTENT TO REVIEW:\n${input.brief}`);
+    parts.push(
+      `For each canon rule, check the content line-by-line for violations. Return ONLY valid JSON in this exact shape: {"passed": boolean, "violations": [{"rule": string, "line": string, "fix": string}]}. "passed" is true only when violations is empty. "rule" must quote the violated canon rule. "line" must quote the offending line/phrase from the content. "fix" must give a concrete, on-canon rewrite suggestion.`,
     );
   } else {
     parts.push(`TASK: ${input.task}`);

@@ -2,9 +2,8 @@
   "_meta": {
     "description": "OPAIJA content production queue. Director Agent reads this every morning at 6am. Publisher Agent reads this before scheduling. Do NOT post any episode until: script approved, assets generated, audio complete, QA passed.",
     "prelaunch_rule": "DO NOT launch Episode 001 until: 12 episodes complete, 30 days of teaser content scheduled, character sheets locked, trailer complete.",
-    "updated": "2026-05-12"
+    "updated": "2026-05-13"
   },
-
   "production_status": {
     "phase": "PRE_PRODUCTION",
     "episodes_completed": 0,
@@ -14,7 +13,6 @@
     "trailer_complete": false,
     "cleared_for_launch": false
   },
-
   "episodes": [
     {
       "id": "EP001",
@@ -28,13 +26,26 @@
       "escalation": "Every carving on the bois opens. Every rhythm turns toward Kai.",
       "cliffhanger": "And every piece of wood in the road answers.",
       "narrator_script": "Some sounds doh travel through air. Some travel through blood.\n\nIn Trinidad, Carnival light wakes old roads, old houses, and old warnings.\n\nKai Baptiste had one plan tonight: grab doubles and gone.\n\nFull belly. Steady spirit. That was his rule. But tonight, the rule failed.\n\nA beat followed him through the crowd. No pan. No drum. No speaker. Just wood... calling his name.\n\nBehind a vendor stall, an old bois waited like it had been listening for years.\n\nWhen Kai touched it, the street forgot how to breathe. Every carving opened. Every rhythm turned toward him.\n\nThe elders called it a debt. The children called it a ghost. The stick called him by name.\n\nAnd every piece of wood in the road answered.",
-      "characters": ["kai_baptiste", "mother_lall"],
+      "characters": [
+        "kai_baptiste",
+        "mother_lall"
+      ],
       "location": "Port of Spain — Carnival streets",
       "island": "Trinidad",
       "villain_presence": false,
-      "assets_needed": ["carnival_street_bg", "vendor_stall_bg", "kai_action_pose", "bois_glow_effect", "rhythm_glyph_burst"],
+      "assets_needed": [
+        "carnival_street_bg",
+        "vendor_stall_bg",
+        "kai_action_pose",
+        "bois_glow_effect",
+        "rhythm_glyph_burst"
+      ],
       "scheduled_publish": null,
-      "platforms": ["YouTube Shorts", "TikTok", "Instagram Reels"],
+      "platforms": [
+        "YouTube Shorts",
+        "TikTok",
+        "Instagram Reels"
+      ],
       "caption_patois": "The stick knew before he did. 🌿🥁 #OPAIJA #CaribbeanAnime #TrinidadAndTobago"
     },
     {
@@ -48,7 +59,11 @@
       "reveal": "Papa Etienne is watching from a distance. He recognizes the Listening Bois.",
       "escalation": "He says only seven words: 'That stick chose last time two hundred years ago.'",
       "cliffhanger": "He turns and walks away. The bois pulses once.",
-      "characters": ["kai_baptiste", "nia_toussaint", "papa_etienne_roach"],
+      "characters": [
+        "kai_baptiste",
+        "nia_toussaint",
+        "papa_etienne_roach"
+      ],
       "location": "Old gayelle ground — East Trinidad",
       "island": "Trinidad",
       "villain_presence": false,
@@ -58,7 +73,7 @@
     {
       "id": "EP003",
       "title": "Rootbreaker",
-      "status": "PLANNED",
+      "status": "SCRIPTED",
       "priority": 3,
       "doubles_moment": "Malik sees Kai eating doubles across the gayelle. Lip curls. 'He eating before training? Dotish.'",
       "hook": "Not every rhythm wants company.",
@@ -66,7 +81,11 @@
       "reveal": "Malik is clearly the superior fighter technically. Kai barely holds on.",
       "escalation": "The Listening Bois responds to Kai's panic — a pulse that shakes the gayelle ground.",
       "cliffhanger": "Malik steps back. For the first time, something in his eyes is not contempt — it is calculation.",
-      "characters": ["kai_baptiste", "malik_st_hill", "jabari_henry"],
+      "characters": [
+        "kai_baptiste",
+        "malik_st_hill",
+        "jabari_henry"
+      ],
       "location": "Community gayelle — afternoon",
       "island": "Trinidad",
       "villain_presence": false,
@@ -84,7 +103,11 @@
       "reveal": "Jabari picks up the rhythm on his drums without being asked. The lavway suddenly completes.",
       "escalation": "The first true Drum Sync between Kai and Jabari. Small but real.",
       "cliffhanger": "Somewhere across the city, a Silence Pulse ripples. Something heard them.",
-      "characters": ["kai_baptiste", "nia_toussaint", "jabari_henry"],
+      "characters": [
+        "kai_baptiste",
+        "nia_toussaint",
+        "jabari_henry"
+      ],
       "location": "Nia's family yard — evening",
       "island": "Trinidad",
       "villain_presence": "FELT — Silence Pulse in background, no face",
@@ -102,7 +125,12 @@
       "reveal": "She shows them a photograph from 1885 — an elder holding what appears to be the same bois.",
       "escalation": "The bois in Kai's hand reacts to the photograph. A carving that wasn't there before appears.",
       "cliffhanger": "Asha looks at the carving, then at Kai. 'This means someone is coming. Someone old.'",
-      "characters": ["kai_baptiste", "nia_toussaint", "jabari_henry", "asha_singh_baptiste"],
+      "characters": [
+        "kai_baptiste",
+        "nia_toussaint",
+        "jabari_henry",
+        "asha_singh_baptiste"
+      ],
       "location": "Asha's research room / National Archives reference",
       "island": "Trinidad",
       "villain_presence": false,
@@ -120,7 +148,14 @@
       "reveal": "Tariq Davidson. He felt the Listening Bois awaken from across the sea.",
       "escalation": "He demonstrates Silent Beat — vanishes mid-conversation. Reappears behind Malik.",
       "cliffhanger": "He looks at Kai. 'The sea already moving. The silence moving faster. You ready?'",
-      "characters": ["kai_baptiste", "nia_toussaint", "jabari_henry", "asha_singh_baptiste", "malik_st_hill", "tariq_davidson"],
+      "characters": [
+        "kai_baptiste",
+        "nia_toussaint",
+        "jabari_henry",
+        "asha_singh_baptiste",
+        "malik_st_hill",
+        "tariq_davidson"
+      ],
       "location": "Port of Spain waterfront → doubles stall",
       "island": "Trinidad / Tobago bridge",
       "villain_presence": false,
@@ -138,7 +173,16 @@
       "reveal": "Asha recognizes the signs — Silence Pulse exposure. Someone used it here.",
       "escalation": "Tariq reads the tide on the wind. 'Came from the west. Deliberate.'",
       "cliffhanger": "FIRST SILHOUETTE OF MARIUS VALE. Back only. Standing on a hill above the city. A drum sits beside him. He does not turn.",
-      "characters": ["kai_baptiste", "nia_toussaint", "jabari_henry", "asha_singh_baptiste", "malik_st_hill", "tariq_davidson", "mother_lall", "marius_vale"],
+      "characters": [
+        "kai_baptiste",
+        "nia_toussaint",
+        "jabari_henry",
+        "asha_singh_baptiste",
+        "malik_st_hill",
+        "tariq_davidson",
+        "mother_lall",
+        "marius_vale"
+      ],
       "location": "Gayelle ground + hilltop silhouette",
       "island": "Trinidad",
       "villain_presence": "FIRST SILHOUETTE — back only",
@@ -156,7 +200,12 @@
       "reveal": "Midway through the fight, his opponent's moves have something wrong — a slight Silence Pulse taint.",
       "escalation": "Kai finds the rhythm anyway. Wins. But barely. The crowd goes silent at the end — they felt something.",
       "cliffhanger": "In the crowd, a girl watches with cold eyes. She turns and walks away. SELAH VALE. First appearance.",
-      "characters": ["kai_baptiste", "jabari_henry", "nia_toussaint", "selah_vale"],
+      "characters": [
+        "kai_baptiste",
+        "jabari_henry",
+        "nia_toussaint",
+        "selah_vale"
+      ],
       "location": "Official gayelle arena",
       "island": "Trinidad",
       "villain_presence": "SELAH — first appearance, watching",
@@ -174,7 +223,13 @@
       "reveal": "Selah approaches Nia alone. No threat. Just: 'Your lavway is wasted on them.'",
       "escalation": "Nia refuses. Selah smiles like she expected that.",
       "cliffhanger": "Selah's pendant glows — the same shape as Kai's. But inverted. Cold.",
-      "characters": ["kai_baptiste", "nia_toussaint", "asha_singh_baptiste", "mother_lall", "selah_vale"],
+      "characters": [
+        "kai_baptiste",
+        "nia_toussaint",
+        "asha_singh_baptiste",
+        "mother_lall",
+        "selah_vale"
+      ],
       "location": "Street / Archive / Waterfront",
       "island": "Trinidad",
       "villain_presence": "SELAH — dialogue, no Marius",
@@ -191,7 +246,15 @@
       "reveal": "MARIUS VALE. FULL FACE REVEAL. Elegant. Calm. Standing on stage.",
       "escalation": "'Caribbean people scattered their rhythm for too long. I will gather it. All of it. Under one drum.'",
       "cliffhanger": "He looks directly at Kai in the crowd. 'I know what you carry, boy. And I know what it costs.'",
-      "characters": ["kai_baptiste", "nia_toussaint", "jabari_henry", "asha_singh_baptiste", "malik_st_hill", "tariq_davidson", "marius_vale"],
+      "characters": [
+        "kai_baptiste",
+        "nia_toussaint",
+        "jabari_henry",
+        "asha_singh_baptiste",
+        "malik_st_hill",
+        "tariq_davidson",
+        "marius_vale"
+      ],
       "location": "Public event space — Trinidad",
       "island": "Trinidad",
       "villain_presence": "MARIUS VALE — FULL FACE REVEAL",
@@ -209,7 +272,11 @@
       "reveal": "Papa Etienne tells the origin story — the sacred bois hidden in fragments, the ships, the lavway that survived. The real history.",
       "escalation": "The Listening Bois glows as Etienne speaks, as if confirming each word.",
       "cliffhanger": "Etienne: 'Marius was a Guardian too. Once.'",
-      "characters": ["kai_baptiste", "papa_etienne_roach", "nia_toussaint"],
+      "characters": [
+        "kai_baptiste",
+        "papa_etienne_roach",
+        "nia_toussaint"
+      ],
       "location": "Papa Etienne's home — humble, old, filled with carved wood",
       "island": "Trinidad",
       "villain_presence": false,
@@ -227,7 +294,18 @@
       "reveal": "The team discovers Malik has been training alone to fight Marius. He did not ask for help.",
       "escalation": "Kai and Malik — rival and rival — stand together at the gayelle entrance. No words. Just two bois.",
       "cliffhanger": "SEASON 1 CLIFFHANGER: The gayelle arena transforms. Marius Vale is already inside. 'I said one drum. I meant it.' The Silence Pulse begins. And somewhere, every drum in Trinidad goes quiet.",
-      "characters": ["kai_baptiste", "nia_toussaint", "jabari_henry", "asha_singh_baptiste", "malik_st_hill", "tariq_davidson", "mother_lall", "papa_etienne_roach", "marius_vale", "selah_vale"],
+      "characters": [
+        "kai_baptiste",
+        "nia_toussaint",
+        "jabari_henry",
+        "asha_singh_baptiste",
+        "malik_st_hill",
+        "tariq_davidson",
+        "mother_lall",
+        "papa_etienne_roach",
+        "marius_vale",
+        "selah_vale"
+      ],
       "location": "Mother Lall's stall → gayelle arena",
       "island": "Trinidad",
       "villain_presence": "MARIUS VALE — full scene",
@@ -235,17 +313,69 @@
       "scheduled_publish": null
     }
   ],
-
   "prelaunch_teaser_content": [
-    { "id": "TEASER_01", "type": "logo_reveal", "caption": "Something is coming. #OPAIJA", "status": "PLANNED" },
-    { "id": "TEASER_02", "type": "world_lore", "topic": "What is a gayelle?", "status": "PLANNED" },
-    { "id": "TEASER_03", "type": "character_reveal", "character": "kai_baptiste", "includes_doubles": true, "status": "PLANNED" },
-    { "id": "TEASER_04", "type": "character_reveal", "character": "nia_toussaint", "status": "PLANNED" },
-    { "id": "TEASER_05", "type": "power_system_explainer", "topic": "The Five Parts", "status": "PLANNED" },
-    { "id": "TEASER_06", "type": "character_reveal", "character": "malik_st_hill", "status": "PLANNED" },
-    { "id": "TEASER_07", "type": "food_culture", "topic": "What is doubles?", "includes_kai_comedy": true, "status": "PLANNED" },
-    { "id": "TEASER_08", "type": "folklore_drop", "topic": "The real history of stick fighting", "status": "PLANNED" },
-    { "id": "TEASER_09", "type": "villain_tease", "character": "marius_vale", "reveal_level": "silhouette_only", "status": "PLANNED" },
-    { "id": "TEASER_10", "type": "behind_the_style", "topic": "Caribbean Glyph-Cel 2.5D explained", "status": "PLANNED" }
+    {
+      "id": "TEASER_01",
+      "type": "logo_reveal",
+      "caption": "Something is coming. #OPAIJA",
+      "status": "PLANNED"
+    },
+    {
+      "id": "TEASER_02",
+      "type": "world_lore",
+      "topic": "What is a gayelle?",
+      "status": "PLANNED"
+    },
+    {
+      "id": "TEASER_03",
+      "type": "character_reveal",
+      "character": "kai_baptiste",
+      "includes_doubles": true,
+      "status": "PLANNED"
+    },
+    {
+      "id": "TEASER_04",
+      "type": "character_reveal",
+      "character": "nia_toussaint",
+      "status": "PLANNED"
+    },
+    {
+      "id": "TEASER_05",
+      "type": "power_system_explainer",
+      "topic": "The Five Parts",
+      "status": "PLANNED"
+    },
+    {
+      "id": "TEASER_06",
+      "type": "character_reveal",
+      "character": "malik_st_hill",
+      "status": "PLANNED"
+    },
+    {
+      "id": "TEASER_07",
+      "type": "food_culture",
+      "topic": "What is doubles?",
+      "includes_kai_comedy": true,
+      "status": "PLANNED"
+    },
+    {
+      "id": "TEASER_08",
+      "type": "folklore_drop",
+      "topic": "The real history of stick fighting",
+      "status": "PLANNED"
+    },
+    {
+      "id": "TEASER_09",
+      "type": "villain_tease",
+      "character": "marius_vale",
+      "reveal_level": "silhouette_only",
+      "status": "PLANNED"
+    },
+    {
+      "id": "TEASER_10",
+      "type": "behind_the_style",
+      "topic": "Caribbean Glyph-Cel 2.5D explained",
+      "status": "PLANNED"
+    }
   ]
 }

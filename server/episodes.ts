@@ -84,8 +84,9 @@ export async function updateEpisodeStatus(episodeId: string, status: EpisodeStat
   episode.status = status;
   queue._meta["updated"] = new Date().toISOString().split("T")[0];
 
+  // Count once: episodes_completed equals the number of episodes currently in the PUBLISHED state.
   if (status === "PUBLISHED") {
-    queue.production_status.episodes_completed = queue.episodes.filter((ep) => ep.status === "PUBLISHED").length + 1;
+    queue.production_status.episodes_completed = queue.episodes.filter((ep) => ep.status === "PUBLISHED").length;
   }
 
   await writeFile(queuePath, JSON.stringify(queue, null, 2), "utf8");

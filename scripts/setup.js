@@ -71,19 +71,26 @@ async function main() {
   const ANTHROPIC_API_KEY = (await ask(`   ANTHROPIC_API_KEY${def("ANTHROPIC_API_KEY")}: `)).trim() || existing["ANTHROPIC_API_KEY"] || "";
   log("");
 
+  // OpenAI Whisper (optional — fallback for caption generation)
+  log(`${BOLD}3. OpenAI Whisper (Caption Fallback) ${DIM}— Optional${RESET}`);
+  tip("Only needed for caption generation if ElevenLabs alignment isn't available");
+  tip("Get your key at: platform.openai.com → API Keys");
+  const OPENAI_API_KEY = (await ask(`   OPENAI_API_KEY${def("OPENAI_API_KEY")} (Enter to skip): `)).trim() || existing["OPENAI_API_KEY"] || "";
+  log("");
+
   // ElevenLabs
-  log(`${BOLD}3. ElevenLabs (The Web-Teller Narrator Voice)${RESET}`);
+  log(`${BOLD}4. ElevenLabs (The Web-Teller Narrator Voice)${RESET}`);
   tip("Get your key at: elevenlabs.io → Profile → API Key");
   const ELEVENLABS_API_KEY = (await ask(`   ELEVENLABS_API_KEY${def("ELEVENLABS_API_KEY")}: `)).trim() || existing["ELEVENLABS_API_KEY"] || "";
-  let ELEVENLABS_VOICE_ID_WEB_TELLER = existing["ELEVENLABS_VOICE_ID_WEB_TELLER"] || "";
+  let ELEVENLABS_NARRATOR_VOICE_ID = existing["ELEVENLABS_NARRATOR_VOICE_ID"] || "";
   if (ELEVENLABS_API_KEY) {
     tip("In ElevenLabs, go to Voice Library → find your narrator voice → copy the Voice ID");
-    ELEVENLABS_VOICE_ID_WEB_TELLER = (await ask(`   ELEVENLABS_VOICE_ID_WEB_TELLER${def("ELEVENLABS_VOICE_ID_WEB_TELLER")}: `)).trim() || ELEVENLABS_VOICE_ID_WEB_TELLER;
+    ELEVENLABS_NARRATOR_VOICE_ID = (await ask(`   ELEVENLABS_NARRATOR_VOICE_ID${def("ELEVENLABS_NARRATOR_VOICE_ID")}: `)).trim() || ELEVENLABS_NARRATOR_VOICE_ID;
   }
   log("");
 
   // Resend (optional)
-  log(`${BOLD}4. Resend (Fan Email List) ${DIM}— Optional${RESET}`);
+  log(`${BOLD}5. Resend (Fan Email List) ${DIM}— Optional${RESET}`);
   tip("Get your key at: resend.com → API Keys");
   const RESEND_API_KEY = (await ask(`   RESEND_API_KEY${def("RESEND_API_KEY")} (Enter to skip): `)).trim() || existing["RESEND_API_KEY"] || "";
   let RESEND_FROM_EMAIL = existing["RESEND_FROM_EMAIL"] || "";
@@ -95,7 +102,7 @@ async function main() {
   log("");
 
   // Printful (optional)
-  log(`${BOLD}5. Printful (Merch / Print-on-Demand) ${DIM}— Optional${RESET}`);
+  log(`${BOLD}6. Printful (Merch / Print-on-Demand) ${DIM}— Optional${RESET}`);
   const PRINTFUL_API_KEY = (await ask(`   PRINTFUL_API_KEY${def("PRINTFUL_API_KEY")} (Enter to skip): `)).trim() || existing["PRINTFUL_API_KEY"] || "";
   log("");
 
@@ -112,9 +119,14 @@ async function main() {
     "# ── AI BRAIN (Claude) ─────────────────────────────────────────",
     `ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}`,
     "",
+    "# ── CAPTIONS (OpenAI Whisper fallback) ────────────────────────",
+    "# Optional — only needed if not using ElevenLabs alignment for captions",
+    `OPENAI_API_KEY=${OPENAI_API_KEY}`,
+    "WHISPER_MODEL=whisper-1",
+    "",
     "# ── VOICE / NARRATION ─────────────────────────────────────────",
     `ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY}`,
-    `ELEVENLABS_VOICE_ID_WEB_TELLER=${ELEVENLABS_VOICE_ID_WEB_TELLER}`,
+    `ELEVENLABS_NARRATOR_VOICE_ID=${ELEVENLABS_NARRATOR_VOICE_ID}`,
     "",
     "# ── EMAIL / GROWTH ────────────────────────────────────────────",
     `RESEND_API_KEY=${RESEND_API_KEY}`,
@@ -139,6 +151,7 @@ async function main() {
   const checks = [
     { label: "FAL_KEY (Seedance video)",        ok: Boolean(FAL_KEY) },
     { label: "ANTHROPIC_API_KEY (Claude AI)",   ok: Boolean(ANTHROPIC_API_KEY) },
+    { label: "OPENAI_API_KEY (Whisper captions)", ok: Boolean(OPENAI_API_KEY) },
     { label: "ELEVENLABS_API_KEY (narration)",  ok: Boolean(ELEVENLABS_API_KEY) },
     { label: "RESEND_API_KEY (email list)",     ok: Boolean(RESEND_API_KEY) },
     { label: "PRINTFUL_API_KEY (merch)",        ok: Boolean(PRINTFUL_API_KEY) },

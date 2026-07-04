@@ -1,0 +1,143 @@
+{
+  "episodeId": "EP002",
+  "aspectRatio": "9:16",
+  "runtimeSeconds": 75,
+  "narrationPath": "episodes/EP002/narration.mp3",
+  "alignmentPath": "episodes/EP002/alignment.json",
+  "beats": [
+    {
+      "idx": 1,
+      "prompt": "Location: Old gayelle ground — East Trinidad. Island: Trinidad. Beat 1 action: The gayelle is not a ring. It is a memory. Cinematic lighting. Vertical 9:16 framing. No on-screen text.",
+      "clipPath": "episodes/EP002/clips/beat-01.mp4",
+      "startSec": 0,
+      "durSec": 6,
+      "characters": [
+        "kai_baptiste",
+        "nia_toussaint",
+        "papa_etienne_roach"
+      ]
+    },
+    {
+      "idx": 2,
+      "prompt": "Location: Old gayelle ground — East Trinidad. Island: Trinidad. Beat 2 action: Morning came soft over East Trinidad. The old fighting ground was empty. The dust still remembered last night's feet. Cinematic lighting. Vertical 9:16 framing. No on-screen text.",
+      "clipPath": "episodes/EP002/clips/beat-02.mp4",
+      "startSec": 6,
+      "durSec": 6,
+      "characters": [
+        "kai_baptiste",
+        "nia_toussaint",
+        "papa_etienne_roach"
+      ]
+    },
+    {
+      "idx": 3,
+      "prompt": "Location: Old gayelle ground — East Trinidad. Island: Trinidad. Beat 3 action: Kai Baptiste came back to give the stick away. Cinematic lighting. Vertical 9:16 framing. No on-screen text.",
+      "clipPath": "episodes/EP002/clips/beat-03.mp4",
+      "startSec": 12,
+      "durSec": 6,
+      "characters": [
+        "kai_baptiste",
+        "nia_toussaint",
+        "papa_etienne_roach"
+      ]
+    },
+    {
+      "idx": 4,
+      "prompt": "Location: Old gayelle ground — East Trinidad. Island: Trinidad. Beat 4 action: He found a doubles stall before he found his courage. Two orders. Bara warm, channa heavy. His hands would not stop shaking. Cinematic lighting. Vertical 9:16 framing. No on-screen text.",
+      "clipPath": "episodes/EP002/clips/beat-04.mp4",
+      "startSec": 18,
+      "durSec": 6,
+      "characters": [
+        "kai_baptiste",
+        "nia_toussaint",
+        "papa_etienne_roach"
+      ]
+    },
+    {
+      "idx": 5,
+      "prompt": "Location: Old gayelle ground — East Trinidad. Island: Trinidad. Beat 5 action: Nia Toussaint sat down beside him without a word. She did not look at Kai. She looked at the wood. Cinematic lighting. Vertical 9:16 framing. No on-screen text.",
+      "clipPath": "episodes/EP002/clips/beat-05.mp4",
+      "startSec": 24,
+      "durSec": 6,
+      "characters": [
+        "kai_baptiste",
+        "nia_toussaint",
+        "papa_etienne_roach"
+      ]
+    },
+    {
+      "idx": 6,
+      "prompt": "Location: Old gayelle ground — East Trinidad. Island: Trinidad. Beat 6 action: \"Doh sing it unless yuh mean it,\" she said. Then softer: \"But this stick already singing.\" Cinematic lighting. Vertical 9:16 framing. No on-screen text.",
+      "clipPath": "episodes/EP002/clips/beat-06.mp4",
+      "startSec": 30,
+      "durSec": 6,
+      "characters": [
+        "kai_baptiste",
+        "nia_toussaint",
+        "papa_etienne_roach"
+      ]
+    },
+    {
+      "idx": 7,
+      "prompt": "Location: Old gayelle ground — East Trinidad. Island: Trinidad. Beat 7 action: Kai tried to set the bois down on the ground. The bois would not stay. It came back to his hand like breath comes back to a chest. Cinematic lighting. Vertical 9:16 framing. No on-screen text.",
+      "clipPath": "episodes/EP002/clips/beat-07.mp4",
+      "startSec": 36,
+      "durSec": 6,
+      "characters": [
+        "kai_baptiste",
+        "nia_toussaint",
+        "papa_etienne_roach"
+      ]
+    },
+    {
+      "idx": 8,
+      "prompt": "Location: Old gayelle ground — East Trinidad. Island: Trinidad. Beat 8 action: Across the road, an old man watched. Cane in one hand. Eyes that had seen this stick before. Cinematic lighting. Vertical 9:16 framing. No on-screen text.",
+      "clipPath": "episodes/EP002/clips/beat-08.mp4",
+      "startSec": 42,
+      "durSec": 6,
+      "characters": [
+        "kai_baptiste",
+        "nia_toussaint",
+        "papa_etienne_roach"
+      ]
+    },
+    {
+      "idx": 9,
+      "prompt": "Location: Old gayelle ground — East Trinidad. Island: Trinidad. Beat 9 action: Papa Etienne Roach spoke seven words. Cinematic lighting. Vertical 9:16 framing. No on-screen text.",
+      "clipPath": "episodes/EP002/clips/beat-09.mp4",
+      "startSec": 48,
+      "durSec": 6,
+      "characters": [
+        "kai_baptiste",
+        "nia_toussaint",
+        "papa_etienne_roach"
+      ]
+    },
+    {
+      "idx": 10,
+      "prompt": "Location: Old gayelle ground — East Trinidad. Island: Trinidad. Beat 10 action: \"That stick chose last time two hundred years ago.\" He turned. He walked away. Cinematic lighting. Vertical 9:16 framing. No on-screen text.",
+      "clipPath": "episodes/EP002/clips/beat-10.mp4",
+      "startSec": 54,
+      "durSec": 6,
+      "characters": [
+        "kai_baptiste",
+        "nia_toussaint",
+        "papa_etienne_roach"
+      ]
+    },
+    {
+      "idx": 11,
+      "prompt": "Location: Old gayelle ground — East Trinidad. Island: Trinidad. Beat 11 action: The bois pulsed once. The gayelle remembered. Cinematic lighting. Vertical 9:16 framing. No on-screen text.",
+      "clipPath": "episodes/EP002/clips/beat-11.mp4",
+      "startSec": 60,
+      "durSec": 6,
+      "characters": [
+        "kai_baptiste",
+        "nia_toussaint",
+        "papa_etienne_roach"
+      ]
+    }
+  ],
+  "generatedAt": "2026-05-15T02:04:05.388Z",
+  "schemaVersion": 2
+}

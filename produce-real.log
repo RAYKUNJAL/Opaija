@@ -1,0 +1,84 @@
+
+> opaija-command-center@0.1.0 refs
+> tsx scripts/generate-character-refs.ts
+
+
+OPAIJA Character Reference Generator
+Model:       fal-ai/flux-pro/v1.1
+Output dir:  C:\Users\Banjo\Opaija\public\assets\characters\refs
+Jobs queued: 29
+Est. cost:   ~$1.45 USD (at $0.05/image)
+Dry run:     no
+
+Starting in 3 seconds — press Ctrl+C to cancel.
+Generating kai_baptiste/front ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\kai_baptiste\front.png
+Generating kai_baptiste/portrait ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\kai_baptiste\portrait.png
+Generating kai_baptiste/action ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\kai_baptiste\action.png
+Generating nia_toussaint/front ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\nia_toussaint\front.png
+Generating nia_toussaint/portrait ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\nia_toussaint\portrait.png
+Generating nia_toussaint/action ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\nia_toussaint\action.png
+Generating malik_st_hill/front ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\malik_st_hill\front.png
+Generating malik_st_hill/portrait ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\malik_st_hill\portrait.png
+Generating malik_st_hill/action ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\malik_st_hill\action.png
+Generating asha_singh_baptiste/front ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\asha_singh_baptiste\front.png
+Generating asha_singh_baptiste/portrait ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\asha_singh_baptiste\portrait.png
+Generating asha_singh_baptiste/action ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\asha_singh_baptiste\action.png
+Generating jabari_henry/front ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\jabari_henry\front.png
+Generating jabari_henry/portrait ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\jabari_henry\portrait.png
+Generating jabari_henry/action ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\jabari_henry\action.png
+Generating tariq_davidson/front ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\tariq_davidson\front.png
+Generating tariq_davidson/portrait ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\tariq_davidson\portrait.png
+Generating tariq_davidson/action ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\tariq_davidson\action.png
+Generating mother_lall/front ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\mother_lall\front.png
+Generating mother_lall/portrait ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\mother_lall\portrait.png
+Generating mother_lall/action ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\mother_lall\action.png
+Generating papa_etienne_roach/front ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\papa_etienne_roach\front.png
+Generating papa_etienne_roach/portrait ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\papa_etienne_roach\portrait.png
+Generating papa_etienne_roach/action ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\papa_etienne_roach\action.png
+Generating marius_vale/silhouette ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\marius_vale\silhouette.png
+Generating marius_vale/back-only ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\marius_vale\back-only.png
+Generating selah_vale/front ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\selah_vale\front.png
+Generating selah_vale/portrait ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\selah_vale\portrait.png
+Generating selah_vale/action ... saved -> C:\Users\Banjo\Opaija\public\assets\characters\refs\selah_vale\action.png
+
+Done. 29 succeeded, 0 failed.
+
+> opaija-command-center@0.1.0 produce
+> tsx scripts/produce.ts EP002
+
+[produce] [start] episode=EP002 aspect=9:16 force=false from=(none)
+[produce] [cost] budget OK — MTD $0.00 of $500.00 (0.0%).
+[produce] [stage-1 parse] skipped (artifact exists, use --force to rebuild)
+[produce] [cost] cost-mode=lean (default for runtime≤90s)
+[produce] [stage-2 voice] skipped (narration.mp3 exists)
+[produce] [stage-3 prompts] skipped (prompts.json exists)
+[produce] [stage-4 clips] submitting 11 Seedance jobs (concurrency=4, cost-mode=lean)
+[produce] [stage-4 clips] rework cap = 17 attempts (11 beats x 1.5)
+[produce] [stage-4 clips] beat 2 done [tier=lite, attempt=1] -> beat-02.mp4
+[produce] [stage-4 clips] beat 3 done [tier=lite, attempt=1] -> beat-03.mp4
+[produce] [stage-4 clips] beat 4 done [tier=lite, attempt=1] -> beat-04.mp4
+[produce] [stage-4 clips] beat 1 done [tier=lite, attempt=1] -> beat-01.mp4
+[produce] [stage-4 clips] beat 5 done [tier=lite, attempt=1] -> beat-05.mp4
+[produce] [stage-4 clips] beat 7 done [tier=lite, attempt=1] -> beat-07.mp4
+[produce] [stage-4 clips] beat 6 done [tier=lite, attempt=1] -> beat-06.mp4
+[produce] [stage-4 clips] beat 8 done [tier=lite, attempt=1] -> beat-08.mp4
+[produce] [stage-4 clips] beat 9 attempt 1 FAILED (Unprocessable Entity).
+[produce] [stage-4 clips] beat 10 done [tier=lite, attempt=1] -> beat-10.mp4
+[produce] [stage-4 clips] beat 11 done [tier=lite, attempt=1] -> beat-11.mp4
+[produce] [stage-4 clips] beat 9 done [tier=lite, attempt=2] -> beat-09.mp4
+[produce] [stage-4 clips] used 12/17 rework budget across 11 beats.
+[produce] [stage-5 manifest] skipped (manifest.json exists)
+[produce] [stage-6 render] skipped (C:\Users\Banjo\Opaija\out\EP002.mp4 exists)
+
+=== OPAIJA PRODUCE REPORT ===========================================
+Episode      : EP002 — The Gayelle Remembers
+Beats        : 11 (real=11, mock=0)
+Runtime      : 75s
+Cost mode    : lean
+Narration    : 920 chars
+Output       : C:\Users\Banjo\Opaija\out\EP002.mp4 (0.01 MB)
+Estimated $  : voice $0.276 + clips $4.40 + claude $0.05 = $4.73
+=====================================================================
+
+[produce] [cost] cleaned 11 intermediate clip(s) — freed 16.49 MB. Set KEEP_INTERMEDIATES=1 to disable.
+[produce] [cost] this episode: $3.30 (1 stages, 11 calls)

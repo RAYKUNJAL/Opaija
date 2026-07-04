@@ -5,6 +5,8 @@ out/
 .playwright-mcp/
 .env
 *.tsbuildinfo
+vite.config.js
+vite.config.d.ts
 .DS_Store
 npm-debug.log*
 *.local

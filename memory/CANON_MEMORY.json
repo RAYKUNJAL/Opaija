@@ -1,0 +1,390 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "source_file": "data/shared-memory/OPAIJA_CANON.json",
+    "source_updated": "2026-05-12",
+    "generated": "2026-07-03T23:22:26.726Z",
+    "description": "Flattened canon for fast agent lookup. DO NOT edit directly — edit OPAIJA_CANON.json and run: npx tsx scripts/generate-canon-memory.ts"
+  },
+  "titles": {
+    "launch": "OPAIJA: Staff of Battle",
+    "season_1": "OPAIJA: Blood of the Gayelle",
+    "tagline": "Every Island Has a Warrior. Every Rhythm Has a Weapon."
+  },
+  "format": {
+    "animation_style": "Caribbean Glyph-Cel 2.5D Hybrid",
+    "narrator": "The Web-Teller",
+    "runtime_seconds": {
+      "min": 60,
+      "max": 90,
+      "ideal": 75
+    },
+    "platforms": [
+      "YouTube Shorts",
+      "TikTok",
+      "Instagram Reels",
+      "YouTube Long-form"
+    ],
+    "aspect_ratio": "Vertical 9:16"
+  },
+  "universe": {
+    "summary": "OPAIJA is a Caribbean Afrocentric martial anime rooted in Trinidad and Tobago stick-fighting traditions, Carnival energy, ancestral rhythm, folklore, drums, lavway chants, and sacred bois.",
+    "opaija_seeds": "Fragmented ancestral staffs hidden during the transatlantic slave trade and scattered across Caribbean islands. Each island's culture, rhythm, and environment transformed the fragments into unique power systems.",
+    "core_lore": {
+      "hidden_method": "The sacred bois were NOT smuggled whole. They were broken into: drum pegs, walking cane fragments, carved beads, ship repair wood, pestle handles, prayer objects, hair ornaments, children's toys, pieces of firewood, carved marks under skin scars, and songs (lavway).",
+      "key_truth": "The enemy thought they had taken every weapon. But they did not know the weapon had been hidden inside rhythm.",
+      "the_lavway_secret": "The real secret was not only the wood. It was the lavway — the call-and-response chant that told future generations how to awaken the sticks.",
+      "historical_anchor": "Approximately 44,000 enslaved Africans were brought to Trinidad and Tobago through the transatlantic slave trade. The people of African descent arrived enslaved, liberated, or free during the 17th to 19th centuries.",
+      "stick_fighting_roots": "Kalenda/Calinda — Caribbean martial dance from Trinidad and Tobago, weapon-based, using sticks (bois), accompanied by vocals and drums, based on traditional African combat dances. Canboulay and stick fights dominated Carnival in the second half of the 19th century."
+    },
+    "main_themes": [
+      "Memory vs erasure",
+      "Rhythm vs silence",
+      "Heritage vs shame",
+      "Unity vs forced control",
+      "Caribbean identity as power",
+      "Resistance through culture"
+    ]
+  },
+  "power_system": {
+    "name": "The Five-Part Opaija System",
+    "core_rule": "A stick has memory. A fighter has spirit. A drum has rhythm. A lavway has command. The gayelle binds them together.",
+    "five_parts": {
+      "bois_memory": "The stick stores ancestral combat knowledge. Older sticks = deeper memory. A stick chooses its fighter.",
+      "inner_pulse": "The fighter's own spiritual rhythm — their unique beat. Must be discovered, not taught.",
+      "lavway_command": "Call-and-response chants that activate specific abilities. Must be sung correctly — intent matters.",
+      "drum_sync": "Alignment with a drummer partner amplifies all powers. Jabs is Kai's drum sync partner.",
+      "gayelle_vow": "A sacred oath taken in the gayelle circle. Binds fighter to their bois permanently. Cannot be undone."
+    },
+    "awakening_rule": "A person CANNOT just pick up a sacred stick and become powerful. The stick only awakens when all five conditions align.",
+    "villain_opposite": {
+      "name": "Silence Pulse",
+      "description": "Marius Vale's system. Suppresses rhythm, erases memory, disconnects fighters from their bois. The antithesis of everything OPAIJA stands for.",
+      "visual": "Silence cracks instead of rhythm glyphs. Black void spreads where Silence Pulse activates."
+    },
+    "combat_visual_language": [
+      "Drumbeat rings — circular pulses visible on impact",
+      "Rhythm glyphs — circular symbols that appear when powers activate",
+      "Bois energy carvings — glowing lines along the staff when memory activates",
+      "Sound-wave effects tied to beat timing",
+      "Silence cracks — villain-only, black fractures in the visual field",
+      "Motion MUST be tied to beat timing — every strike lands on a beat"
+    ]
+  },
+  "language_rules": {
+    "never_use": [
+      "slaves"
+    ],
+    "always_use": [
+      "enslaved Africans"
+    ],
+    "patois_rule": "Use patois in CHARACTER dialogue and CAPTION only. The Web-Teller narrator uses standard English with Caribbean rhythm. Never use patois in ways that mock or otherness — it is a mark of authenticity and cultural pride.",
+    "patois_max_per_episode": "2-3 lines, character dialogue/captions only, never in narration",
+    "patois_expressions": {
+      "doh": "don't",
+      "allyuh": "all of you / you all",
+      "yuh": "you / your",
+      "wha": "what",
+      "nah": "no / not",
+      "chile": "child (affectionate)",
+      "bacchanal": "chaos, drama, trouble",
+      "lime": "to hang out",
+      "gyul": "girl",
+      "saga_boy": "flashy dresser / showoff",
+      "tabanca": "heartbreak / lovesickness",
+      "mamaguy": "to fool someone",
+      "licks": "hits / beating",
+      "dotish": "foolish",
+      "fete": "party / celebration"
+    }
+  },
+  "villain_reveal_schedule": {
+    "episodes_1_6": "Marius Vale is unseen. Only felt through agents and Silence Pulse effects.",
+    "episode_7": "First silhouette reveal — back only, no face",
+    "episode_10": "First full face reveal",
+    "episode_12": "Marius Vale speaks directly to Kai"
+  },
+  "selah_reveal": "Selah Vale appears episode 8. Her connection to Marius is revealed episode 9.",
+  "recurring_beats": [
+    "kai_eats_doubles_pre_and_post_fight",
+    "full_belly_steady_spirit_catchphrase",
+    "mother_lall_doubles_stall_as_meeting_point"
+  ],
+  "doubles_rule": "Kai MUST have a doubles moment in every episode. This is non-negotiable. It may be brief — a grab, a bite, a vendor interaction — but it must be present.",
+  "doubles_lore": {
+    "what_is_doubles": "Trinidad's most beloved street food. Two fried bara (soft fried flatbread) filled with curried chickpeas (channa). Topped with coconut chutney, pepper sauce, and tamarind. Eaten wrapped in paper, standing up, at a roadside stall.",
+    "kai_rule": "Kai eats doubles before every significant moment. It is his ritual. Full belly. Steady spirit. When stressed, he finds a vendor. When nervous before a fight, he finds a vendor. Mother Lall is his preferred source.",
+    "comedy_note": "The doubles quest is a recurring comedic beat. Kai will delay important things to get doubles. His team is exasperated. He is unapologetic.",
+    "merch_opportunity": "Doubles gag merch — sticker packs, 'Full Belly. Steady Spirit.' tees, Kai doubles charm"
+  },
+  "episode_beat_map": {
+    "0_5_sec": "HOOK — grab attention immediately",
+    "5_20_sec": "CONFLICT — establish the problem or tension",
+    "20_45_sec": "REVEAL — something changes or is discovered",
+    "45_60_sec": "ESCALATION — raise the stakes",
+    "final_seconds": "CLIFFHANGER — must end with a question or danger"
+  },
+  "narration_style": "One narrator (The Web-Teller). Minimal dialogue. Character acting through expression and body language. Patois used sparingly — max 2–3 lines per episode for authenticity without alienating international viewers.",
+  "characters": {
+    "kai_baptiste": {
+      "full_name": "Kairo 'Kai' Baptiste",
+      "age": 17,
+      "island": "Trinidad",
+      "role": "Main hero / First Opaija Seed wielder",
+      "power": "Tempo Pulse + Echo Pulse",
+      "weapon": "The Listening Bois — carved by Elders, hears rhythm, channels beat, protects its people",
+      "signature_line": "Full belly. Steady spirit.",
+      "palette": [
+        "Warm Brown #7A4A2B",
+        "Deep Brown #3B2415",
+        "Amber Gold #E4A700",
+        "Carnival Red #C6281E",
+        "Midnight Black #0F0F10",
+        "Charcoal Gray #2A2A2E",
+        "Pimento Orange #E05224",
+        "Sea Teal #0E6B6B",
+        "Sand Beige #E5D1A6"
+      ]
+    },
+    "nia_toussaint": {
+      "full_name": "Nia Toussaint",
+      "age": 17,
+      "island": "Trinidad",
+      "role": "Chantwell / Lavway Voice Specialist",
+      "power": "Voice Pulse + Lavway Command",
+      "weapon": "Lavway Scarf + Rhythm Bell (Iron)",
+      "signature_line": "Doh sing it unless yuh mean it.",
+      "palette": [
+        "Indigo Midnight",
+        "Deep Blue",
+        "Gold Leaf",
+        "Cream Sand",
+        "Warm Brown",
+        "Terracotta Clay",
+        "Sea Teal"
+      ],
+      "quirk": "Always hums under her breath when nervous"
+    },
+    "malik_st_hill": {
+      "full_name": "Malik St. Hill",
+      "age": 18,
+      "island": "Trinidad",
+      "role": "Rival Boishman / Rootbreaker",
+      "power": "Root Pulse + Break Style",
+      "weapon": "Rootbreaker Bois — straight, polished, hardened tip",
+      "signature_line": "Rhythm without discipline is noise.",
+      "palette": [
+        "Deep Red",
+        "Carnival Red",
+        "Charcoal Black",
+        "Slate Gray",
+        "Bone White",
+        "Sand Beige",
+        "Ironwood Brown",
+        "Obsidian Black",
+        "Gold Accent"
+      ],
+      "quirk": "Always reties his sash before a serious fight"
+    },
+    "asha_singh_baptiste": {
+      "full_name": "Asha Singh-Baptiste",
+      "age": 18,
+      "island": "Trinidad",
+      "role": "Matador / Medic / Memory Keeper / Researcher",
+      "power": "Echo Pulse + Memory Sight",
+      "weapon": "Bandage Cords / Matador Baton (non-lethal)",
+      "signature_line": "History does leave marks. Allyuh just not looking.",
+      "palette": [
+        "Teal Tide",
+        "Saffron Sun",
+        "Copper Glow",
+        "Carnival Red",
+        "Deep Sea",
+        "Ink Black",
+        "River Stone",
+        "Sand Dune",
+        "Pearl White"
+      ],
+      "quirk": "Keeps notes and sketches in the margins of any scrap paper"
+    },
+    "jabari_henry": {
+      "full_name": "Jabari 'Jabs' Henry",
+      "age": 17,
+      "island": "Trinidad",
+      "role": "Drummer / Comic Relief / Content Creator",
+      "power": "Drum Sync — amplifies all team members' powers when drumming",
+      "weapon": "Traditional wooden African Kalinda drums — NOT modern kit. L-shaped drum sticks (curved, traditional style).",
+      "signature_line": "Hold beat! Hold beat!",
+      "palette": [
+        "Orange",
+        "Black",
+        "Gold",
+        "Warm Brown"
+      ],
+      "quirk": "Films everything on his phone. Documents the team for his channel. Running commentary on everything."
+    },
+    "tariq_davidson": {
+      "full_name": "Tariq Davidson",
+      "age": 17,
+      "island": "Tobago",
+      "role": "Scout / Tidewatch Wielder",
+      "power": "Tide Pulse + Silent Beat",
+      "weapon": "Tidewatch Bois — driftwood core, shell inlay, sea glass. Channels Tide Pulse and Silent Beat.",
+      "signature_line": "That doh mean allyuh own the whole sea.",
+      "palette": [
+        "Sea Green",
+        "Deep Teal",
+        "Ocean Navy",
+        "Wave Blue",
+        "Linen White",
+        "Shell Sand",
+        "Driftwood Brown",
+        "Coral Clay",
+        "Tide Foam Mint"
+      ],
+      "quirk": "Collects shells and small driftwood carvings from every beach he visits"
+    },
+    "mother_lall": {
+      "full_name": "Mother Lall",
+      "age": "Late 50s",
+      "island": "Trinidad",
+      "role": "Doubles Vendor / Secret Guardian Messenger / Hidden Lore Keeper",
+      "signature_line": "Eat first. Panic after."
+    },
+    "papa_etienne_roach": {
+      "full_name": "Papa Etienne Roach",
+      "age": "70s",
+      "island": "Trinidad",
+      "role": "Elder Batonier / Mentor / Former Guardian",
+      "weapon": "Cane — not a bois. He gave up his bois. That is a story for season 2.",
+      "signature_line": "The stick is not a gift. It is a debt."
+    },
+    "marius_vale": {
+      "full_name": "Marius Vale",
+      "age": "40s",
+      "island": "Unknown — claims all islands",
+      "role": "Main Villain / False One Drum / Silence Strategist",
+      "power": "Silence Pulse — suppresses all rhythm-based powers",
+      "weapon": "The One Drum — a corrupted Opaija Seed that broadcasts Silence Pulse",
+      "signature_line": "One drum. One command. One Caribbean.",
+      "palette": [
+        "Near-black",
+        "Deep purple",
+        "Silver",
+        "Cold white"
+      ]
+    },
+    "selah_vale": {
+      "full_name": "Selah Vale",
+      "age": 16,
+      "island": "Unknown",
+      "role": "Villain Heir / Possible Future Ally",
+      "power": "Silence Pulse — inherited, not chosen",
+      "signature_line": "Noise is weakness.",
+      "palette": [
+        "Deep silver",
+        "Cold white",
+        "Midnight blue",
+        "Pale gold — fading"
+      ]
+    }
+  },
+  "visual_style": {
+    "official_name": "Caribbean Glyph-Cel 2.5D Hybrid",
+    "description": "2D anime characters on 3D cinematic camera movements. Hand-drawn impact effects. Stylized rhythm glyphs. Painterly Caribbean environments.",
+    "face_rules": {
+      "chin": "ROUNDED — never pointed, never V-shaped",
+      "nose": "Broad African-Caribbean nose structure — not narrow anime noses",
+      "lips": "Full lips — not thin anime defaults",
+      "skin": "Rich melanin tones — warm browns, deep ebonies, golden undertones",
+      "eyes": "Expressive anime eyes but grounded in Caribbean features",
+      "DO_NOT": [
+        "Use generic anime faces",
+        "Use pointed V-shaped chins",
+        "Use thin lips",
+        "Use pale skin for Caribbean characters",
+        "Remove textured hair detail",
+        "Overcrowd costumes",
+        "Make characters look like constant cosplay"
+      ]
+    },
+    "hair_rules": "All characters must have textured, Afro-Caribbean or Caribbean-influenced hairstyles. Locs, braids, twists, high-tops, coils. Each character's hair is their signature.",
+    "background_design": [
+      "Trinidad gingerbread architecture",
+      "Tobago coastlines",
+      "Caribbean fretwork patterns",
+      "Carnival cloth textures",
+      "Roadside vendors",
+      "Wooden houses",
+      "Tropical lighting",
+      "Cane fields",
+      "Gayelle arenas"
+    ],
+    "animation_elements": [
+      "2D anime characters",
+      "3D cinematic camera movement",
+      "2D hand-drawn impact effects",
+      "Stylized rhythm glyphs",
+      "Painterly Caribbean environments",
+      "Dynamic lighting",
+      "Cloth motion",
+      "Flambeaux sparks",
+      "Lavway visual symbols"
+    ]
+  },
+  "style_locks": [
+    "Rounded chins — ALWAYS",
+    "Full lips — ALWAYS",
+    "Broad Caribbean/African facial structures — ALWAYS",
+    "Afro-textured hairstyles — ALWAYS",
+    "Island-specific styling per character — ALWAYS",
+    "Jabari's drums are AFRICAN STYLE WOODEN, L-SHAPED sticks — ALWAYS"
+  ],
+  "power_system_limits": [
+    "No fighter can use Opaija power without their specific bois — the power does not transfer between sticks unless lore specifically allows",
+    "Silence Pulse cannot be permanently destroyed in Season 1",
+    "Lavway Command requires correct singing — humming or speaking it does not activate it",
+    "Drum Sync requires the drummer to be physically present or within earshot",
+    "Gayelle Vow cannot be undone once taken"
+  ],
+  "future_islands": {
+    "confirmed_arcs": [
+      "Barbados",
+      "Jamaica",
+      "Haiti",
+      "Dominica",
+      "Grenada",
+      "Puerto Rico",
+      "St. Lucia",
+      "Martinique",
+      "Guadeloupe"
+    ],
+    "each_island_requires": [
+      "Unique rhythm",
+      "Unique visual palette",
+      "Unique folklore spirit",
+      "Unique combat style",
+      "Unique architecture",
+      "Unique merch identity"
+    ]
+  },
+  "merch_ecosystem": {
+    "launch_merch": [
+      "Character tees",
+      "Sticker packs",
+      "Poster prints",
+      "Enamel pins",
+      "Character cards",
+      "Keychains",
+      "Glyph symbol hoodies",
+      "Doubles gag merch"
+    ],
+    "future_merch": [
+      "Foam bois props",
+      "Collector figures",
+      "Art books",
+      "Soundtrack",
+      "Card game"
+    ]
+  }
+}

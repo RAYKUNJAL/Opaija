@@ -1,0 +1,49 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "description": "Per-episode working memory. Orchestrator reads 'stage' to decide which agent fires next. Each agent updates 'stage' and 'flags' after completing its work.",
+    "created": "2026-07-03T00:00:00Z",
+    "last_updated": "2026-07-03T00:00:00Z"
+  },
+  "episode_id": "EP001",
+  "title": "The Stick That Sang",
+  "stage": "script_draft",
+  "prev_stage": null,
+  "stage_history": [],
+  "flags": {
+    "script_approved": false,
+    "canon_checked": false,
+    "visual_refs_locked": false,
+    "voice_generated": false,
+    "clips_generated": false,
+    "manifest_built": false,
+    "render_complete": false,
+    "qa_passed": false,
+    "ready_to_publish": false
+  },
+  "gate_conditions": {
+    "canon_review": "script_approved == true",
+    "visual_prep": "canon_checked == true",
+    "voice_stage": "visual_refs_locked == true && script_approved == true",
+    "clip_generation": "voice_generated == true",
+    "manifest_stage": "clips_generated == true",
+    "render_stage": "manifest_built == true",
+    "qa_stage": "render_complete == true",
+    "publish_stage": "qa_passed == true"
+  },
+  "active_agent": null,
+  "agent_history": [],
+  "blockers": [],
+  "assets": {
+    "script_path": null,
+    "canon_check_path": null,
+    "visual_ref_pack_path": null,
+    "voice_path": null,
+    "clips_dir": null,
+    "manifest_path": null,
+    "render_path": null,
+    "qa_report_path": null
+  },
+  "retry_count": 0,
+  "max_retries": 3
+}

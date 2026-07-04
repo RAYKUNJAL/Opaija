@@ -1,3 +1,6 @@
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+
 import { fal } from "@fal-ai/client";
 
 export type VideoMode = "text-to-video" | "image-to-video" | "reference-to-video";
@@ -6,6 +9,7 @@ export type VideoProvider = "mock" | "fal" | "byteplus";
 export type VideoJobInput = {
   mode?: VideoMode;
   prompt: string;
+  negativePrompt?: string;
   imageUrl?: string;
   endImageUrl?: string;
   referenceImageUrls?: string[];
@@ -142,6 +146,12 @@ function toFalInput(input: VideoJobInput): Record<string, unknown> {
     generate_audio: input.generateAudio,
   };
 
+  // Forward negative prompt to fal.ai (Seedance 2.0 supports negative_prompt
+  // for steering away from artifacts, jitter, distortion, watermarks, etc.).
+  // Only include if non-empty to avoid sending null payload fields.
+  const negative = input.negativePrompt?.trim();
+  if (negative) payload.negative_prompt = negative;
+
   if (input.imageUrl) payload.image_url = input.imageUrl;
   if (input.endImageUrl) payload.end_image_url = input.endImageUrl;
   if (input.seed) payload.seed = input.seed;
@@ -162,4 +172,22 @@ function ensureFalConfigured() {
     throw new Error("FAL_KEY is missing. Set it in .env before creating live Seedance jobs.");
   }
   fal.config({ credentials: key });
+}
+
+// === Character-Sheet Wiring === fal.ai's image-to-video endpoint accepts
+// either an HTTPS URL or a data URI for `image_url`. The user's locked PNG
+// character sheets live on local disk, so we base64-encode them and inline as
+// `data:image/png;base64,*`. Exported so the produce.ts orchestrator and any
+// future server-side route handlers (e.g. POST /api/video/jobs with a local
+// asset path) can share the same helper.
+export async function localFileToDataUri(absPath: string): Promise<string> {
+  const buf = await readFile(absPath);
+  const ext = path.extname(absPath).toLowerCase().replace(".", "");
+  const mime =
+    ext === "jpg" || ext === "jpeg"
+      ? "image/jpeg"
+      : ext === "webp"
+        ? "image/webp"
+        : "image/png";
+  return `data:${mime};base64,${buf.toString("base64")}`;
 }
