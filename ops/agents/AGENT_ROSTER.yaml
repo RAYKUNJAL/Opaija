@@ -1,5 +1,7 @@
-# OPAIJA Agent Roster — 15 Core Production Agents
-# Each agent follows the 6-step memory loop (see docs/SWARM_MEMORY_ARCHITECTURE.md)
+# OPAIJA Agent Roster — 15 Agents with Memory Loop + Workflow DAG
+#
+# Merges the 6-step memory loop with Claude model assignments, parallel
+# tracks, error recovery, and cost estimates from the production system.
 #
 # File locations (all relative to project root):
 #   memory/MESSAGE_BUS.jsonl  — append-only agent communication
@@ -17,7 +19,7 @@
 #   6. UPDATE: set EPISODE_STATE.json stage/flags for the next agent's gate
 
 # =============================================================================
-# STAGE PIPELINE (Orchestrator fires agents in this order per episode)
+# PIPELINE (Orchestrator fires agents in this order per episode)
 # =============================================================================
 #
 # script_draft → canon_review → visual_prep → voice → clips → manifest → render → qa → publish
@@ -33,56 +35,109 @@
 # render           Render Agent             manifest_built == true
 # qa               QA Agent                 render_complete == true
 # publish          Social Scheduler         qa_passed == true
+#
+# Parallel tracks (not in main pipeline, triggered by MESSAGE_BUS):
+#   - Action Choreographer (triggered by Visual Design for fight scenes)
+#   - Cinematic FX Director (triggered by Visual Design for power activation)
+#   - Lore Guardian (triggered by Canon Guardian for cultural questions)
+#   - Archive Clerk (triggered after QA passes)
+#   - Tribe Growth Commander (triggered after publish)
+#   - Book Agent (can start after EP001-004 scripts exist)
+#   - Merch Asset Agent (can start after character sheets exist)
+
+# =============================================================================
+# WORKFLOW DAG
+# =============================================================================
+#
+# Phase 1 (Foundation):
+#   Canon Guardian validates canon → Orchestrator starts →
+#   Character Bible Writer generates bibles (parallel, 3 at a time) →
+#   Visual Design Agent generates sheets → Canon Guardian validates sheets
+#
+# Phase 2 (Scripts & Storyboards):
+#   Script Writer writes EP001-004 scripts →
+#   Storyboard Agent creates visual sequences →
+#   Canon Guardian validates (doubles, Marius hidden, lavway, patois%)
+#
+# Phase 3 (Animation Prep):
+#   Seedance Packager assembles reference packs →
+#   Animation Agent queues renders to fal.ai →
+#   Seedance Monitor polls for completion (every 30 min)
+#
+# Phase 4 (Narration & Video):
+#   Voice Director generates narration + captions →
+#   Remotion Editor composes video (long-form + shorts) →
+#   QA Validator runs checklist
+#
+# Phase 5 (Publishing):
+#   Social Scheduler posts to YouTube/TikTok/Instagram →
+#   Analytics Agent collects engagement data
+#
+# Parallel tracks:
+#   - Characters 5-10 bibles while animation on EP001-004
+#   - Merch Asset Agent on characters 1-3 while animation in progress
+#   - Book Agent on EP001 prose while EP002-003 rendering
+#   - Crowdfund Copywriter once EP001-003 are public
+
+# =============================================================================
+# ERROR RECOVERY
+# =============================================================================
+#
+# - Animation render fails: Seedance Monitor retries 3x, then escalates to Orchestrator
+# - Voice timeout: Retry with fallback voice or mock mode
+# - Social post fails: Log, retry next window, alert Orchestrator
+# - Canon Guardian blocks: Orchestrator investigates — fix or override with memo
+# - Timeline slips: Risk Manager alerts Orchestrator — extend or reduce scope
+
+# =============================================================================
+# RESOURCE ALLOCATION
+# =============================================================================
+#
+# High priority (always running):
+#   - Canon Guardian (validates all outputs)
+#   - Orchestrator (conducts workflow)
+#   - Animation Agent (manages Seedance queue)
+#
+# Medium priority (during active phases):
+#   - Character Bible Writer, Visual Design Agent, Storyboard Agent
+#   - Script Writer, Remotion Editor, Voice Director
+#
+# Low priority (batch, less time-sensitive):
+#   - Merch Asset Agent, Book Agent, Crowdfund Copywriter
+#   - Analytics Agent (daily, not real-time)
 
 # =============================================================================
 # AGENTS
 # =============================================================================
 
 agents:
-  # ── STAGE 1: script_draft ──────────────────────────────────────────────
-  - id: script-writer
-    name: "Script Writer"
-    team: Goose
-    stage: script_draft
-    gate: null  # fires first
-    role: >
-      Writes the episode narrator script from QUEUE.json episode data.
-      Produces a 130-170 word Web-Teller narration hitting all five beats
-      (HOOK, CONFLICT, REVEAL, ESCALATION, CLIFFHANGER).
-      Doubles moment MUST appear. Patois max 2-3 lines, character dialogue only.
-    inputs:
-      - memory/CANON_MEMORY.json
-      - data/shared-memory/QUEUE.json (episode entry)
-      - data/scripts/SCRIPT_AGENT_BRIEF.md
-      - memory/LEARNINGS.jsonl (filtered: apply_to contains "Script Writer")
-      - memory/MESSAGE_BUS.jsonl (entries addressed to "Script Writer")
-    outputs:
-      - episodes/epNN/script_v1.md
-    on_complete:
-      post_message_bus:
-        to: "Canon Guardian"
-        topic: "epNN.script_ready_for_review"
-        body: "Script v1 for EPxxx written. Awaiting canon review."
-      set_flags:
-        script_approved: false  # awaiting canon review
-      set_stage: canon_review
-    learnings_trigger: "If Canon Guardian finds 'slaves' instead of 'enslaved Africans', or violates villain reveal schedule, or missing doubles moment"
+  # ── GOVERNANCE LAYER ─────────────────────────────────────────────────
 
-  # ── STAGE 2: canon_review ─────────────────────────────────────────────
   - id: canon-guardian
     name: "Canon Guardian"
     team: Guardrails
+    model: "claude-opus-4-6"
     stage: canon_review
     gate: "script_approved == false && script exists"
+    heartbeat: "continuous (real-time validation)"
     role: >
-      Reviews script against ALL canon rules: language (enslaved Africans),
-      villain reveal schedule, Selah appearance, doubles rule, patois limits,
-      power system limits, style locks. Either approves or blocks with
-      specific line-level corrections. If blocking, posts corrections to
-      Script Writer via MESSAGE_BUS and resets stage to script_draft.
+      Enforces ALL rules in OPAIJA_CANON.json before any output. Checks character
+      facial features (rounded chins, African-Caribbean noses, full lips). Verifies
+      doubles scene in every episode. Confirms Marius face hidden until Ep 10.
+      Validates drum specifications (L-shaped wooden kalinda only). Reviews patois
+      density (10-15% max). Blocks any output that violates canon. Escalation: any
+      canon violation stops production until resolved.
+    responsibilities:
+      - "Enforce all rules in OPAIJA_CANON.json before any output"
+      - "Check character facial features (rounded chins, African noses, full lips)"
+      - "Verify doubles scene in every episode"
+      - "Confirm Marius face hidden until Ep 10"
+      - "Validate drum specifications (L-shaped wooden kalinda only)"
+      - "Review patois density (10-15% max)"
+      - "Block any output that violates canon"
     inputs:
       - memory/CANON_MEMORY.json
-      - episodes/epNN/script_v1.md (or latest version)
+      - episodes/epNN/script_v1.md (or latest)
       - memory/LEARNINGS.jsonl (filtered: apply_to contains "Canon Guardian")
       - memory/MESSAGE_BUS.jsonl (entries addressed to "Canon Guardian")
     outputs:
@@ -101,28 +156,133 @@ agents:
         to: "Script Writer"
         topic: "epNN.canon_violation"
         body: "Specific violations listed in canon_check.md"
-      set_stage: script_draft  # back to writer
+      set_stage: script_draft
     learnings_trigger: "Any recurring violation pattern — especially if Script Writer repeats the same mistake across episodes"
 
-  # ── STAGE 3: visual_prep ──────────────────────────────────────────────
+  - id: orchestrator
+    name: "Orchestrator"
+    team: Brain
+    model: "claude-opus-4-6"
+    stage: null
+    gate: null
+    heartbeat: "hourly (master status log)"
+    role: >
+      Master workflow conductor. Manages DAG of all 15 agents. Triggers agents
+      in correct sequence. Monitors blockers and dependencies. Escalates canon
+      violations. Makes real-time decisions: retry failed renders, adjust timelines,
+      flag risks. Updates production dashboard with progress.
+    responsibilities:
+      - "Manage DAG (directed acyclic graph) of all 15 agents"
+      - "Trigger agents in correct sequence"
+      - "Monitor blockers and dependencies"
+      - "Escalate canon violations from Canon Guardian"
+      - "Make real-time decisions: retry failed renders, adjust timelines, flag risks"
+      - "Maintain master timeline (Days 1-90 roadmap)"
+    decision_authority: "YES — can pause, retry, or reroute workflows"
+    inputs:
+      - episodes/epNN/EPISODE_STATE.json
+      - ops/agents/AGENT_ROSTER.yaml (this file)
+    outputs:
+      - episodes/epNN/orchestrator.log.jsonl
+    learnings_trigger: "Workflow bottlenecks, agent timing patterns, retry success rates"
+
+  # ── CONTENT CREATION LAYER ──────────────────────────────────────────
+
+  - id: script-writer
+    name: "Script Writer"
+    team: Goose
+    model: "claude-opus-4-6"
+    stage: script_draft
+    gate: null  # fires first
+    heartbeat: "per episode (1 per day, 12 episodes = 12 days)"
+    role: >
+      Writes full episode scripts: dialogue, stage directions, narration blocks.
+      Integrates island patois authentically (10-15% density). Includes doubles
+      moments for Kai (before fights, after victories). Plants story hooks,
+      cliffhangers, character reveals. Ensures lavway in every battle. Writes
+      narration blocks for The Web-Teller (single omniscient narrator). Flags
+      animation complexity for Storyboard Agent. Produces BOTH long-form (12-22
+      min) and vertical shorts (60-90 sec) narration scripts.
+    responsibilities:
+      - "Write full episode scripts (dialogue + stage directions + narration)"
+      - "Integrate island patois authentically (10-15% density)"
+      - "Include doubles moments for Kai (before fights, after victories)"
+      - "Plant story hooks, cliffhangers, character reveals"
+      - "Ensure lavway (call-and-response chant) in every battle"
+      - "Write narration blocks for single-voice omniscient narrator"
+      - "Flag animation complexity for Storyboard Agent"
+    inputs:
+      - memory/CANON_MEMORY.json
+      - data/shared-memory/QUEUE.json (episode entry with major_beats, script_notes)
+      - data/scripts/SCRIPT_AGENT_BRIEF.md
+      - memory/LEARNINGS.jsonl (filtered: apply_to contains "Script Writer")
+      - memory/MESSAGE_BUS.jsonl (entries addressed to "Script Writer")
+    outputs:
+      - episodes/epNN/script_v1.md (full long-form script)
+      - episodes/epNN/shorts_script.md (vertical shorts script)
+    on_complete:
+      post_message_bus:
+        to: "Canon Guardian"
+        topic: "epNN.script_ready_for_review"
+        body: "Script v1 for EPxxx written. Awaiting canon review."
+      set_flags:
+        script_approved: false
+      set_stage: canon_review
+    learnings_trigger: "If Canon Guardian finds 'slaves' instead of 'enslaved Africans', or violates villain reveal schedule, or missing doubles moment"
+
+  - id: character-bible-writer
+    name: "Character Bible Writer"
+    team: Goose
+    model: "claude-opus-4-6"
+    stage: null
+    gate: null
+    heartbeat: "per character (1 per day, 10 characters = 10 days)"
+    role: >
+      Writes full character psychologies (6-8K words per character). Backstories,
+      motivations, fears, desires, flaws. Dialogue voice notes and speech patterns.
+      Relationship dynamics. Power levels and ability progression. Episode arcs
+      for Season 1. Canonical quirks (e.g., Kai's doubles obsession).
+    inputs:
+      - memory/CANON_MEMORY.json (character archetypes, quirks, power system)
+      - memory/LEARNINGS.jsonl (filtered: apply_to contains "Character Bible Writer")
+      - memory/MESSAGE_BUS.jsonl (entries to "Character Bible Writer")
+    outputs:
+      - data/characters/{char_name}/BIBLE.md (6-8K markdown)
+    on_complete:
+      post_message_bus:
+        to: "Visual Design Agent"
+        topic: "character.{name}_bible_ready"
+        body: "Character bible for {name} complete. Visual sheets can begin."
+    learnings_trigger: "Character inconsistencies, dialogue voice drift, missing canonical quirks"
+
   - id: visual-design-agent
     name: "Visual Design Agent"
     team: Goose
+    model: "claude-opus-4-6"
     stage: visual_prep
     gate: "canon_checked == true"
+    heartbeat: "per character (1 per day, 10 characters = 10 days)"
     role: >
-      Builds Seedance reference packs: character model sheets, pose sheets,
-      environment backgrounds, and visual style guides for this episode's
-      characters and locations. Locks visual references so downstream agents
-      (Seedance Packager, Remotion Editor) use consistent character art.
-      Enforces Caribbean Glyph-Cel 2.5D Hybrid style: rounded chins, full lips,
-      Afro-textured hair, broad facial structures. NEVER V-shaped anime chins.
+      Creates character model sheets: full-body turnarounds (front, 3/4, side,
+      back), face sheets (8 expressions), pose sheets (10 iconic poses), hand
+      detail poses, outfit variations, hair detail, color palettes with hex codes.
+      Ensures rounded chins, African-Caribbean noses, full lips on ALL characters.
+      NEVER V-shaped anime chins, thin lips, or pale skin. Builds Seedance
+      reference packs for this episode's characters and locations.
+    responsibilities:
+      - "Create character model sheets (full-body turnarounds: front, 3/4, side, back)"
+      - "Face sheets (front, 3/4, side, expressions: neutral, happy, angry, scared, determined)"
+      - "Pose sheets (idle, fighting stance, victory, defeat, casual, signature pose)"
+      - "Hand detail poses (holding stick, relaxed, various grips)"
+      - "Outfit variations (school, fighting gear, casual, formal)"
+      - "Generate color palettes (Hex codes, RGB)"
+      - "Ensure rounded chins, African noses, full lips on ALL characters"
     inputs:
       - memory/CANON_MEMORY.json (visual_style, characters, style_locks)
       - episodes/epNN/script_v1.md (latest approved version)
-      - data/scripts/SCRIPT_AGENT_BRIEF.md (style lock section)
+      - data/characters/{char_name}/BIBLE.md (if available)
       - memory/LEARNINGS.jsonl (filtered: apply_to contains "Visual Design Agent")
-      - memory/MESSAGE_BUS.jsonl (entries addressed to "Visual Design Agent")
+      - memory/MESSAGE_BUS.jsonl (entries to "Visual Design Agent")
     outputs:
       - episodes/epNN/visual_ref_pack/ (character refs, bg refs, pose sheets)
       - episodes/epNN/visual_ref_manifest.json
@@ -136,61 +296,57 @@ agents:
       set_stage: voice
     learnings_trigger: "Seedance rejections due to style drift, character inconsistency, or generic anime faces"
 
-  # ── STAGE 4: voice ────────────────────────────────────────────────────
-  - id: voice-director
-    name: "Voice Director"
-    team: Paperclip
-    stage: voice
-    gate: "visual_refs_locked == true && script_approved == true"
+  - id: storyboard-agent
+    name: "Storyboard Agent"
+    team: Goose
+    model: "claude-opus-4-6"
+    stage: null
+    gate: null
+    heartbeat: "per episode (1 per day, 12 episodes = 12 days)"
     role: >
-      Generates narrator voiceover (The Web-Teller) via ElevenLabs.
-      Produces narration.mp3 and word-level alignment (for beat timing).
-      Voice must be wise, rhythmic, weighty — Caribbean cadence in standard
-      English (NOT patois). Patois lives in character dialogue only.
-      Creates voice map for future character voices if needed this episode.
+      Converts scripts into visual sequences. Specifies shot types (wide, close-up,
+      dynamic angle). Camera movements and transitions. Timing/pacing for action
+      scenes. Emotional beats and character focus. Describes animation complexity.
+      Generates text descriptions for Seedance Packager.
     inputs:
-      - memory/CANON_MEMORY.json (narration_style, format)
-      - episodes/epNN/script_v1.md (approved script)
+      - episodes/epNN/script_v1.md
       - episodes/epNN/visual_ref_manifest.json
-      - memory/LEARNINGS.jsonl (filtered: apply_to contains "Voice Director")
-      - memory/MESSAGE_BUS.jsonl (entries addressed to "Voice Director")
+      - memory/CANON_MEMORY.json (animation style references)
+      - memory/LEARNINGS.jsonl
     outputs:
-      - episodes/epNN/narration.mp3
-      - episodes/epNN/alignment.json
-      - episodes/epNN/voice_map.json
+      - episodes/epNN/storyboard.md (visual shot list)
     on_complete:
       post_message_bus:
         to: "Seedance Packager"
-        topic: "epNN.voice_ready"
-        body: "Narration and alignment for EPxxx complete. Clip generation can begin."
-      set_flags:
-        voice_generated: true
-      set_stage: clips
-    learnings_trigger: "ElevenLabs voice drift, pacing issues, alignment errors, patois bleeding into narration"
+        topic: "epNN.storyboard_ready"
+        body: "Storyboard for EPxxx complete. Seedance packs can be assembled."
+    learnings_trigger: "Shot continuity errors, pacing issues, animation complexity mismatches"
 
-  # ── STAGE 5: clips ────────────────────────────────────────────────────
+  # ── ANIMATION & VIDEO LAYER ──────────────────────────────────────────
+
   - id: seedance-packager
     name: "Seedance Packager"
     team: Paperclip
+    model: "claude-opus-4-6"
     stage: clips
     gate: "voice_generated == true"
+    heartbeat: "per character + per scene (parallel)"
     role: >
-      Builds Seedance 2.0 video prompts for each beat, using locked visual
-      references and word-level alignment timing. Calls fal.ai Seedance API
-      to generate per-beat video clips. Each clip must match the Caribbean
-      Glyph-Cel style, use correct character refs, and land strikes on beat.
-      MUST specify 'wooden bois, hand-carved, Trinidad kalinda style' in prompts
-      — never just 'stick' or Seedance generates a generic staff.
-      Jabari's drums must be described as 'African style wooden drums, L-shaped
-      curved sticks' — never modern drum kit.
+      Builds Seedance 2.0 video prompts for each beat using locked visual
+      references and word-level alignment timing. Calls fal.ai Seedance API.
+      Each clip must match Caribbean Glyph-Cel style, use correct character
+      refs, and land strikes on beat. MUST specify 'wooden bois, hand-carved,
+      Trinidad kalinda style' — never just 'stick'. Jabari's drums must be
+      'African style wooden drums, L-shaped curved sticks' — never modern kit.
     inputs:
       - memory/CANON_MEMORY.json (characters, visual_style, combat_visual_language)
       - episodes/epNN/visual_ref_pack/
       - episodes/epNN/narration.mp3
       - episodes/epNN/alignment.json
       - episodes/epNN/script_v1.md
+      - episodes/epNN/storyboard.md
       - memory/LEARNINGS.jsonl (filtered: apply_to contains "Seedance Packager")
-      - memory/MESSAGE_BUS.jsonl (entries addressed to "Seedance Packager")
+      - memory/MESSAGE_BUS.jsonl (entries to "Seedance Packager")
     outputs:
       - episodes/epNN/clips/ (beat-01.mp4, beat-02.mp4, ...)
       - episodes/epNN/prompts.json
@@ -204,25 +360,60 @@ agents:
       set_stage: manifest
     learnings_trigger: "Every Seedance rejection, style drift, generic weapon, wrong drum type, face style violation"
 
-  # ── STAGE 6: manifest ─────────────────────────────────────────────────
+  - id: voice-director
+    name: "Voice Director"
+    team: Paperclip
+    model: "claude-sonnet-4-6"
+    stage: voice
+    gate: "visual_refs_locked == true && script_approved == true"
+    heartbeat: "per episode (1 per day, 12 episodes = 12 days)"
+    role: >
+      Generates narrator voiceover (The Web-Teller) via ElevenLabs. Produces
+      narration.mp3 and word-level alignment for beat timing. Voice must be
+      wise, rhythmic, weighty — Caribbean cadence in standard English (NOT
+      patois). Creates SRT caption files. Adjusts tone for emotional beats.
+    inputs:
+      - memory/CANON_MEMORY.json (narration_style, format)
+      - episodes/epNN/script_v1.md (approved script)
+      - episodes/epNN/visual_ref_manifest.json
+      - memory/LEARNINGS.jsonl (filtered: apply_to contains "Voice Director")
+      - memory/MESSAGE_BUS.jsonl (entries to "Voice Director")
+    outputs:
+      - episodes/epNN/narration.mp3
+      - episodes/epNN/alignment.json
+      - episodes/epNN/captions.srt
+      - episodes/epNN/voice_map.json
+    on_complete:
+      post_message_bus:
+        to: "Seedance Packager"
+        topic: "epNN.voice_ready"
+        body: "Narration and alignment for EPxxx complete. Clip generation can begin."
+      set_flags:
+        voice_generated: true
+      set_stage: clips
+    learnings_trigger: "ElevenLabs voice drift, pacing issues, alignment errors, patois bleeding into narration"
+
   - id: remotion-editor
     name: "Remotion Editor"
     team: Paperclip
+    model: "claude-sonnet-4-6"
     stage: manifest
     gate: "clips_generated == true"
+    heartbeat: "per episode (1 per day, 12 episodes = 12 days)"
     role: >
       Assembles Seedance clips, stills, voiceover, captions, and motion into
-      a Remotion composition manifest. Builds the 9:16 vertical edit with
-      correct beat timing, caption overlays, and audio sync. Produces the
-      render manifest that the Render Agent will execute.
+      Remotion composition manifest. Builds BOTH YouTube long-form (16:9, 12-22
+      min) AND vertical shorts (9:16, 60-90 sec, 3-5 per episode). Burns in
+      captions on vertical formats. Adds intro/outro cards, CTA screens.
     inputs:
       - memory/CANON_MEMORY.json (format, episode_beat_map)
       - episodes/epNN/clips/
       - episodes/epNN/narration.mp3
       - episodes/epNN/alignment.json
+      - episodes/epNN/captions.srt
       - episodes/epNN/script_v1.md
       - memory/LEARNINGS.jsonl (filtered: apply_to contains "Remotion Editor")
-      - memory/MESSAGE_BUS.jsonl (entries addressed to "Remotion Editor")
+      - memory/MESSAGE_BUS.jsonl (entries to "Remotion Editor")
     outputs:
       - episodes/epNN/manifest.json
     on_complete:
@@ -235,55 +426,62 @@ agents:
       set_stage: render
     learnings_trigger: "Caption timing errors, audio drift, clip ordering mistakes, aspect ratio issues"
 
-  # ── STAGE 7: render ───────────────────────────────────────────────────
   - id: render-agent
     name: "Render Agent"
     team: Paperclip
+    model: "claude-sonnet-4-6"
     stage: render
     gate: "manifest_built == true"
+    heartbeat: "per episode (continuous during render)"
     role: >
-      Executes the Remotion render from manifest.json. Produces the final
-      9:16 MP4 at 1080x1920, 30fps, with embedded captions and synced audio.
-      Verifies output file integrity and runtime (must be 60-90s).
+      Executes Remotion render from manifest.json. Produces final MP4s:
+      YouTube long-form (1080x1920, 16:9) and vertical shorts (1080x1920, 9:16).
+      Verifies output file integrity and runtime. Uses ffmpeg for format
+      conversion and quality checks.
     inputs:
       - episodes/epNN/manifest.json
       - episodes/epNN/clips/
       - episodes/epNN/narration.mp3
       - memory/LEARNINGS.jsonl (filtered: apply_to contains "Render Agent")
-      - memory/MESSAGE_BUS.jsonl (entries addressed to "Render Agent")
+      - memory/MESSAGE_BUS.jsonl (entries to "Render Agent")
     outputs:
-      - episodes/epNN/EPxxx_final.mp4
+      - episodes/epNN/EPxxx_longform.mp4 (YouTube 16:9)
+      - episodes/epNN/EPxxx_short_01.mp4 through EPxxx_short_05.mp4 (9:16)
       - episodes/epNN/render_log.json
     on_complete:
       post_message_bus:
         to: "QA Agent"
         topic: "epNN.render_complete"
-        body: "Final render for EPxxx complete. QA can begin."
+        body: "Final renders for EPxxx complete. QA can begin."
       set_flags:
         render_complete: true
       set_stage: qa
     learnings_trigger: "Render failures, runtime violations, encoding errors, audio sync drift"
 
-  # ── STAGE 8: qa ───────────────────────────────────────────────────────
+  # ── QUALITY & PUBLISHING LAYER ───────────────────────────────────────
+
   - id: qa-agent
     name: "QA Agent"
     team: Guardrails
+    model: "claude-sonnet-4-6"
     stage: qa
     gate: "render_complete == true"
+    heartbeat: "before each upload (per episode)"
     role: >
-      Final quality gate. Checks: runtime 60-90s, doubles moment present,
-      canon compliance (no 'slaves', villain reveal respected, Selah not
-      early), visual style (no V-chins, no thin lips, correct hair), audio
-      quality, caption accuracy, patois limits. Produces pass/fail report.
-      If fail, posts specific failures to responsible agent and resets stage.
+      Final quality gate. Checks: runtime correct (long-form 12-22 min, shorts
+      60-90s), doubles moment present, canon compliance (no 'slaves', villain
+      reveal respected, Selah not early), visual style (no V-chins, no thin lips,
+      correct hair), audio quality, caption accuracy, patois limits, character
+      consistency across episodes. Produces pass/fail report.
     inputs:
       - memory/CANON_MEMORY.json
-      - episodes/epNN/EPxxx_final.mp4
+      - episodes/epNN/EPxxx_longform.mp4
+      - episodes/epNN/EPxxx_short_*.mp4
       - episodes/epNN/script_v1.md
       - episodes/epNN/manifest.json
       - episodes/epNN/canon_check.md
       - memory/LEARNINGS.jsonl (filtered: apply_to contains "QA Agent")
-      - memory/MESSAGE_BUS.jsonl (entries addressed to "QA Agent")
+      - memory/MESSAGE_BUS.jsonl (entries to "QA Agent")
     outputs:
       - episodes/epNN/qa_report.md
     on_complete:
@@ -300,28 +498,31 @@ agents:
         to: "<responsible agent>"
         topic: "epNN.qa_failed"
         body: "Specific failures listed in qa_report.md"
-      set_stage: "<failed stage>"  # back to whichever stage failed
+      set_stage: "<failed stage>"
     learnings_trigger: "Any QA failure that represents a recurring pattern — visual style drift, missing doubles, runtime violations"
 
-  # ── STAGE 9: publish ──────────────────────────────────────────────────
   - id: social-scheduler
     name: "Social Scheduler"
     team: Revenue
+    model: "claude-sonnet-4-6"
     stage: publish
     gate: "qa_passed == true"
+    heartbeat: "per post (real-time scheduling, daily summary)"
     role: >
-      Packages the final episode for publishing. Writes captions, hashtags,
-      and platform-specific metadata. Schedules to YouTube Shorts, TikTok,
-      and Instagram Reels. Updates CONTENT_LOG.json after publishing.
-      Does NOT auto-publish until QUEUE.json prelaunch_rule is satisfied
-      (12 episodes complete, 30 days teaser, character sheets locked, trailer done).
+      Packages final episodes for publishing. Writes captions, hashtags, and
+      platform-specific metadata. Schedules to YouTube (long-form + Shorts),
+      TikTok, Instagram Reels. Customizes captions per platform. Posts teaser
+      content (character reveals, 15-sec clips). Engages with comments. Does NOT
+      auto-publish until QUEUE.json prelaunch_rule is satisfied (12 episodes
+      complete, 30 days teaser, character sheets locked, trailer done).
     inputs:
-      - memory/CANON_MEMORY.json (platforms, patois_expressions)
-      - episodes/epNN/EPxxx_final.mp4
+      - memory/CANON_MEMORY.json (platforms, patois_expressions, social_launch_strategy)
+      - episodes/epNN/EPxxx_longform.mp4
+      - episodes/epNN/EPxxx_short_*.mp4
       - data/shared-memory/QUEUE.json (prelaunch_rule)
       - data/shared-memory/CONTENT_LOG.json
       - memory/LEARNINGS.jsonl (filtered: apply_to contains "Social Scheduler")
-      - memory/MESSAGE_BUS.jsonl (entries addressed to "Social Scheduler")
+      - memory/MESSAGE_BUS.jsonl (entries to "Social Scheduler")
     outputs:
       - episodes/epNN/publish_manifest.json
       - updates to data/shared-memory/CONTENT_LOG.json
@@ -333,23 +534,24 @@ agents:
       set_stage: done
     learnings_trigger: "Audience retention signals, engagement metrics, best posting times, hook performance"
 
-  # ── SUPPORTING AGENTS (not in main pipeline, triggered by MESSAGE_BUS) ──
+  # ── SUPPORTING AGENTS (triggered by MESSAGE_BUS, not pipeline stage) ──
 
   - id: action-choreographer
     name: "Action Choreographer"
     team: Goose
-    stage: null  # triggered by message, not pipeline stage
+    model: "claude-sonnet-4-6"
+    stage: null
     gate: null
+    heartbeat: "per fight scene (on request)"
     role: >
-      Builds anime fight timing, pose transitions, camera motion, and
-      readable action continuity for fight scenes. Triggered by Visual
-      Design Agent or Seedance Packager when a fight scene needs choreography.
-      Produces fight beat boards and shot choreography.
+      Builds anime fight timing, pose transitions, camera motion, and readable
+      action continuity for fight scenes. Triggered by Visual Design Agent or
+      Seedance Packager when a fight scene needs choreography.
     inputs:
       - memory/CANON_MEMORY.json (power_system, combat_visual_language)
       - episodes/epNN/script_v1.md
       - memory/LEARNINGS.jsonl (filtered: apply_to contains "Action Choreographer")
-      - memory/MESSAGE_BUS.jsonl (entries addressed to "Action Choreographer")
+      - memory/MESSAGE_BUS.jsonl (entries to "Action Choreographer")
     outputs:
       - episodes/epNN/fight_choreography.md
     on_complete:
@@ -362,13 +564,14 @@ agents:
   - id: cinematic-fx-director
     name: "Cinematic FX Director"
     team: Goose
+    model: "claude-sonnet-4-6"
     stage: null
     gate: null
+    heartbeat: "per power activation scene (on request)"
     role: >
-      Creates Opaija's special effects language: impact frames, power
-      visuals, rhythm glyph designs, Silence Crack effects, and camera
-      energy. Triggered by Visual Design Agent for episodes with power
-      activation scenes.
+      Creates Opaija's special effects language: impact frames, power visuals,
+      rhythm glyph designs, Silence Crack effects, and camera energy. Triggered
+      by Visual Design Agent for episodes with power activation scenes.
     inputs:
       - memory/CANON_MEMORY.json (combat_visual_language)
       - episodes/epNN/script_v1.md
@@ -383,16 +586,70 @@ agents:
         body: "FX brief for EPxxx complete."
     learnings_trigger: "FX that don't match canon visual language, Silence Crack inconsistencies"
 
+  - id: analytics-agent
+    name: "Analytics Agent"
+    team: Revenue
+    model: "claude-sonnet-4-6"
+    stage: null
+    gate: null
+    heartbeat: "daily (collect), weekly (analysis), monthly (report)"
+    role: >
+      Collects engagement data from all platforms (views, likes, shares,
+      comments, retention). Identifies trending content. Tracks audience
+      demographics. Calculates YouTube watch-time, retention curves. Flags
+      viral opportunities. Feeds learnings back to Script Writer and Storyboard
+      Agent via LEARNINGS.jsonl.
+    inputs:
+      - data/shared-memory/CONTENT_LOG.json
+      - memory/LEARNINGS.jsonl
+      - memory/MESSAGE_BUS.jsonl (entries to "Analytics Agent")
+    outputs:
+      - data/analytics/weekly_report.md
+      - memory/LEARNINGS.jsonl (retention_signal entries)
+    on_complete:
+      post_message_bus:
+        to: "Script Writer, Storyboard Agent, Social Scheduler"
+        topic: "growth.retention_signal"
+        body: "New retention data available. See weekly report."
+    learnings_trigger: "Retention patterns, hook performance, platform algorithm changes"
+
+  - id: lore-guardian
+    name: "Lore Guardian"
+    team: Guardrails
+    model: "claude-sonnet-4-6"
+    stage: null
+    gate: null
+    heartbeat: "per episode (after canon review)"
+    role: >
+      Checks cultural specificity, historical language, folklore use, and
+      cross-episode continuity. Distinct from Canon Guardian (per-episode rule
+      compliance) — Lore Guardian tracks cultural authenticity and continuity
+      across the whole season.
+    inputs:
+      - memory/CANON_MEMORY.json (historical_foundation)
+      - episodes/ (all episodes for cross-episode continuity)
+      - memory/LEARNINGS.jsonl
+      - memory/MESSAGE_BUS.jsonl (entries to "Lore Guardian")
+    outputs:
+      - episodes/epNN/cultural_review.md
+    on_complete:
+      post_message_bus:
+        to: "Canon Guardian"
+        topic: "epNN.cultural_review_complete"
+        body: "Cultural review for EPxxx complete."
+    learnings_trigger: "Cultural inaccuracies, folklore misuse, continuity breaks across episodes"
+
   - id: archive-clerk
     name: "Archive Clerk"
     team: Paperclip
+    model: "claude-sonnet-4-6"
     stage: null
     gate: null
+    heartbeat: "per episode (after QA passes)"
     role: >
-      Keeps bibles, prompts, scripts, files, and decisions organized.
-      Maintains the asset index and canon changelog. Triggered after
-      every episode completion to archive all artifacts and update
-      the master asset index.
+      Keeps bibles, prompts, scripts, files, and decisions organized. Maintains
+      the asset index and canon changelog. Archives all artifacts after each
+      episode completion.
     inputs:
       - episodes/epNN/ (all artifacts)
       - memory/CANON_MEMORY.json
@@ -408,41 +665,17 @@ agents:
         body: "EPxxx artifacts archived and indexed."
     learnings_trigger: "Missing artifacts, broken paths, naming inconsistencies"
 
-  - id: lore-guardian
-    name: "Lore Guardian"
-    team: Guardrails
-    stage: null
-    gate: null
-    role: >
-      Checks cultural specificity, historical language, folklore use, and
-      continuity across episodes. Distinct from Canon Guardian (which checks
-      rule compliance per episode) — Lore Guardian tracks cross-episode
-      continuity and cultural authenticity. Triggered by Canon Guardian
-      when a cultural question arises, or proactively after each episode.
-    inputs:
-      - memory/CANON_MEMORY.json
-      - episodes/ (all episodes for cross-episode continuity)
-      - memory/LEARNINGS.jsonl
-      - memory/MESSAGE_BUS.jsonl (entries to "Lore Guardian")
-    outputs:
-      - episodes/epNN/cultural_review.md
-    on_complete:
-      post_message_bus:
-        to: "Canon Guardian"
-        topic: "epNN.cultural_review_complete"
-        body: "Cultural review for EPxxx complete."
-    learnings_trigger: "Cultural inaccuracies, folklore misuse, continuity breaks across episodes"
-
   - id: tribe-growth-commander
     name: "Tribe Growth Commander"
     team: Revenue
+    model: "claude-sonnet-4-6"
     stage: null
     gate: null
+    heartbeat: "daily (growth dashboard), weekly (KPI review)"
     role: >
       Coordinates organic social, paid ads, email capture, founder drops,
-      story blog, and weekly growth memory. Reads audience metrics and
-      writes retention signals to LEARNINGS.jsonl so creative agents can
-      improve. Triggered after episodes are published.
+      story blog, and weekly growth memory. Reads audience metrics and writes
+      retention signals to LEARNINGS.jsonl so creative agents improve.
     inputs:
       - data/shared-memory/CONTENT_LOG.json
       - memory/LEARNINGS.jsonl
@@ -452,26 +685,80 @@ agents:
       - memory/LEARNINGS.jsonl (retention_signal entries)
     on_complete:
       post_message_bus:
-        to: "Storyboard Agent, Social Scheduler"
+        to: "Script Writer, Storyboard Agent, Social Scheduler"
         topic: "growth.retention_signal"
         body: "New retention data available. See weekly report."
     learnings_trigger: "Retention patterns, hook performance, platform algorithm changes"
 
-  # ── META: Orchestrator ─────────────────────────────────────────────────
-  - id: orchestrator
-    name: "Orchestrator"
-    team: Brain
+  # ── REVENUE & BRAND LAYER ────────────────────────────────────────────
+
+  - id: merch-asset-agent
+    name: "Merch Asset Agent"
+    team: Revenue
+    model: "claude-sonnet-4-6"
     stage: null
     gate: null
+    heartbeat: "per character (1 per day, 10 characters = 10 days)"
     role: >
-      Polling loop. Reads EPISODE_STATE.json's 'stage' field, finds the
-      agent whose 'stage' matches, checks its gate condition against
-      EPISODE_STATE.json flags, and fires that agent. If gate condition
-      is not met, waits. If all agents are done, reports episode complete.
-      Implemented as scripts/swarm-orchestrator.ts.
+      Extracts high-quality character artwork from Visual Design Agent outputs.
+      Generates mockups: t-shirts, hoodies, posters, pins, stickers. Creates
+      Printify-compatible design files. Sets up product listings.
     inputs:
-      - episodes/epNN/EPISODE_STATE.json
-      - ops/agents/AGENT_ROSTER.yaml (this file)
+      - episodes/epNN/visual_ref_pack/ (character artwork)
+      - memory/CANON_MEMORY.json (merch_ecosystem, brand colors)
+      - memory/LEARNINGS.jsonl
     outputs:
-      - console logs
-      - episodes/epNN/orchestrator.log.jsonl
+      - data/merch/{character}/mockups/ (PNG mockups)
+      - data/merch/{character}/printify_designs/ (upload-ready files)
+    on_complete:
+      post_message_bus:
+        to: "Tribe Growth Commander"
+        topic: "merch.{character}_ready"
+        body: "Merch designs for {character} ready for Printify."
+    learnings_trigger: "Design quality issues, print compatibility problems"
+
+  - id: book-agent
+    name: "Book Agent"
+    team: Revenue
+    model: "claude-opus-4-6"
+    stage: null
+    gate: null
+    heartbeat: "per book (episodes 1-4 → books, then ongoing)"
+    role: >
+      Converts episodes into prose narratives (story books). Writes manga-style
+      scripts (panel descriptions, dialogue). Creates coloring book outlines.
+      Compiles lore compendium. Formats for Amazon KDP. Generates cover designs.
+    inputs:
+      - episodes/epNN/script_v1.md (episode narratives)
+      - data/characters/{char_name}/BIBLE.md (lore details)
+      - memory/CANON_MEMORY.json
+      - memory/LEARNINGS.jsonl
+    outputs:
+      - data/books/{title}/manuscript.md
+      - data/books/{title}/coloring_book_outlines/
+      - data/books/{title}/cover_designs/
+    on_complete:
+      post_message_bus:
+        to: "Tribe Growth Commander"
+        topic: "book.{title}_ready"
+        body: "Book manuscript for {title} ready for KDP."
+    learnings_trigger: "Formatting issues, pacing problems in prose adaptation"
+
+# =============================================================================
+# COST ESTIMATES
+# =============================================================================
+
+api_costs_per_episode:
+  seedance_render_per_30sec_clip: "$0.50 - $2.00 per clip (depends on complexity)"
+  seedance_total_per_episode_longform: "$15 - $50 (30-50 clips per long-form episode)"
+  seedance_total_per_episode_shorts: "$3 - $15 (3-5 vertical shorts)"
+  elevenlabs_narration_per_episode: "$1 - $3 (depends on narration length)"
+  claude_api_per_episode: "$0.50 - $2.00 (script + canon check + QA)"
+  total_per_episode_estimate: "$20 - $70"
+
+cost_for_season_1:
+  production_12_episodes: "$240 - $840"
+  monthly_cloud_storage: "$5 - $20 (server already paid)"
+  elevenlabs_subscription: "$0 - $30 (per month, depends on usage tier)"
+  total_estimated_cost: "$300 - $1,200 for full Season 1"
+  note: "Server (trini VPS) already paid and shared with other apps. Monthly budget cap: $500 (MONTHLY_BUDGET_USD in .env)."

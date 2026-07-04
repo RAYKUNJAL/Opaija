@@ -1,9 +1,9 @@
 {
   "_meta": {
-    "version": "1.0.0",
+    "version": "2.0.0",
     "source_file": "data/shared-memory/OPAIJA_CANON.json",
-    "source_updated": "2026-05-12",
-    "generated": "2026-07-03T23:22:26.726Z",
+    "source_updated": "2026-07-04",
+    "generated": "2026-07-04T04:04:35.229Z",
     "description": "Flattened canon for fast agent lookup. DO NOT edit directly — edit OPAIJA_CANON.json and run: npx tsx scripts/generate-canon-memory.ts"
   },
   "titles": {
@@ -69,7 +69,58 @@
       "Sound-wave effects tied to beat timing",
       "Silence cracks — villain-only, black fractures in the visual field",
       "Motion MUST be tied to beat timing — every strike lands on a beat"
-    ]
+    ],
+    "five_awakening_conditions": [
+      {
+        "condition_1": "BLOODLINE - Fighter must descend from enslaved African warrior lineage",
+        "evidence": "Tested through stick recognition, family history"
+      },
+      {
+        "condition_2": "SPIRIT_ALIGNMENT - Fighter's aura must match stick's frequency",
+        "evidence": "Lavway chant resonates, stick doesn't reject wielder"
+      },
+      {
+        "condition_3": "RHYTHM_MASTERY - Fighter must understand drum language",
+        "evidence": "Moves sync with Jabari's drumming, not fighting it"
+      },
+      {
+        "condition_4": "SACRIFICE - Fighter must accept burden of ancestral memory",
+        "evidence": "Visions flood in during first awakening, intense emotional cost"
+      },
+      {
+        "condition_5": "GAYELLE_WITNESS - Stick must awaken in sacred circle with community present",
+        "evidence": "Power amplifies with crowd energy, fails in isolation"
+      }
+    ],
+    "power_tiers": {
+      "tier_1": {
+        "name": "Partial Awakening",
+        "episodes": "Ep 1-2 (Kai's current state)",
+        "abilities": [
+          "Short-range strikes",
+          "Basic stick glow",
+          "Partial lavway response"
+        ]
+      },
+      "tier_2": {
+        "name": "Full Resonance",
+        "episodes": "Ep 3-8",
+        "abilities": [
+          "Medium-range power bursts",
+          "Stick memory flash-backs",
+          "Drum sync fighting"
+        ]
+      },
+      "tier_3": {
+        "name": "True Opaija Form",
+        "episodes": "Ep 9-12 (locked for Season 2)",
+        "abilities": [
+          "Body embeds stick energy",
+          "Long-range strike waves",
+          "Full ancestral memory access"
+        ]
+      }
+    }
   },
   "language_rules": {
     "never_use": [
@@ -79,7 +130,7 @@
       "enslaved Africans"
     ],
     "patois_rule": "Use patois in CHARACTER dialogue and CAPTION only. The Web-Teller narrator uses standard English with Caribbean rhythm. Never use patois in ways that mock or otherness — it is a mark of authenticity and cultural pride.",
-    "patois_max_per_episode": "2-3 lines, character dialogue/captions only, never in narration",
+    "patois_max_per_episode": "10-15% of dialogue, character dialogue/captions only, never in narration",
     "patois_expressions": {
       "doh": "don't",
       "allyuh": "all of you / you all",
@@ -102,7 +153,20 @@
     "episodes_1_6": "Marius Vale is unseen. Only felt through agents and Silence Pulse effects.",
     "episode_7": "First silhouette reveal — back only, no face",
     "episode_10": "First full face reveal",
-    "episode_12": "Marius Vale speaks directly to Kai"
+    "episode_12": "Marius Vale speaks directly to Kai",
+    "marius_vale_episodes_1_9": {
+      "visual_restrictions": [
+        "Never show full face",
+        "Use: hooded shadow, back-turned silhouette, hands only, partial profile",
+        "Voice: distorted or echoing, mysterious tone",
+        "Movement: fluid, menacing, never vulnerable"
+      ],
+      "mystery_build": "Clues about Marius: false one drum, connection to Selah, island history"
+    },
+    "marius_vale_episode_10": {
+      "climax": "Full face reveal in final confrontation with Kai",
+      "scene_type": "Emotional, shocking, explains power source"
+    }
   },
   "selah_reveal": "Selah Vale appears episode 8. Her connection to Marius is revealed episode 9.",
   "recurring_beats": [
@@ -144,7 +208,8 @@
         "Pimento Orange #E05224",
         "Sea Teal #0E6B6B",
         "Sand Beige #E5D1A6"
-      ]
+      ],
+      "quirk": "OBSESSIVE love of doubles (Trinidad street food — chickpea curry in fried bara). Will go wildly out of his way to get doubles from any roadside vendor. MUST eat one before a fight — it calms him. This is a recurring comedic and human moment in EVERY episode. Mother Lall is his favorite vendor."
     },
     "nia_toussaint": {
       "full_name": "Nia Toussaint",
@@ -310,7 +375,7 @@
     },
     "hair_rules": "All characters must have textured, Afro-Caribbean or Caribbean-influenced hairstyles. Locs, braids, twists, high-tops, coils. Each character's hair is their signature.",
     "background_design": [
-      "Trinidad gingerbread architecture",
+      "Trinidad gingerbell architecture",
       "Tobago coastlines",
       "Caribbean fretwork patterns",
       "Carnival cloth textures",
@@ -347,6 +412,97 @@
     "Drum Sync requires the drummer to be physically present or within earshot",
     "Gayelle Vow cannot be undone once taken"
   ],
+  "historical_foundation": {
+    "source_1": "National Archives of Trinidad and Tobago",
+    "fact_1": "~44,000 enslaved Africans brought to Trinidad and Tobago via transatlantic slave trade",
+    "fact_2": "Journey documented: Africa → plantation life → resistance → revolt → rebellion → freedom",
+    "fact_3": "African diaspora includes enslaved, liberated, and free arrivals 17th-19th centuries",
+    "source_2": "NALIS (National Library Archive)",
+    "fact_4": "Kalenda/Calinda: stick dance probably African origin, drums + chants, bois in gayelle circle",
+    "fact_5": "Canboulay and stick fights dominated Trinidad Carnival second half 19th century",
+    "source_3": "UNESCO Martial Arts Archive",
+    "fact_6": "Calinda/Kalinda: Caribbean martial dance, Trinidad & Tobago, weapon-based sticks, call-and-response vocals + drums",
+    "fact_7": "Based on traditional African combat dances brought through slave trade",
+    "creative_freedom": "Story is fictional mythology ROOTED in documented history - not rewriting, elevating"
+  },
+  "backstory_mythology": {
+    "premise": "Sticks were not smuggled whole - they were BROKEN, DISGUISED, HIDDEN, SPIRITUALLY ENCODED",
+    "hidden_as": [
+      "Drum pegs (inside working drums)",
+      "Walking cane fragments (carried by elders)",
+      "Carved beads (worn as adornment)",
+      "Ship repair wood (hidden in vessel repairs)",
+      "Pestle handles (kitchen tools)",
+      "Prayer objects (spiritual camouflage)",
+      "Hair ornaments (braids + locks)",
+      "Children's toys (playing pieces)",
+      "Pieces of firewood (daily fuel)",
+      "Carved marks under skin scars (body memory)",
+      "MOST IMPORTANTLY: SONGS (call-and-response lavway)"
+    ],
+    "real_secret": "The enemy thought they had taken every weapon. But they did not know the weapon had been hidden inside RHYTHM.",
+    "awakening_key": "The lavway - call-and-response chant that tells future generations how to AWAKEN the sticks",
+    "season_1_arc": "Kai discovers fragments, learns lavway, awakens full stick power, defends gayelle from Marius"
+  },
+  "social_launch_strategy": {
+    "phase_1_teasers": {
+      "weeks_1_4": "Before content drops",
+      "week_1": "Character design reveals (Kai full sheet, static + GIF)",
+      "week_2": "Kai + Nia dynamic teaser (15-sec loop, lavway magic hint)",
+      "week_3": "Drum close-up cinematic (15-sec, 'Every Rhythm Has a Weapon' tagline)",
+      "week_4": "Full cast lineup reveal (character grid animation)"
+    },
+    "phase_2_launch": {
+      "weeks_5_13": "Content drops live",
+      "week_6": "YouTube Ep 1 premiere (Saturday 6 PM EST)",
+      "week_7_9": "Weekly YouTube premieres (Eps 2-4)",
+      "daily_posts": "Mon/Tue/Wed/Thu/Fri vertical shorts per episode",
+      "momentum_build": "Target 100K followers by Ep 1, 500K by Ep 4"
+    },
+    "phase_3_sustained": {
+      "weeks_10_26": "Long-form series + shorts ongoing",
+      "parallel_production": "Eps 5-12 rendering while 1-4 are live",
+      "merchandise": "T-shirts, posters, prints available from Ep 2 onward",
+      "books": "Amazon KDP launches by Ep 4",
+      "crowdfunding": "Kickstarter + Republic campaign by Week 13"
+    }
+  },
+  "revenue_phases": {
+    "phase_1_launch": {
+      "timeline": "Weeks 1-8",
+      "revenue": [
+        "YouTube ad share (if monetized)",
+        "Patreon/memberships",
+        "Early merch pre-orders"
+      ]
+    },
+    "phase_2_growth": {
+      "timeline": "Weeks 9-26",
+      "revenue": [
+        "YouTube sustained revenue",
+        "Merch print-on-demand (Printify + Gelato)",
+        "Amazon KDP book sales",
+        "Crowdfunding (Kickstarter equity + Republic)"
+      ]
+    },
+    "phase_3_streaming": {
+      "timeline": "Months 7-12+",
+      "revenue": [
+        "Tubi + Amazon Prime Video Direct licensing",
+        "Netflix via aggregator (if growth hits targets)",
+        "Theatrical release (feature film + shorts)"
+      ]
+    }
+  },
+  "required_tools": {
+    "character_generation": "Seedance 2.0 API (animation) + Remotion Lambda (video assembly)",
+    "voice_narration": "ElevenLabs API (single narrator voice)",
+    "social_automation": "YouTube API + TikTok Creator Studio + Instagram Graph API",
+    "merchandise": "Printify API + Gelato API",
+    "books": "Amazon KDP (manual upload, content via Amazon Textract)",
+    "crowdfunding": "Kickstarter + Republic (native platforms)",
+    "project_management": "Paperclip (company OS) + Goose by Block (agent orchestration)"
+  },
   "future_islands": {
     "confirmed_arcs": [
       "Barbados",
