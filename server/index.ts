@@ -1,6 +1,7 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import crypto from "node:crypto";
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -49,6 +50,64 @@ const port = Number(process.env.PORT ?? 8787);
 
 app.use(cors());
 app.use(express.json({ limit: "30mb" }));
+
+// ── AUTH ────────────────────────────────────────────────────────────────────
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? "";
+const SESSION_SECRET = process.env.SESSION_SECRET ?? crypto.randomBytes(32).toString("hex");
+const activeSessions = new Set<string>();
+
+function makeSessionToken(): string {
+  return crypto.createHmac("sha256", SESSION_SECRET).update(crypto.randomBytes(32).toString("hex")).digest("hex");
+}
+
+function isAuthenticated(request: express.Request): boolean {
+  if (!ADMIN_PASSWORD) return true; // No password set = open (dev mode)
+  const token = request.headers["x-admin-session"] as string | undefined;
+  return !!token && activeSessions.has(token);
+}
+
+// Public routes that don't need auth (health + growth for public site)
+const PUBLIC_API_ROUTES = ["/api/health", "/api/growth"];
+
+app.use((request, response, next) => {
+  if (!ADMIN_PASSWORD) return next(); // No password = open
+  if (request.path.startsWith("/api/auth/")) return next();
+  if (PUBLIC_API_ROUTES.some((r) => request.path.startsWith(r))) return next();
+  if (request.path.startsWith("/api/") && !isAuthenticated(request)) {
+    response.status(401).json({ error: "Not authenticated" });
+    return;
+  }
+  next();
+});
+
+app.post("/api/auth/login", (request, response) => {
+  const { password } = request.body as { password?: string };
+  if (!ADMIN_PASSWORD) {
+    response.json({ status: "open", message: "No ADMIN_PASSWORD set — auth disabled" });
+    return;
+  }
+  if (!password || password !== ADMIN_PASSWORD) {
+    response.status(401).json({ error: "Wrong password" });
+    return;
+  }
+  const token = makeSessionToken();
+  activeSessions.add(token);
+  response.json({ status: "ok", token });
+});
+
+app.post("/api/auth/logout", (request, response) => {
+  const token = request.headers["x-admin-session"] as string | undefined;
+  if (token) activeSessions.delete(token);
+  response.json({ status: "ok" });
+});
+
+app.get("/api/auth/check", (request, response) => {
+  if (!ADMIN_PASSWORD) {
+    response.json({ authenticated: true, authRequired: false });
+    return;
+  }
+  response.json({ authenticated: isAuthenticated(request), authRequired: true });
+});
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distPath = path.resolve(__dirname, "..", "dist");

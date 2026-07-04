@@ -48,10 +48,105 @@ export function App() {
   }
 
   const isAdminRoute = window.location.pathname.startsWith("/command") || window.location.pathname.startsWith("/admin");
-  return isAdminRoute ? <CommandCenter /> : <PublicSite />;
+  return isAdminRoute ? <AdminGate /> : <PublicSite />;
 }
 
-function CommandCenter() {
+function AdminGate() {
+  const [authState, setAuthState] = useState<"checking" | "login" | "authed">("checking");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const saved = sessionStorage.getItem("opaija_admin_token");
+    if (saved) {
+      fetch("/api/auth/check", { headers: { "x-admin-session": saved } })
+        .then((r) => r.json())
+        .then((data: { authenticated: boolean; authRequired: boolean }) => {
+          if (data.authenticated) {
+            setToken(saved);
+            setAuthState("authed");
+          } else {
+            sessionStorage.removeItem("opaija_admin_token");
+            setAuthState(data.authRequired ? "login" : "authed");
+          }
+        })
+        .catch(() => setAuthState("login"));
+    } else {
+      fetch("/api/auth/check")
+        .then((r) => r.json())
+        .then((data: { authenticated: boolean; authRequired: boolean }) => {
+          setAuthState(data.authRequired ? "login" : "authed");
+        })
+        .catch(() => setAuthState("login"));
+    }
+  }, []);
+
+  async function handleLogin(e: React.FormEvent) {
+    e.preventDefault();
+    setError("");
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      const data = await res.json();
+      if (res.ok && data.token) {
+        sessionStorage.setItem("opaija_admin_token", data.token);
+        setToken(data.token);
+        setAuthState("authed");
+      } else if (data.status === "open") {
+        setAuthState("authed");
+      } else {
+        setError(data.error ?? "Login failed");
+      }
+    } catch {
+      setError("Could not connect to server");
+    }
+  }
+
+  if (authState === "checking") {
+    return (
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh", background: "#0F0F10", color: "#E5D1A6" }}>
+        <p>Checking access…</p>
+      </div>
+    );
+  }
+
+  if (authState === "login") {
+    return (
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh", background: "#0F0F10", fontFamily: "system-ui, sans-serif" }}>
+        <form onSubmit={handleLogin} style={{ width: 360, padding: 32, background: "#1A1A1E", borderRadius: 12, border: "1px solid #2A2A2E" }}>
+          <div style={{ textAlign: "center", marginBottom: 24 }}>
+            <div style={{ fontSize: 48, fontWeight: 900, color: "#E4A700", marginBottom: 8 }}>O</div>
+            <h1 style={{ color: "#E5D1A6", fontSize: 20, margin: 0 }}>OPAIJA Command Center</h1>
+            <p style={{ color: "#6A6A6E", fontSize: 13, marginTop: 4 }}>Enter password to access production dashboard</p>
+          </div>
+          {error && <p style={{ color: "#C6281E", fontSize: 13, marginBottom: 12, textAlign: "center" }}>{error}</p>}
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            autoFocus
+            style={{ width: "100%", padding: "12px 14px", background: "#0F0F10", border: "1px solid #2A2A2E", borderRadius: 8, color: "#E5D1A6", fontSize: 15, marginBottom: 16, boxSizing: "border-box" }}
+          />
+          <button
+            type="submit"
+            style={{ width: "100%", padding: "12px", background: "#E4A700", border: "none", borderRadius: 8, color: "#0F0F10", fontSize: 15, fontWeight: 700, cursor: "pointer" }}
+          >
+            Enter Command Center
+          </button>
+        </form>
+      </div>
+    );
+  }
+
+  return <CommandCenter token={token} />;
+}
+
+function CommandCenter({ token }: { token: string | null }) {
   const [activeView, setActiveView] = useState<View>("command");
 
   return (
@@ -89,6 +184,18 @@ function CommandCenter() {
             <span>Shared memory active</span>
           </div>
         </div>
+        {token && (
+          <button
+            onClick={() => {
+              fetch("/api/auth/logout", { method: "POST", headers: { "x-admin-session": token } }).catch(() => {});
+              sessionStorage.removeItem("opaija_admin_token");
+              window.location.reload();
+            }}
+            style={{ marginTop: 12, padding: "8px 12px", background: "transparent", border: "1px solid #2A2A2E", borderRadius: 8, color: "#6A6A6E", fontSize: 13, cursor: "pointer", width: "100%" }}
+          >
+            Log out
+          </button>
+        )}
       </aside>
 
       <section className="workspace">
