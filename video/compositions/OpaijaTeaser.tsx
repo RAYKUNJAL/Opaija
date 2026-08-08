@@ -20,6 +20,10 @@ const gold = "#f3a712";
 const orange = "#e85d04";
 const cream = "#fff7e9";
 
+function remotionPublicPath(value: string) {
+  return value.replace(/^\\/+/, "").replace(/^public\\//, "");
+}
+
 export const OpaijaTeaser = ({ title, subtitle, characterImage, audioPath }: OpaijaTeaserProps) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
@@ -29,7 +33,7 @@ export const OpaijaTeaser = ({ title, subtitle, characterImage, audioPath }: Opa
 
   return (
     <AbsoluteFill style={{ background: "linear-gradient(180deg, #050505 0%, #16100a 54%, #062120 100%)" }}>
-      {audioPath ? <Audio src={staticFile(audioPath)} /> : null}
+      {audioPath ? <Audio src={staticFile(remotionPublicPath(audioPath))} /> : null}
       <AbsoluteFill
         style={{
           background:
@@ -38,7 +42,7 @@ export const OpaijaTeaser = ({ title, subtitle, characterImage, audioPath }: Opa
       />
       <Sequence from={0} durationInFrames={durationInFrames}>
         <Img
-          src={staticFile(characterImage)}
+          src={staticFile(remotionPublicPath(characterImage))}
           style={{
             position: "absolute",
             left: -460,

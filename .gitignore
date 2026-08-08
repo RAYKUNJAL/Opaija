@@ -8,3 +8,13 @@ out/
 .DS_Store
 npm-debug.log*
 *.local
+data/
+*.log
+server.pid
+server-run.*
+tmp-*.env
+.playwright-cli/
+.tmp_*.diff
+artifacts/
+output/
+output-playwright-*.png

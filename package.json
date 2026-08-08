@@ -8,11 +8,20 @@
     "dev:web": "vite --host 0.0.0.0",
     "dev:api": "tsx watch server/index.ts",
     "server": "tsx server/index.ts",
+    "worker": "tsx server/automationWorker.ts",
+    "smoke:launch": "node scripts/launch-smoke.mjs",
+    "smoke:browser": "node scripts/browser-smoke.mjs",
     "start": "node dist-server/index.js",
+    "builder:e2e": "node scripts/book-builder-e2e.mjs",
+    "builder:e2e:mock": "node scripts/run-book-builder-e2e-mock.mjs",
+    "builder:lettering:test": "tsx scripts/book-builder-lettering-contract.ts",
+    "builder:deploy": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/deploy-command.ps1",
     "studio": "remotion studio video/index.ts",
     "render:teaser": "remotion render video/index.ts OpaijaTeaser out/opaija-teaser.mp4",
     "build": "tsc -b && tsc -p tsconfig.server.json && vite build",
     "typecheck": "tsc -b && tsc -p tsconfig.server.json --noEmit",
+    "docker:build": "docker build -t opaija-book-builder .",
+    "docker:run": "docker run --rm -p 8787:8787 --name opaija-book-builder --env-file .env -v ${PWD}/data/book-builder:/app/data/book-builder opaija-book-builder",
     "preview": "vite preview --host 0.0.0.0",
     "lint": "eslint ."
   },
@@ -20,19 +29,26 @@
     "node": ">=20"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.95.2",
     "@fal-ai/client": "^1.7.0",
     "@types/three": "^0.184.1",
+    "@vibeframe/cli": "^0.113.30",
     "@vitejs/plugin-react": "^5.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.1",
     "framer-motion": "^12.38.0",
+    "konva": "^10.3.0",
     "lucide-react": "^0.468.0",
     "openai": "^4.73.1",
+    "pdf-lib": "^1.17.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-konva": "^18.2.16",
     "remotion": "^4.0.459",
+    "replicate": "^1.4.0",
     "resend": "^6.12.3",
+    "sharp": "^0.35.3",
     "three": "^0.184.0",
     "typescript": "^5.6.2",
     "vite": "^6.0.0"
@@ -40,7 +56,7 @@
   "devDependencies": {
     "@remotion/cli": "^4.0.459",
     "@types/cors": "^2.8.17",
-    "@types/express": "^5.0.0",
+    "@types/express": "^4.17.25",
     "@types/node": "^22.9.0",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
@@ -49,7 +65,11 @@
     "ffmpeg-static": "^5.3.0",
     "ffprobe-static": "^3.1.0",
     "globals": "^15.12.0",
+    "playwright": "^1.62.1",
     "tsx": "^4.19.2",
     "typescript-eslint": "^8.15.0"
+  },
+  "overrides": {
+    "sharp": "$sharp"
   }
 }

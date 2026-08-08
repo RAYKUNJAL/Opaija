@@ -4,6 +4,7 @@ export type BrainTaskInput = {
   task: "character-bible" | "seedance-prompt" | "episode-script" | "marketing-hook" | "style-check";
   brief: string;
   characterName?: string;
+  storyFramework?: string;
   outputFormat?: "markdown" | "json";
 };
 
@@ -83,7 +84,7 @@ export function getBrainProvider(): BrainProvider {
 
 export function getBrainModel(provider = getBrainProvider()) {
   if (provider === "openrouter") return process.env.OPENROUTER_MODEL ?? "moonshotai/kimi-k2";
-  return process.env.OPENAI_MODEL ?? "gpt-5.5";
+  return process.env.OPENAI_MODEL ?? "gpt-4o-mini";
 }
 
 function buildPrompt(input: BrainTaskInput) {
@@ -92,6 +93,10 @@ function buildPrompt(input: BrainTaskInput) {
     `Style lock: ${styleLock}`,
     "Canon rule: use 'enslaved Africans' in historical backstory.",
     "Core power rule: a stick has memory, a fighter has spirit, a drum has rhythm, a lavway has command, and the gayelle binds them together.",
+    input.storyFramework ? `Official story alignment pack:\n${input.storyFramework}` : "",
+    input.task === "episode-script" || input.task === "seedance-prompt"
+      ? "Alignment mandate: preserve the main story framework, character bible, episode spine, and book continuity. Do not invent unlocked powers, premature face reveals, costume changes, or plot beats that conflict with canon."
+      : "",
     input.characterName ? `Character: ${input.characterName}` : "",
     `Task type: ${input.task}`,
     `Output format: ${input.outputFormat ?? "markdown"}`,

@@ -1,0 +1,22 @@
+services:
+  opaija-book-builder:
+    build: .
+    container_name: opaija-book-builder
+    ports:
+      - "8787:8787"
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+  opaija-automation-worker:
+    build: .
+    container_name: opaija-automation-worker
+    command: ["node", "dist-server/automationWorker.js"]
+    env_file:
+      - .env
+    environment:
+      - TZ=America/Port_of_Spain
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped

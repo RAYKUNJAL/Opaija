@@ -1,0 +1,68 @@
+{
+  "episodeId": "EP001",
+  "title": "The Stick Chose Him",
+  "runtimeSeconds": 20.8,
+  "location": "Gayelle training yard",
+  "island": "Trinidad",
+  "characters": [
+    "Kai",
+    "Nia",
+    "Malik",
+    "Jabari",
+    "Papa Etienne"
+  ],
+  "villainPresence": false,
+  "narrationText": "Kai reaches the gayelle late, doubles still warm in his hand, and the whole yard hears the first drum call.\n\nNia watches the rhythm change as Papa Etienne places the bois in the dust and tells Kai to listen before he swings.\n\nThe stick answers before Kai does, and Malik sees the memory spark move through the grain.",
+  "source": "dashboard",
+  "humanApproved": false,
+  "beats": [
+    {
+      "idx": 1,
+      "text": "Kai reaches the gayelle late, doubles still warm in his hand, and the whole yard hears the first drum call.",
+      "durSec": 7.133333333333334,
+      "startSec": 0,
+      "endSec": 7.133333333333334,
+      "characters": [
+        "Kai",
+        "Nia",
+        "Malik",
+        "Jabari",
+        "Papa Etienne"
+      ],
+      "narrationStartWordIdx": 0,
+      "narrationEndWordIdx": 0
+    },
+    {
+      "idx": 2,
+      "text": "Nia watches the rhythm change as Papa Etienne places the bois in the dust and tells Kai to listen before he swings.",
+      "durSec": 7.666666666666667,
+      "startSec": 7.133333333333334,
+      "endSec": 14.8,
+      "characters": [
+        "Kai",
+        "Nia",
+        "Malik",
+        "Jabari",
+        "Papa Etienne"
+      ],
+      "narrationStartWordIdx": 0,
+      "narrationEndWordIdx": 0
+    },
+    {
+      "idx": 3,
+      "text": "The stick answers before Kai does, and Malik sees the memory spark move through the grain.",
+      "durSec": 6,
+      "startSec": 14.8,
+      "endSec": 20.8,
+      "characters": [
+        "Kai",
+        "Nia",
+        "Malik",
+        "Jabari",
+        "Papa Etienne"
+      ],
+      "narrationStartWordIdx": 0,
+      "narrationEndWordIdx": 0
+    }
+  ]
+}

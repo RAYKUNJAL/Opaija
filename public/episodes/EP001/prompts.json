@@ -1,0 +1,74 @@
+[
+  {
+    "idx": 1,
+    "text": "Kai reaches the gayelle late, doubles still warm in his hand, and the whole yard hears the first drum call.",
+    "durSec": 7.133333333333334,
+    "startSec": 0,
+    "endSec": 7.133333333333334,
+    "characters": [
+      "Kai",
+      "Nia",
+      "Malik",
+      "Jabari",
+      "Papa Etienne"
+    ],
+    "narrationStartWordIdx": 0,
+    "narrationEndWordIdx": 0,
+    "prompt": "CANON ALIGNMENT: Series: OPAIJA. A Caribbean Afrocentric martial anime where bois, lavway, drums, memory, spirit, and the gayelle reveal an island-rooted power system. Volume 0 follows Kai as the stick chooses him, pulls him into the Guardian legacy, and forces the cast to confront rhythm, memory, and responsibility. Cross-media lock: video beats must match the books, character bible, current episode story, and OPAIJA continuity. Books, episodes, video prompts, captions, and covers must align to the same character bible and story continuity. Use enslaved Africans, never slaves, in historical backstory. Kai must keep a doubles moment in episode stories when Kai is present. A stick has memory, a fighter has spirit, a drum has rhythm, a lavway has command, and the gayelle binds them. Jabari uses African-style wooden Kalinda drums and curved L-shaped sticks, never a modern drum kit. Marius Vale stays back-only until the canon face reveal point. Characters cannot use powers they have not unlocked yet. Patois should be authentic and accessible, limited to a few sharp lines per episode. Visuals stay OPAIJA 2.5D Caribbean anime: rounded Afro-Caribbean faces, clean ink, bright island palette, no generic fantasy armor. Episode scripts must be able to become video beats without changing plot meaning. Video prompts must preserve the book-panel character, costume, location, and power continuity. Book pages and episode beats should share the same hook, conflict, reveal, escalation, and cliffhanger language. EPISODE: EP001 - The Stick Chose Him. HOOK: Kai thinks he is late for practice, but the bois already remembers his name.. CONFLICT: The training yard tests Kai before he understands the Guardian legacy watching him.. REVEAL: The stick does not belong to Kai; it chooses him because memory recognizes spirit.. ESCALATION: The drum rhythm shifts, the gayelle tightens, and every watcher realizes this is not ordinary training.. CLIFFHANGER: A silent figure connected to Marius Vale watches from the edge of the crowd.. STYLE: OPAIJA 2.5D Caribbean anime, clean hand-drawn ink, bright island palette, anime cinematography, rounded Afro-Caribbean faces, no generic fantasy armor. CAMERA: cinematic framing. CHARACTER: Kai, Nia, Malik, Jabari, Papa Etienne in scene. SETTING: Gayelle training yard. TECHNICAL: vertical 9:16, no text overlay, 7s clip. Scene: Kai reaches the gayelle late, doubles still warm in his hand, and the whole yard hears the first drum call.",
+    "negativePrompt": "3d render, photorealistic, realistic skin, sweat, uncanny valley, blurry, low quality, watermark, text overlay",
+    "referenceImageUrls": [],
+    "referenceImage": "",
+    "primaryCharacter": "Kai",
+    "mode": "text-to-video",
+    "storyFrameworkVersion": "opaija-cross-media-v1",
+    "storyFrameworkDigest": "MAIN STORY FRAMEWORK:\n\n{\n  \"series\": \"OPAIJA\",\n  \"premise\": \"A Caribbean Afrocentric martial anime where bois, lavway, drums, memory, spirit, and the gayelle reveal an island-rooted power system.\",\n  \"volumeZero\": \"Volume 0 follows Kai as the stick chooses him, pulls him into the Guardian legacy, and forces the cast to confront rhythm, memory, and responsibility.\",\n  \"canonRules\": [\n    \"Books, episodes, video prompts, captions, and covers must align to the same character bible and story continu"
+  },
+  {
+    "idx": 2,
+    "text": "Nia watches the rhythm change as Papa Etienne places the bois in the dust and tells Kai to listen before he swings.",
+    "durSec": 7.666666666666667,
+    "startSec": 7.133333333333334,
+    "endSec": 14.8,
+    "characters": [
+      "Kai",
+      "Nia",
+      "Malik",
+      "Jabari",
+      "Papa Etienne"
+    ],
+    "narrationStartWordIdx": 0,
+    "narrationEndWordIdx": 0,
+    "prompt": "CANON ALIGNMENT: Series: OPAIJA. A Caribbean Afrocentric martial anime where bois, lavway, drums, memory, spirit, and the gayelle reveal an island-rooted power system. Volume 0 follows Kai as the stick chooses him, pulls him into the Guardian legacy, and forces the cast to confront rhythm, memory, and responsibility. Cross-media lock: video beats must match the books, character bible, current episode story, and OPAIJA continuity. Books, episodes, video prompts, captions, and covers must align to the same character bible and story continuity. Use enslaved Africans, never slaves, in historical backstory. Kai must keep a doubles moment in episode stories when Kai is present. A stick has memory, a fighter has spirit, a drum has rhythm, a lavway has command, and the gayelle binds them. Jabari uses African-style wooden Kalinda drums and curved L-shaped sticks, never a modern drum kit. Marius Vale stays back-only until the canon face reveal point. Characters cannot use powers they have not unlocked yet. Patois should be authentic and accessible, limited to a few sharp lines per episode. Visuals stay OPAIJA 2.5D Caribbean anime: rounded Afro-Caribbean faces, clean ink, bright island palette, no generic fantasy armor. Episode scripts must be able to become video beats without changing plot meaning. Video prompts must preserve the book-panel character, costume, location, and power continuity. Book pages and episode beats should share the same hook, conflict, reveal, escalation, and cliffhanger language. EPISODE: EP001 - The Stick Chose Him. HOOK: Kai thinks he is late for practice, but the bois already remembers his name.. CONFLICT: The training yard tests Kai before he understands the Guardian legacy watching him.. REVEAL: The stick does not belong to Kai; it chooses him because memory recognizes spirit.. ESCALATION: The drum rhythm shifts, the gayelle tightens, and every watcher realizes this is not ordinary training.. CLIFFHANGER: A silent figure connected to Marius Vale watches from the edge of the crowd.. STYLE: OPAIJA 2.5D Caribbean anime, clean hand-drawn ink, bright island palette, anime cinematography, rounded Afro-Caribbean faces, no generic fantasy armor. CAMERA: cinematic framing. CHARACTER: Kai, Nia, Malik, Jabari, Papa Etienne in scene. SETTING: Gayelle training yard. TECHNICAL: vertical 9:16, no text overlay, 8s clip. Scene: Nia watches the rhythm change as Papa Etienne places the bois in the dust and tells Kai to listen before he swings.",
+    "negativePrompt": "3d render, photorealistic, realistic skin, sweat, uncanny valley, blurry, low quality, watermark, text overlay",
+    "referenceImageUrls": [],
+    "referenceImage": "",
+    "primaryCharacter": "Kai",
+    "mode": "text-to-video",
+    "storyFrameworkVersion": "opaija-cross-media-v1",
+    "storyFrameworkDigest": "MAIN STORY FRAMEWORK:\n\n{\n  \"series\": \"OPAIJA\",\n  \"premise\": \"A Caribbean Afrocentric martial anime where bois, lavway, drums, memory, spirit, and the gayelle reveal an island-rooted power system.\",\n  \"volumeZero\": \"Volume 0 follows Kai as the stick chooses him, pulls him into the Guardian legacy, and forces the cast to confront rhythm, memory, and responsibility.\",\n  \"canonRules\": [\n    \"Books, episodes, video prompts, captions, and covers must align to the same character bible and story continu"
+  },
+  {
+    "idx": 3,
+    "text": "The stick answers before Kai does, and Malik sees the memory spark move through the grain.",
+    "durSec": 6,
+    "startSec": 14.8,
+    "endSec": 20.8,
+    "characters": [
+      "Kai",
+      "Nia",
+      "Malik",
+      "Jabari",
+      "Papa Etienne"
+    ],
+    "narrationStartWordIdx": 0,
+    "narrationEndWordIdx": 0,
+    "prompt": "CANON ALIGNMENT: Series: OPAIJA. A Caribbean Afrocentric martial anime where bois, lavway, drums, memory, spirit, and the gayelle reveal an island-rooted power system. Volume 0 follows Kai as the stick chooses him, pulls him into the Guardian legacy, and forces the cast to confront rhythm, memory, and responsibility. Cross-media lock: video beats must match the books, character bible, current episode story, and OPAIJA continuity. Books, episodes, video prompts, captions, and covers must align to the same character bible and story continuity. Use enslaved Africans, never slaves, in historical backstory. Kai must keep a doubles moment in episode stories when Kai is present. A stick has memory, a fighter has spirit, a drum has rhythm, a lavway has command, and the gayelle binds them. Jabari uses African-style wooden Kalinda drums and curved L-shaped sticks, never a modern drum kit. Marius Vale stays back-only until the canon face reveal point. Characters cannot use powers they have not unlocked yet. Patois should be authentic and accessible, limited to a few sharp lines per episode. Visuals stay OPAIJA 2.5D Caribbean anime: rounded Afro-Caribbean faces, clean ink, bright island palette, no generic fantasy armor. Episode scripts must be able to become video beats without changing plot meaning. Video prompts must preserve the book-panel character, costume, location, and power continuity. Book pages and episode beats should share the same hook, conflict, reveal, escalation, and cliffhanger language. EPISODE: EP001 - The Stick Chose Him. HOOK: Kai thinks he is late for practice, but the bois already remembers his name.. CONFLICT: The training yard tests Kai before he understands the Guardian legacy watching him.. REVEAL: The stick does not belong to Kai; it chooses him because memory recognizes spirit.. ESCALATION: The drum rhythm shifts, the gayelle tightens, and every watcher realizes this is not ordinary training.. CLIFFHANGER: A silent figure connected to Marius Vale watches from the edge of the crowd.. STYLE: OPAIJA 2.5D Caribbean anime, clean hand-drawn ink, bright island palette, anime cinematography, rounded Afro-Caribbean faces, no generic fantasy armor. CAMERA: cinematic framing. CHARACTER: Kai, Nia, Malik, Jabari, Papa Etienne in scene. SETTING: Gayelle training yard. TECHNICAL: vertical 9:16, no text overlay, 6s clip. Scene: The stick answers before Kai does, and Malik sees the memory spark move through the grain.",
+    "negativePrompt": "3d render, photorealistic, realistic skin, sweat, uncanny valley, blurry, low quality, watermark, text overlay",
+    "referenceImageUrls": [],
+    "referenceImage": "",
+    "primaryCharacter": "Kai",
+    "mode": "text-to-video",
+    "storyFrameworkVersion": "opaija-cross-media-v1",
+    "storyFrameworkDigest": "MAIN STORY FRAMEWORK:\n\n{\n  \"series\": \"OPAIJA\",\n  \"premise\": \"A Caribbean Afrocentric martial anime where bois, lavway, drums, memory, spirit, and the gayelle reveal an island-rooted power system.\",\n  \"volumeZero\": \"Volume 0 follows Kai as the stick chooses him, pulls him into the Guardian legacy, and forces the cast to confront rhythm, memory, and responsibility.\",\n  \"canonRules\": [\n    \"Books, episodes, video prompts, captions, and covers must align to the same character bible and story continu"
+  }
+]

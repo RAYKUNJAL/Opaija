@@ -1,0 +1,10 @@
+[http.routers]
+  [http.routers.opaija-command]
+  rule = "Host(`opaija.com`) && PathPrefix(`/command`)"
+  service = "opaija-command"
+  entryPoints = ["websecure"]
+
+[http.services]
+  [http.services.opaija-command.loadBalancer]
+    [[http.services.opaija-command.loadBalancer.servers]]
+    url = "http://127.0.0.1:8787"

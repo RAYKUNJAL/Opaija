@@ -200,24 +200,18 @@ export const digitalPassTiers = [
   {
     name: "Free Founder Preview",
     price: "$0",
-    access: "Cover, sample pages, character previews, giveaway entry, and early art drops.",
+    access: "Key art, selected character dossiers, the Kai motion test, and founder-list access.",
   },
   {
-    name: "Digital Comic Pass",
-    price: "Coming next",
-    access: "Full digital comic chapters, manga drops, bonus lore pages, and member-only previews.",
-  },
-  {
-    name: "Collector Library",
-    price: "Future",
-    access: "Digital artbooks, behind-the-scenes pages, special covers, and print-drop priority.",
+    name: "Founder Digital Vault",
+    price: "$7 one-time",
+    access: "All ten approved character dossiers, both released motion tests, the flipbook cover, voting access, and future vault updates.",
   },
 ];
 
 export const paidReaderFeatures = [
-  "Longer chapter drops instead of tiny previews.",
-  "A protected reader with logged downloads and member access.",
-  "Free sample pages stay public; full books sit behind the pass.",
-  "KDP print versions reuse the same approved page packets after layout QA.",
-  "Stripe or another checkout provider plugs in after the reader library is ready.",
+  "Ten approved character dossiers.",
+  "Two released OPAIJA motion tests.",
+  "Protected member access and fan voting.",
+  "One-time PayPal checkout with immediate delivery.",
 ];

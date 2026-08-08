@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { createHash } from "node:crypto";
 import { Resend } from "resend";
+import { queueLeadNurtureEmails } from "./emailLifecycle.js";
 
 export type LeadSource = "website" | "meta" | "tiktok" | "youtube" | "blog" | "founder-drop" | "manual";
 
@@ -51,6 +52,13 @@ export async function captureLead(input: FanLeadInput) {
   await mkdir(path.dirname(leadPath), { recursive: true });
   await writeFile(leadPath, JSON.stringify(next, null, 2), "utf8");
   const resend = await syncLeadToResend(merged);
+  const lifecycle = merged.consent
+    ? await queueLeadNurtureEmails({
+        email: merged.email,
+        firstName: merged.firstName,
+        referralCode: merged.referralCode,
+      })
+    : { status: "skipped" as const, reason: "Explicit marketing consent is required." };
 
   return {
     status: "captured",
@@ -64,8 +72,9 @@ export async function captureLead(input: FanLeadInput) {
       referralLink: `/founders?ref=${merged.referralCode}`,
     },
     resend,
+    lifecycle,
     nextActions: [
-      "Send welcome email.",
+      "Process the durable email queue.",
       "Tag by source and interest.",
       "Add to founder/lead magnet segment.",
       "Feed source result into growth memory.",
@@ -205,6 +214,10 @@ function normalizeLead(input: FanLeadInput) {
 }
 
 async function syncLeadToResend(lead: ReturnType<typeof normalizeLead>) {
+  if (!lead.consent) {
+    return { status: "skipped", reason: "Explicit marketing consent is required." };
+  }
+
   const apiKey = process.env.RESEND_API_KEY;
   const segmentId = process.env.RESEND_SEGMENT_ID;
   const audienceId = process.env.RESEND_AUDIENCE_ID;
@@ -216,7 +229,7 @@ async function syncLeadToResend(lead: ReturnType<typeof normalizeLead>) {
   const contactPayload = {
     email: lead.email,
     firstName: lead.firstName || undefined,
-    unsubscribed: !lead.consent,
+    unsubscribed: false,
     ...(segmentId ? { segments: [{ id: segmentId }] } : { audienceId: audienceId as string }),
   };
   const contact = await resend.contacts.create(contactPayload);
@@ -225,34 +238,7 @@ async function syncLeadToResend(lead: ReturnType<typeof normalizeLead>) {
     return { status: "error", message: contact.error.message };
   }
 
-  const from = process.env.RESEND_FROM_EMAIL;
-  if (from && lead.consent) {
-    const welcome = await resend.emails.send({
-      from,
-      to: [lead.email],
-      subject: "Welcome to the Opaija founder list",
-      html: buildWelcomeEmail(lead),
-    });
-    if (welcome.error) {
-      return { status: "contact_created_email_error", contactId: contact.data?.id, message: welcome.error.message };
-    }
-  }
-
   return { status: "synced", contactId: contact.data?.id };
-}
-
-function buildWelcomeEmail(lead: ReturnType<typeof normalizeLead>) {
-  const baseUrl = process.env.PUBLIC_SITE_URL ?? "https://opaija.com";
-  const referralLink = `${baseUrl}/?ref=${lead.referralCode}#founders`;
-  return `
-    <div style="font-family:Arial,sans-serif;background:#070707;color:#fff7e9;padding:28px">
-      <h1 style="color:#f3a712">Welcome to Opaija</h1>
-      <p>You are on the founder list. Every island has a warrior. Every rhythm has a weapon.</p>
-      <p>Your referral link for the founder giveaway:</p>
-      <p><a style="color:#67e8f9" href="${referralLink}">${referralLink}</a></p>
-      <p>The top verified referrer wins a two-shirt character pack and a hand-signed original artwork.</p>
-    </div>
-  `;
 }
 
 function makeReferralCode(email: string) {
