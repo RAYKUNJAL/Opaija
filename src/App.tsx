@@ -1,3 +1,4 @@
+import { CroLanding } from "./components/CroLanding";
 import { ProductionStudio } from "./components/ProductionStudio";
 import { DropSignup } from "./components/DropSignup";
 import { useEffect, useMemo, useState } from "react";
@@ -92,6 +93,7 @@ const statusLabels: Record<Character["status"], string> = {
 };
 
 export function App() {
+  if (window.location.pathname === "/") return <CroLanding />;
   if (window.location.pathname === "/studio") return <ProductionStudio />;
   if (window.location.pathname.startsWith("/hero-prototype")) {
     return <OpaijaMotionHero />;
