@@ -2,6 +2,8 @@
 
 Status: tested repository changes; NOT deployed to opaija.com. 5 September 2026.
 
+Deployment correction: [Docker deployment handoff](../ops/deploy/DOCKER_DEPLOYMENT_HANDOFF.md) supersedes all old host-service instructions. The user reports that opaija-book-builder serves production from a Docker image and /var/www/opaija is stale. The desktop handoff file has not been accessible to this session.
+
 ## Intended business
 Social content leads back to OPAIJA's reader, drop list, shop and customer library. OPAIJA owns subscriber records, consent, release history and customer entitlements. Social platforms are acquisition and distribution channels; no reader should need a social account to buy or read a book.
 
@@ -33,17 +35,17 @@ The motion-comic renderer moves the camera over existing artwork. It does not an
 
 Requirements: Node >=22.13 (Node 24 tested), FFmpeg/FFprobe with libx264 and drawtext, DejaVu Sans. SQLite state must be on a local persistent disk, not a network filesystem. Keep DB, WAL, assets and renders in protected backups; use SQLite's backup mechanism or stop writers for a coherent backup.
 
-Set environment values through the server secret configuration, not source files:
+Set environment values through the verified Docker Compose env-file stamping convention, not source files. Preserve the existing data mounts and ownership. The exact compose and env-file paths still need the full handoff and live inspection:
 
 - PRODUCTION_ADMIN_TOKEN: unique random secret, at least 32 characters.
 - PRODUCTION_AGENT_TOKEN: a DIFFERENT unique random secret, at least 32 characters. Never give agents the admin token.
 - PRODUCTION_WORKER_ENABLED=true: turns on the queue worker.
 - PRODUCTION_DATA_DIR: absolute writable state directory, default data/production.
 - PRODUCTION_ASSET_DIR: absolute read-only artwork directory, default public/assets.
-- OPAIJA_API_URL: backend URL for the Goose tool bridge, normally http://127.0.0.1:8787 on the same VPS.
+- OPAIJA_API_URL: backend URL for the Goose tool bridge, the verified application URL reachable from the agent runtime. Loopback is valid only when agent and API share a network namespace; Docker sidecars must use the verified service name and internal port.
 - Optional FFMPEG_PATH, FFPROBE_PATH, PRODUCTION_FONT for installed tools.
 
-Run npm ci, npm run build, npm run test:production, then npm start. Do this in a reconciled staging checkout first. Open /studio, enter the operator token, register an actual source file relative to the artwork directory, inspect it against canon, record source approval, select sources in order, and queue a short. The worker creates a video and manifest in the protected render directory. Review the output before recording cut approval. Approval does not distribute or sell anything.
+Run npm ci, npm run build and npm run test:production in a reconciled staging build with the required runtime. Use the existing verified Dockerfile/Compose startup command; do not install the old host service or run a second public server. The runtime image must include the renderer tools and fonts. Open /studio, enter the operator token, register an actual source file relative to the artwork directory, inspect it against canon, record source approval, select sources in order, and queue a short. The worker creates a video and manifest in the protected render directory. Review the output before recording cut approval. Approval does not distribute or sell anything.
 
 The API hashes source bytes itself. The worker copies and verifies those bytes before rendering. Output approval checks the current video hash. Repeated job submissions with the same specification reuse a job ID. At most 100 pending/running jobs are accepted. Retry is manual for ordinary errors and capped at three attempts; expired worker leases can be reclaimed. These jobs are local renders and do not incur an AI provider charge.
 
@@ -51,7 +53,7 @@ The API hashes source bytes itself. The worker copies and verifies those bytes b
 
 The MCP bridge is dist-server/production/mcp.js. It exposes only list_approved_sources, list_production_jobs and queue_motion_short. Agent credentials cannot approve sources, approve cuts, retrieve subscriber records or publish. Configure Goose with ops/goose/content-producer.yaml and supply its model/provider credentials through Goose's own secret configuration. Pin and test the installed Goose version before enabling recurring runs.
 
-The Paperclip process-adapter payload is ops/paperclip/content-producer.json. Its command invokes the Goose recipe on the VPS. Apply it to a dedicated content producer in the existing Paperclip installation, with a run timeout and model budget. No Paperclip company, agent or heartbeat schedule has been created by this work. Process completion reports agent execution; it must never be interpreted as render approval or a published release. Paperclip issue checkout/completion and cost-reporting hooks still need integration with the actual installed version.
+The Paperclip process-adapter payload is ops/paperclip/content-producer.json. It is a host-agent example rooted at the reported source directory /opt/opaija-book-builder, not a verified live agent configuration. Confirm whether Goose runs on the host or in a container, then set cwd to that runtime’s actual built checkout. The recipe resolves the MCP bridge relative to this working directory. Apply it to a dedicated content producer in the existing Paperclip installation, with a run timeout and model budget. No Paperclip company, agent or heartbeat schedule has been created by this work. Process completion reports agent execution; it must never be interpreted as render approval or a published release. Paperclip issue checkout/completion and cost-reporting hooks still need integration with the actual installed version.
 
 Sources: [Goose task execution](https://goose-docs.ai/docs/guides/running-tasks/), [Goose recipe schema](https://goose-docs.ai/docs/guides/recipes/recipe-reference/), [Paperclip process adapter](https://github.com/paperclipai/paperclip/blob/master/docs/adapters/process.md), [Node SQLite](https://nodejs.org/api/sqlite.html).
 
@@ -92,7 +94,7 @@ No provider purchases, social posts, email sends, manufacturer orders or product
 
 Added after the broader agentic-system requirement: persistent memory observations with author/evidence, deduplicated agent handoffs, seven MCP tools, and an idempotent social calendar. Memory topics are observation, correction, experiment and result. No memory endpoint changes canon. Handoff messages persist but do not themselves start a Goose/Paperclip agent; the receiving agent's Paperclip task loop still needs wiring, acknowledgements and per-agent identities.
 
-The scheduler maintains ten slots per selected platform per day for seven days. Initial timing is 08:00 through 21:30 Trinidad & Tobago time, 90 minutes apart. This is an operating default, not an empirically optimized posting schedule. Set SOCIAL_PLATFORMS to connected target IDs (instagram, facebook, youtube, tiktok, x, pinterest). No accounts are assumed connected. The included systemd planning timer runs every minute; it only maintains the calendar and reports due items. It does NOT post. A future platform publisher must claim due deliveries transactionally, persist the provider request ID, verify the remote result, then mark published. A timeout after submission requires reconciliation rather than a blind duplicate upload.
+The scheduler maintains ten slots per selected platform per day for seven days. Initial timing is 08:00 through 21:30 Trinidad & Tobago time, 90 minutes apart. This is an operating default, not an empirically optimized posting schedule. Set SOCIAL_PLATFORMS to connected target IDs (instagram, facebook, youtube, tiktok, x, pinterest). No accounts are assumed connected. The old systemd planning service/timer were removed because they targeted the stale host tree. After reconciling Docker, invoke the planning command from the existing scheduler or a verified container job every minute; it only maintains the calendar and reports due items. It does NOT post. A future platform publisher must claim due deliveries transactionally, persist the provider request ID, verify the remote result, then mark published. A timeout after submission requires reconciliation rather than a blind duplicate upload.
 
 Scheduling currently accepts only an approved rendered job, a caption and a destination on https://opaija.com. It blocks duplicate use of a cut on the same platform. Unconnected deliveries remain blocked_connection. Ten slots across four platforms means forty placements/day; the system must report empty slots when approved content is insufficient rather than generating fake completion counts or repeating rejected pages.
 

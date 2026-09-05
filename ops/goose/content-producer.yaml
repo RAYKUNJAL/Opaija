@@ -15,7 +15,7 @@ extensions:
     name: opaija_production
     cmd: node
     args:
-      - /var/www/opaija/dist-server/production/mcp.js
+      - dist-server/production/mcp.js
     env_keys:
       - OPAIJA_API_URL
       - PRODUCTION_AGENT_TOKEN

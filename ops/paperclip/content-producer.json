@@ -1,8 +1,8 @@
 {
   "adapterType": "process",
   "adapterConfig": {
-    "command": "goose run --recipe /var/www/opaija/ops/goose/content-producer.yaml",
-    "cwd": "/var/www/opaija",
+    "command": "goose run --recipe ops/goose/content-producer.yaml",
+    "cwd": "/opt/opaija-book-builder",
     "timeoutSec": 300
   }
 }
