@@ -1,0 +1,8 @@
+{
+  "adapterType": "process",
+  "adapterConfig": {
+    "command": "goose run --recipe /var/www/opaija/ops/goose/content-producer.yaml",
+    "cwd": "/var/www/opaija",
+    "timeoutSec": 300
+  }
+}

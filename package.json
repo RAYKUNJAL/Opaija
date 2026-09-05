@@ -14,13 +14,15 @@
     "build": "tsc -b && tsc -p tsconfig.server.json && vite build",
     "typecheck": "tsc -b && tsc -p tsconfig.server.json --noEmit",
     "preview": "vite preview --host 0.0.0.0",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test:production": "node --import tsx --test tests/*.test.ts"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22.13"
   },
   "dependencies": {
     "@fal-ai/client": "^1.7.0",
+    "@modelcontextprotocol/sdk": "^1.30.0",
     "@types/three": "^0.184.1",
     "@vitejs/plugin-react": "^5.0.0",
     "cors": "^2.8.5",
