@@ -8,3 +8,5 @@ out/
 .DS_Store
 npm-debug.log*
 *.local
+
+data/production/

@@ -1,3 +1,5 @@
+> OBSOLETE FOR LIVE OPAIJA. Do not execute this host-service bootstrap. The user reports Docker container opaija-book-builder serves production and /var/www/opaija is stale. See DOCKER_DEPLOYMENT_HANDOFF.md. The historical steps below are retained for provenance only.
+
 # Opaija Server Bootstrap
 
 Use this after SSH access to `5.78.105.83` is working.

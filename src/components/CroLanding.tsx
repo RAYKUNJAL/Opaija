@@ -1,0 +1,22 @@
+import { DropSignup } from './DropSignup';
+import './CroLanding.css';
+
+/** Port this component into the live root route; preserve its reader, checkout and member routes. */
+export function CroLanding() {
+  return <main className="cro-home">
+    <a className="cro-skip" href="#preview">Skip to the free preview</a>
+    <header className="cro-nav"><a href="/" className="cro-wordmark" aria-label="OPAIJA home">OPAIJA<span>THE STAFF OF BATTLE</span></a><nav aria-label="Main navigation"><a href="#preview">Free preview</a><a href="#vault">Digital vault</a><a href="#drops" className="cro-nav-cta">Join the drop list</a></nav></header>
+    <section className="cro-hero">
+      <div><p className="cro-eyebrow">WRITTEN AND CREATED BY RAY KUNJAL</p><h1>A Caribbean battle saga.<br/><em>It starts in Trinidad &amp; Tobago.</em></h1><p className="cro-intro">Meet Kai and the world of OPAIJA, where rhythm carries memory and a fighter must learn to listen. Explore the character art, then follow the journey to Book Zero.</p><div className="cro-actions"><a href="#preview" className="cro-button" data-cro-event="preview_cta">Explore the free preview <span aria-hidden="true">↗</span></a><a href="#drops" className="cro-text-link" data-cro-event="drop_cta">Get book &amp; merchandise updates</a></div><p className="cro-reassurance">Free character preview · No signup needed to explore</p></div>
+      <figure><img src="/assets/video/opaija-hero-kai-strike-poster.jpg" alt="Kai in an OPAIJA action scene" fetchPriority="high" width="1280" height="720"/><figcaption>Born in Trinidad &amp; Tobago. A story for the Caribbean.</figcaption></figure>
+    </section>
+    <section id="preview" className="cro-section"><p className="cro-eyebrow">START WITH THE CHARACTERS</p><div className="cro-section-heading"><h2>Two fighters. Different rhythms.</h2><p>A look at the character designs behind the story. Book Zero is in production; these are character sheets.</p></div><div className="cro-character-grid">
+      <article><img src="/assets/characters/kairo-kai-baptiste.png" alt="Kairo Kai Baptiste character design sheet" loading="lazy" width="1000" height="1000"/><div><span>01 / TRINIDAD</span><h3>Kairo “Kai” Baptiste</h3><p>The young fighter at the heart of OPAIJA.</p></div></article>
+      <article><img src="/assets/characters/malik-st-hill.png" alt="Malik St. Hill character design sheet" loading="lazy" width="1000" height="1000"/><div><span>02 / THE RIVAL</span><h3>Malik St. Hill</h3><p>Discipline meets instinct in Kai’s rival.</p></div></article>
+    </div><a className="cro-button" href="#drops">Be there for the next chapter</a></section>
+    <div className="cro-drop-wrap"><DropSignup /></div>
+    <section id="vault" className="cro-section cro-vault"><div><p className="cro-eyebrow">FOR EARLY FOLLOWERS</p><h2>The Founder Digital Vault</h2><p>Explore the current collection of character dossiers, motion tests and cover art.</p><p className="cro-price">US$7 <span>one-time purchase</span></p><a className="cro-button" href="/checkout?product=tripwire-pass&source=homepage" data-cro-event="vault_checkout">Continue to PayPal checkout</a><p className="cro-reassurance">Digital extras. Book Zero and physical merchandise are separate releases.</p></div><aside><h3>What comes next?</h3><p>Book Zero begins the story in Trinidad &amp; Tobago. Join the book list for release news, or choose merchandise updates for upcoming collections.</p><a className="cro-text-link" href="#drops">Choose your drop list ↗</a></aside></section>
+    <section className="cro-section cro-faq"><h2>Before you join</h2><details><summary>Is the complete comic available now?</summary><p>Book Zero is in production. The free preview shows character art; the paid vault is a separate digital extras collection.</p></details><details><summary>Does joining start a paid subscription?</summary><p>No. The drop list is free email updates. A purchase is always a separate checkout.</p></details><details><summary>What will you email me?</summary><p>Updates about the books and/or merchandise you select. You can unsubscribe from the emails.</p></details><details><summary>Do I need Instagram or YouTube?</summary><p>No. You can explore OPAIJA and join the drop list here on the website.</p></details></section>
+    <footer className="cro-footer"><strong>OPAIJA</strong><span>Written and created by Ray Kunjal</span><a href="/member">Member access</a><a href="#drops">Get the next drop</a></footer>
+  </main>;
+}

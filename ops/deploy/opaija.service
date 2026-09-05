@@ -1,3 +1,4 @@
+# OBSOLETE: not the live OPAIJA service. Do not install; see DOCKER_DEPLOYMENT_HANDOFF.md.
 [Unit]
 Description=Opaija website and API
 After=network.target

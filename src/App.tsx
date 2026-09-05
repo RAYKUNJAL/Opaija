@@ -1,3 +1,6 @@
+import { CroLanding } from "./components/CroLanding";
+import { ProductionStudio } from "./components/ProductionStudio";
+import { DropSignup } from "./components/DropSignup";
 import { useEffect, useMemo, useState } from "react";
 import {
   Activity,
@@ -90,6 +93,8 @@ const statusLabels: Record<Character["status"], string> = {
 };
 
 export function App() {
+  if (window.location.pathname === "/") return <CroLanding />;
+  if (window.location.pathname === "/studio") return <ProductionStudio />;
   if (window.location.pathname.startsWith("/hero-prototype")) {
     return <OpaijaMotionHero />;
   }
@@ -333,7 +338,7 @@ function PublicSite() {
           <a href="#story">Story</a>
           <a href="#characters">Characters</a>
           <a href="#preview">Flipbook</a>
-          <a href="#founders">Giveaway</a>
+          <a href="#drops">Drop list</a>
           <a href="#books">Books</a>
           <a href="#pass">Pass</a>
           <a href="#shop">Merch</a>
@@ -342,17 +347,17 @@ function PublicSite() {
 
       <section className="public-hero">
         <div className="public-copy">
-          <p className="section-label">Founder giveaway now open</p>
-          <h1>The Caribbean finally gets its anime legend.</h1>
+          <p className="section-label">OPAIJA · Written and created by Ray Kunjal</p>
+          <h1>Born in Trinidad & Tobago. Built for the Caribbean.</h1>
           <p>
             Born in Trinidad and Tobago, Opaija begins a journey through the Caribbean islands,
             where rhythm carries memory, every shore hides a guardian, and one young fighter must
             protect a power his people were never meant to forget.
           </p>
           <div className="public-actions">
-            <a href="#founders" className="primary-action">
-              <Gift size={18} />
-              Enter the Giveaway
+            <a href="#preview" className="primary-action">
+              <Play size={18} />
+              Explore the Free Preview
             </a>
             <a href="#story" className="ghost-action">
               <Play size={18} />
@@ -408,6 +413,7 @@ function PublicSite() {
         </div>
       </section>
 
+      <DropSignup />
       <section id="characters" className="public-section">
         <div className="public-section-header">
           <span className="signal">First character reveals</span>
@@ -430,7 +436,7 @@ function PublicSite() {
       <section id="preview" className="flipbook-section">
         <div className="public-section-header">
           <span className="signal">Free flipbook preview</span>
-          <h2>Start with the free flipbook. The full books come through the reader pass.</h2>
+          <h2>Meet the characters in the free preview.</h2>
           <p>
             Start with the cover and four free character pages. Drop your email to unlock all 10
             character spreads, then get first notice when the longer comic, manga, storybook, and
@@ -440,7 +446,7 @@ function PublicSite() {
         <div className="flipbook-shell">
           <div className="flipbook-cta-strip">
             <div>
-              <strong>Want the full book?</strong>
+              <strong>Explore all 10 character spreads?</strong>
               <span>Unlock the complete 10-character preview and join the early list for the longer reader drops.</span>
             </div>
             <button type="button" className="primary-action" onClick={() => setShowFlipbookGate(true)}>

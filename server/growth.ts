@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { readJson, updateJson } from "./jsonStore.js";
 import path from "node:path";
 import { createHash } from "node:crypto";
 import { Resend } from "resend";
@@ -34,7 +34,7 @@ const referralPath = path.join(process.cwd(), "data", "growth", "referral-clicks
 
 export async function captureLead(input: FanLeadInput) {
   const lead = normalizeLead(input);
-  const existing = await readLeads();
+  const next = await updateJson<Array<ReturnType<typeof normalizeLead>>>(leadPath, [], (existing) => {
   const existingLead = existing.find((item) => item.email.toLowerCase() === lead.email.toLowerCase());
   const merged = existingLead
     ? {
@@ -46,10 +46,9 @@ export async function captureLead(input: FanLeadInput) {
       }
     : lead;
   const withoutDuplicate = existing.filter((item) => item.email.toLowerCase() !== lead.email.toLowerCase());
-  const next = [...withoutDuplicate, merged];
-
-  await mkdir(path.dirname(leadPath), { recursive: true });
-  await writeFile(leadPath, JSON.stringify(next, null, 2), "utf8");
+  return [...withoutDuplicate, merged];
+  });
+  const merged = next.find((item) => item.email === lead.email)!;
   const resend = await syncLeadToResend(merged);
 
   return {
@@ -97,10 +96,9 @@ export async function getGrowthSummary() {
 export async function trackReferralClick(code: string) {
   const cleanCode = normalizeCode(code);
   if (!cleanCode) throw new Error("A valid referral code is required.");
-  const clicks = await readReferralClicks();
-  clicks[cleanCode] = (clicks[cleanCode] ?? 0) + 1;
-  await mkdir(path.dirname(referralPath), { recursive: true });
-  await writeFile(referralPath, JSON.stringify(clicks, null, 2), "utf8");
+  const clicks = await updateJson<Record<string, number>>(referralPath, {}, (current) => ({
+    ...current, [cleanCode]: (current[cleanCode] ?? 0) + 1,
+  }));
   return { status: "tracked", code: cleanCode, clicks: clicks[cleanCode] };
 }
 
@@ -142,7 +140,7 @@ export function createGrowthCampaign(input: GrowthCampaignInput) {
     landingPage: input.landingPage ?? "/founders",
     campaignStructure: buildCampaignStructure(input),
     creativeAngles: [
-      "First Caribbean anime world built with the community",
+      "A Caribbean anime-inspired world built with the community",
       "Get the founder-only character art drop",
       "Every island has a warrior. Every rhythm has a weapon.",
       "Meet the first Opaija Seed wielder before the pilot drops",
@@ -158,21 +156,10 @@ export function createGrowthCampaign(input: GrowthCampaignInput) {
 }
 
 async function readLeads(): Promise<Array<ReturnType<typeof normalizeLead>>> {
-  try {
-    const raw = await readFile(leadPath, "utf8");
-    return JSON.parse(raw) as Array<ReturnType<typeof normalizeLead>>;
-  } catch {
-    return [];
-  }
+  return readJson(leadPath, []);
 }
-
 async function readReferralClicks(): Promise<Record<string, number>> {
-  try {
-    const raw = await readFile(referralPath, "utf8");
-    return JSON.parse(raw) as Record<string, number>;
-  } catch {
-    return {};
-  }
+  return readJson(referralPath, {});
 }
 
 function normalizeLead(input: FanLeadInput) {
